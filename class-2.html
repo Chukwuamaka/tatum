@@ -3,111 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="icon" type="image/x-icon" href="/public/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/public/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/public/favicon-16x16.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/public/apple-touch-icon.png"
-    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="class-2.css" />
+    <link rel="stylesheet" href="./class-2.css" />
+    <link
+      rel="apple-touch-icon"
+      sizes="16x16"
+      href="public/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="public/favicon-32x32.png"
+    />
+
+    <link rel="icon" href="public/favicon.ico" />
+    <title>Tatum Bank Class 2</title>
   </head>
   <body>
     <div class="page-shell">
-      <!-- Hero section -->
-      <section class="hero-panel">
-        <h1 class="hero-title">Bank Simpler, Live Smarter</h1>
-        <p class="hero-subtitle">
-          No queues. No stress. Just seamless banking.
-        </p>
+      <section class="hero">
+        <h1>Bank Simpler, Live Smarter</h1>
+        <p>No queues, No Stress, Just seamless banking</p>
       </section>
-
-      <p class="welcome-message">
-        Hello, <span class="user-name">Israel</span>! Welcome to Tatum Bank.
-        Please log in to your account to continue.
-      </p>
-      <p class="toheeb">
-        Hello, <span class="user-name">Toheeb</span>! Welcome to Tatum Bank.
-        Please log in to your account to continue.
-      </p>
-      <p class="fathiat">
-        Hello, <span class="user-name">Fathiat</span>! Welcome to Tatum Bank.
-        Please log in to your account to continue.
-      </p>
-
-      <section class="login-panel">
+      <section class="login">
         <img
-          src="/images/tatum-bank-logo.svg"
-          alt="Tatum bank logo"
-          width="117"
-          height="49"
+          class="TatumLogo"
+          src="./images/tatum-bank-logo.svg"
+          alt="Tatum Logo"
         />
+
         <div>
-          <div>
+          <div class="logInText">
             <h2>Log In to Tatum Bank</h2>
-            <p>Please enter your Internet Banking details to continue</p>
+            <p>Please enter your Internet Banking details to contine</p>
           </div>
+
           <form action="">
             <input
-              name="userId"
+              class="details"
               type="text"
+              name="userId"
               placeholder="Email Address or Phone no"
               required
             />
+
             <input
-              name="password"
+              class="details"
               type="password"
+              name="password"
               placeholder="Password"
               required
             />
-            <a href="/forgot-password">Forgot Password?</a>
-            <button type="submit">Log In</button>
+
+            <a href="#" class="forgotP"> Forgot Password?</a>
+
+            <input class="buttonInp" type="button" value="Log In" />
           </form>
-          <div>
-            <p>New to Tatum Bank? <a href="/register">Get Started</a></p>
-            <p>
-              Have a Tatum Bank Account?
-              <a href="/activate">Activate account number</a>
-            </p>
+
+          <div class="otherTexts">
+            <div>
+              <div class="OTDetails">
+                <p>New to Tatum Bank?</p>
+                <a href="#">Get Started</a>
+              </div>
+              <div class="OTDetails">
+                <p>Have a Tatum Bank Account?</p>
+                <a href="#">Activate account number</a>
+              </div>
+            </div>
           </div>
         </div>
+
         <footer>
-          <p>
-            Licensed by CBN
-            <img
-              src="/images/cbn-logo.png"
-              alt="CBN logo"
-              width="27"
-              height="27"
-            />
-          </p>
-          <p>
-            Insured by NDIC
-            <img
-              src="/images/ndic-logo.png"
-              alt="NDIC logo"
-              width="63"
-              height="28"
-            />
-          </p>
+          <div>
+            <p>
+              Licensed by CBN
+
+              <img src="./images/CBN.png" alt="CBN logo" />
+            </p>
+          </div>
+
+          <div>
+            <p>
+              INSURED BY NDIC
+
+              <img src="./images/NDIC.png" alt="NDIC logo" />
+            </p>
+          </div>
         </footer>
       </section>
     </div>

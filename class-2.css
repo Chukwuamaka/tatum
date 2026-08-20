@@ -7,6 +7,7 @@
   --border: #e5e7eb;
   --button: #ffcc33;
   --button-text: #0a1b3d;
+  --small-text: #4b5563;
 }
 
 body,
@@ -14,6 +15,7 @@ body,
   margin: 0;
   padding: 0;
   font-family: "Plus Jakarta Sans", sans-serif;
+  box-sizing: border-box;
 }
 
 .page-shell {
@@ -21,8 +23,8 @@ body,
   min-height: 100dvh;
 }
 
-.hero-panel {
-  background-image: url("/images/hero-image-1.png");
+.hero {
+  background-image: url("./images/hero-image-1.png  ");
   flex: 1;
   background-size: cover;
   background-repeat: no-repeat;
@@ -31,51 +33,149 @@ body,
   flex-direction: column;
   justify-content: flex-end;
   padding: 80px;
-  gap: 16px;
   color: var(--light);
 }
 
-.hero-title {
+.hero h1 {
   font-weight: 700;
   font-size: clamp(48px, 5vw, 60px);
   line-height: 1.25;
+  vertical-align: middle;
 }
 
-.hero-subtitle {
+.hero p {
   font-weight: 300;
   font-size: 20px;
   line-height: 1.4;
 }
 
-.login-panel {
+.login {
   flex: 1;
+  padding: 48px 96px;
+  display: flex;
+  flex-direction: column;
 }
 
-.welcome-message {
-  background-color: blue;
+.TatumLogo {
+  padding-bottom: 48px;
+  height: 97px;
+  width: 117px;
 }
 
-[class="welcome-message"] {
-  background-color: red;
+.logInText h2 {
+  color: var(--text);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+  padding-bottom: 8px;
 }
 
-p span {
-  transition: transform 0.3s ease-in-out;
+.logInText p {
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted);
+  padding-bottom: 40px;
 }
 
-p > span {
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-p + span {
+form .details {
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: var(--border);
+  border-style: solid;
+  padding: 17px 20px;
+  width: 100%;
 }
 
-.welcome-message + p {
-  background-color: green;
+form .details::placeholder {
+  color: var(--placeholder);
+  line-height: 1;
 }
-/* .page-shell:has(.welcome-message) {
-  background-color: red;
-} */
 
-/* .page-shell > :nth-child(2) {
-  background-color: blue;
-} */
+form .forgotP {
+  display: block;
+  text-align: end;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.42857;
+  text-decoration: none;
+  color: var(--text);
+  letter-spacing: 0.2%;
+}
+
+form .buttonInp {
+  padding: 16px 0;
+  width: 100%;
+  background-color: var(--button);
+  border-radius: 16px;
+  border-style: none;
+  cursor: pointer;
+}
+
+form .buttonInp[type="button"] {
+  color: var(--button-text);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.otherTexts {
+  padding-top: 48px;
+}
+
+.otherTexts > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.otherTexts .OTDetails {
+  display: flex;
+  justify-content: center;
+}
+
+.OTDetails p {
+  color: var(--small-text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857;
+  letter-spacing: -0.39%;
+}
+
+.OTDetails a {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.42857;
+  letter-spacing: 0.1%;
+  color: var(--text);
+  text-decoration: none;
+}
+
+footer {
+  /* padding-top: 100px; */
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: auto;
+}
+
+footer div {
+  display: flex;
+  gap: 8px;
+  opacity: 80%;
+}
+
+footer p {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.98%;
+}
