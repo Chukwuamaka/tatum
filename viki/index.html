@@ -1,72 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/HTML/images/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="/HTML/images/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/HTML/images/favicon-32x32.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/HTML/style.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="images/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <div class="page-shell">
-        <!-- hero -->
-        <section class ="hero-panel">
-            <h1 class="hero-title">Banking Simpler, Live Smarter</h1>
-            <p class="hero-subtitle">No queques.No stress.Just seemless banking.</p>
-          
-        </section>
-        <div class="login-panel">
-            <!-- login  -->    
-        <section class="login-card">  
-           <img src="/HTML/images/logo- Tatum Bank 2.svg" alt="Tatum bank logo"Width="117px" height="49px"> 
-           <div>
+      <!-- hero -->
+      <section class="hero-panel">
+        <h1 class="hero-title">Banking Simpler, Live Smarter</h1>
+        <p class="hero-subtitle">No queques.No stress.Just seemless banking.</p>
+      </section>
+
+      <!-- login  -->
+      <section class="login-panel">
+        <div class="login-card">
+          <div class="login-form">
+            <img
+              src="images/logo- Tatum Bank 2.svg"
+              alt="Tatum bank logo"
+              width="117px"
+              height="49px"
+            />
+
             <div class="login-header">
-                <h2>Log in to Tatum Bank</h2>
-            <p>Please enter your Internet Banking details to continue</p>
+              <h2>Log in to Tatum Bank</h2>
+              <p>Please enter your Internet Banking details to continue</p>
             </div>
+
             <form action="" method="post" novalidate>
-        <div class="field"> 
-           <input name="user-id"  type="text" placeholder="Email Address or phone no"required/>
-           <span class="field-icon field-icon--accent" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 2v20M4.9 5.6l14.2 12.8M4.9 18.4L19.1 5.6M2 12h20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                            </svg>
-                        </span>
-        </div>
-        <div class="field">
-            <input name="password" type="password" placeholder="Password" required/>
-             <span class="field-icon field-icon--accent" aria-hidden="true">
-                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/>
-                            </svg>
-        </div>
-            <a class="forgot-password" href="/forgot-password">Forgot Password?</a>
-            <button type="submit" class="btn-primary">Log in</button>
-        
-           
+              <div class="field">
+                <input
+                  name="user-id"
+                  type="text"
+                  placeholder="Email Address or phone no"
+                  required
+                />
+                <span class="field-icon field-icon--accent" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M12 2v20M4.9 5.6l14.2 12.8M4.9 18.4L19.1 5.6M2 12h20"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </span>
+              </div>
+
+              <div class="field">
+                <input
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  required
+                />
+                <span class="field-icon field-icon--accent" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                  </svg>
+                </span>
+              </div>
+
+              <a class="forgot-password" href="/forgot-password"
+                >Forgot Password?</a
+              >
+              <button type="submit" class="btn-primary">Log in</button>
             </form>
-            <div class="signin-links">
-                <p>New to Tatum Bank? <a href="/register">Get Started</a></p>
-                <p>Have a Tatum Bank account?<a href="/active-account">Activate Account</a></p>
-                 
-            </div>
-           <footer class="login-footer">
-            <p class="footer-item">
-                Licenced by CBN
-                <img src="/HTML/images/image 1.png" alt="CBN logo" width="45px" height="25px">
-            <p class="footer-item">
-                 INSURED BY NDIC
-                <img src="/HTML/images/image 2.png" alt="NDIC logo" width="45px" height="25px"> 
+          </div>
+
+          <div class="signin-links">
+            <p>New to Tatum Bank? <a href="/register">Get Started</a></p>
+            <p>
+              Have a Tatum Bank account?<a href="/active-account"
+                >Activate Account</a
+              >
             </p>
-            </p>
-           </footer>
-        </section>
+          </div>
+        </div>
+        <footer class="login-footer">
+          <p class="footer-item">
+            Licenced by CBN
+            <img
+              src="images/image 1.png"
+              alt="CBN logo"
+              width="45px"
+              height="25px"
+            />
+          </p>
+          <p class="footer-item">
+            INSURED BY NDIC
+            <img
+              src="images/image 2.png"
+              alt="NDIC logo"
+              width="45px"
+              height="25px"
+            />
+          </p>
+        </footer>
+      </section>
     </div>
-</body>
-</html>  
+  </body>
+</html>
