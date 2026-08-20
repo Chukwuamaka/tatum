@@ -26,7 +26,22 @@ body {
 
 .hero-panel {
     color: var(--light);
-    background-image: url("/images/hero-image-1.png");
+    background-image: url("/fathiat/images/hero-image-1.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 16px;
+    padding: 80px;
+    width: 50%;
+}
+
+.hero-panel2 {
+    color: var(--light);
+    background-image: url("/fathiat/images/hero-image-2.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -90,13 +105,32 @@ form {
 }
 
 form input {
-    width: auto;
+    width: 100%;
     box-sizing: border-box;
     padding: 17px 20px;
     border-radius: 8px;
     border: 1px solid var(--border);
     font-weight: 400;
     font-size: 16px;
+}
+
+.input-field{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+form .input-icon{
+    position: absolute;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--placeholder);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
 }
 
 form a {
@@ -117,10 +151,6 @@ form button {
     font-weight: 700;
     font-size: 16px;
     text-align: center;
-}
-
-form button:hover {
-    background-color: var(--muted);
 }
 
 .login-panel-options {
@@ -151,4 +181,54 @@ form button:hover {
     font-weight: 500;
     font-size: 10px;
     line-height: 1.5;
+}
+
+.success-panel {
+    flex: 1;
+    padding: 48px 80px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.success-panel-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.success-changed {
+    padding-bottom: 12px;
+}
+
+.success-panel-heading {
+    padding-bottom: 24px;
+}
+
+.success-panel-heading h2 {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.125;
+    padding-bottom: 8px;
+}
+
+.success-panel-heading p {
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.back-to-login {
+    width: 100%;
+    background-color: var(--button);
+    border: 0;
+    padding: 16px 0px;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
 }
