@@ -1,0 +1,240 @@
+:root {
+    --bg: #f3f5f8;
+    --light: #ffffff;
+    --text: #0a1f44;
+    --muted: #6b7280;
+    --placeholder: #9ca3af;
+    --border: #e5e7eb;
+    --button: #ffcc33;
+    --button-text: #0a1b3d;
+}
+
+body,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.page-shell {
+    display: flex;
+    min-height: 100dvh;
+}
+
+/* HERO Section */
+.hero-panel {
+    background-image:
+        linear-gradient(180deg, rgba(78, 78, 78, 0.35) 0%, rgba(39, 20, 1, 0.75) 100%),
+        url("/images/woman.png");
+    flex: 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px;
+    gap: 32px;
+    color: var(--light);
+}
+
+.hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hero-title {
+    font-weight: 700;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.15;
+}
+
+.hero-subtitle {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.hero-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.hero-dots .dot {
+    width: 40px;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.hero-dots .dot.active {
+    background: var(--button);
+}
+
+/*  LOGIN */
+.login-panel {
+    flex: 1;
+    background: var(--light);
+    display: flex;
+    justify-content: center;
+    padding: 64px 96px;
+    overflow-y: auto;
+}
+
+.login-inner {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.logo {
+    height: 40px;
+    margin-bottom: 48px;
+}
+
+.login-content {
+    flex: 1;
+}
+
+.login-heading {
+    margin-bottom: 32px;
+}
+
+.login-heading h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.login-heading p {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+/*  FORM  */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrap input {
+    width: 100%;
+    padding: 16px 44px 16px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 15px;
+    color: var(--text);
+    outline: none;
+    background: var(--light);
+    transition: border-color 0.15s ease;
+}
+
+.input-wrap input::placeholder {
+    color: var(--placeholder);
+}
+
+.input-wrap input:focus {
+    border-color: var(--text);
+}
+
+.input-icon {
+    position: absolute;
+    right: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #7d32ff;
+}
+
+.eye-icon {
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.forgot-link {
+    align-self: flex-end;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    margin-top: -8px;
+}
+
+.login-form button {
+    margin-top: 8px;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    background: var(--button);
+    color: var(--button-text);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: filter 0.15s ease;
+}
+
+.login-form button:hover {
+    filter: brightness(0.96);
+}
+
+/*  FOOTER  */
+.login-footer-links {
+    margin-top: 32px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.login-footer-links p {
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 400;
+}
+
+.login-footer-links a {
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.login-footer-links a:hover {
+    text-decoration: underline;
+}
+
+/*  LICENSE FOOTER  */
+.license-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    padding-top: 48px;
+    flex-wrap: wrap;
+}
+
+.license-footer p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.license-footer img {
+    object-fit: contain;
+}
+
