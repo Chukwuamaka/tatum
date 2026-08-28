@@ -6,7 +6,7 @@
 
 - [Staircase Problem](https://www.hackerrank.com/challenges/staircase/problem?isFullScreen=true)
 
-#### Lukman and Toheeb
+#### Lukman and Edim
 
 - [Plus Minus Problem](https://www.hackerrank.com/challenges/plus-minus/problem?isFullScreen=true)
 
