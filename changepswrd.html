@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amarante&family=Arimo:ital,wght@0,400..700;1,400..700&family=Jim+Nightshade&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="changepswd.css">
 </head>
 <body>
    <div class="page-shell">
@@ -23,42 +23,45 @@
         </div>
     </section>
     <section class="login-pannel">
-        <div class="img-container">
-            <img src="images/logo- Tatum Bank 2.svg" alt="Tatum bank logo" width="117" height="49">
+        <div>
+            <div class="img-container">
+                <img src="images/logo- Tatum Bank 2.svg" alt="Tatum bank logo" width="117" height="49">
+            </div>
+        
+            <div>
+                <div class="login-pannel-headers">
+                    <h2>Change Password</h2>
+                    <p>Please enter your new password below</p>
+                </div>
+                <form action="">
+                    <div class="input-container">
+                        <div class="input-box">
+                            <input type="text" name="userId" placeholder="New Password" required>
+                            <img src="images/Img.svg" alt="">
+                        </div>
+                        <div class="input-box">
+                            <input type="password" name="Password" id="" placeholder="Confirm New Password" required>
+                            <img src="images/Img.svg" alt="">
+                        </div>
+                        <button type="submit">Reset Password</button>
+                    </div>
+                    <div class="bottom-link">
+                        <p>New to Tatum Bank?
+                            <a href="">Get Started</a>
+                        </p>
+                        <p>Have a Tatum Bank Account?
+                            <a href="">Activate account number</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
         
-        <div>
-            <div class="login-pannel-headers">
-                <h2>Log In to Tatum Bank</h2>
-                <p>Please enter your Internet Banking details to continue</p>
-            </div>
-            <form action="">
-                <div class="input-container">
-                    <div class="input-box">
-                        <input type="text" name="userId" placeholder="Email Address or Phone no" required>
-                        <img src="images/Vector.svg" alt="">
-                    </div>
-                    <div class="input-box">
-                        <input type="password" name="Password" id="" placeholder="Password" required>
-                        <img src="images/Img.svg" alt="">
-                    </div>
-                    <a href="">Forgot Password?</a>
-                    <button type="submit">Log In</button>
-                </div>
-                <div class="bottom-link">
-                    <p>New to Tatum Bank?
-                         <a href="">Get Started</a>
-                    </p>
-                    <p>Have a Tatum Bank Account?
-                         <a href="">Activate account number</a>
-                    </p>
-                </div>
-                <footer>
+            <footer>
                     <p>Licensed by CBN <img src="images/CBNIMG.svg" alt="CBN image" width="27" height="27"></p>
                     <p>INSURED BY NDIC <img src="images/NDICimg.svg" alt="CBN image" width="63" height="28"></p>
-                </footer>
-            </form>
-        </div>
+            </footer>
+        
     </section>
    </div> 
 </body>
