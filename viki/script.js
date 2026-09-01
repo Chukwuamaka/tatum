@@ -93,6 +93,5 @@ number.forEach((number) => console.log(number));
 
 const specailUser = {
     name:"Debs",
-    age:25,
-
+    
 }
