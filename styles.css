@@ -1,53 +1,4 @@
-:root {
-  color-scheme: light;
-  --bg: #f3f5f8;
-  --page: #ffffff;
-  --surface: #ffffff;
-  --text: #0a1f44;
-  --muted: #6b7280;
-  --placeholder: #9ca3af;
-  --border: #e5e7eb;
-  --button: #ffcc33;
-  --button-text: #0a1b3d;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  color: var(--text);
-  background: var(--bg);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+@import url("/globals.css");
 
 .page-shell {
   min-height: 100dvh;
@@ -57,7 +8,7 @@ img {
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 1fr 1fr;
   align-items: stretch;
   min-width: 100%;
 }
@@ -72,15 +23,16 @@ img {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("https://www.figma.com/api/mcp/asset/0292c297-ccc8-4686-9421-e66c12fa5e77.png");
+  background-image: url("/images/hero-image.png");
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  opacity: 0.3;
+  opacity: 0.6;
   background: #3d261c;
 }
 
@@ -144,7 +96,6 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.9rem;
-  text-decoration: none;
   color: var(--text);
   font-weight: 700;
   font-size: 1.1rem;
@@ -221,7 +172,6 @@ img {
 
 .forgot-password-link {
   color: var(--text);
-  text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
   line-height: 1.43;
@@ -257,7 +207,6 @@ img {
 .login-links a {
   color: var(--text);
   font-weight: 700;
-  text-decoration: none;
 }
 
 .trust-row {

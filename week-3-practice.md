@@ -16,7 +16,7 @@
 
 ### Assignment
 
-- Complete the `alternateCalculator` and `complete-the-triplets-v2` algorithms.
+- Complete the `alternateCalculator` and `compare-the-scores` algorithms.
 
 ## Session 3
 
