@@ -10,36 +10,32 @@ function compareScores(candidateScores) {
   const pointsMap = candidateScores.map((c) => ({
     name: c.name,
     points: 0,
+    percentage: 0,
   }));
 
   // Go through each category at a time.
   for (let cat = 0; cat < numOfCategories; cat++) {
     // Find the maximum score among all candidates in this category.
     let maxScore = 0;
+    let currentWinner = "";
 
     for (const candidate of candidateScores) {
       if (candidate.scores[cat] > maxScore) {
         maxScore = candidate.scores[cat];
+        currentWinner = candidate.name;
+      } else if (candidate.scores[cat] === maxScore) {
+        currentWinner = "";
       }
     }
 
-    // If only one candidate has a high score, award them 1 point. If two or more tie for the max, no one gets a point.
-    // Find all candidates who have  max score (to find out ties)
-    const winners = candidateScores.filter(
-      (candidate) => candidate.scores[cat] === maxScore,
-    );
-
-    // Award a point only if there's a single winner (no tie)
-    if (winners.length === 1) {
-      const winnerName = winners[0].name;
-      const winnerEntry = pointsMap.find((p) => p.name === winnerName);
+    if (currentWinner) {
+      const winnerEntry = pointsMap.find((p) => p.name === currentWinner);
       winnerEntry.points += 1;
     }
   }
   // Turn each point to  percentage and cacluate for each candidate
   const result = pointsMap.map((entry) => ({
-    name: entry.name,
-    points: entry.points,
+    ...entry,
     percentage: Number(((entry.points / numOfCategories) * 100).toFixed(2)),
   }));
 
@@ -49,7 +45,7 @@ function compareScores(candidateScores) {
   return result;
 }
 
-//Trace through name and scores giving
+// Trace through name and scores giving
 const candidateScores = [
   { name: "Richard", scores: [7, 5, 3] },
   { name: "Lukman", scores: [10, 5, 6] },
