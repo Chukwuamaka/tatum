@@ -1,3 +1,5 @@
+export {};
+
 const scoreConstraint = (name: string, scoreName: string): number => {
   let score = prompt(`Enter ${name}\'s ${scoreName} rating score`);
 
@@ -42,7 +44,7 @@ console.log(aliceRatings);
 console.log(bobRatings);
 
 // function to compare the ratings
-const compareTripplets = (aliceRatings: number[], bobRatings: number[]): number[] => {
+const compareTriplets = (aliceRatings: number[], bobRatings: number[]): number[] => {
   const scoreComparison = [0, 0];
 
   for (let i = 0; i < aliceRatings.length; i++) {
@@ -56,12 +58,12 @@ const compareTripplets = (aliceRatings: number[], bobRatings: number[]): number[
   return scoreComparison;
 };
 
-console.log(compareTripplets(aliceRatings, bobRatings));
+console.log(compareTriplets(aliceRatings, bobRatings));
 
 
 
 
-function diagonalDifferences(arr: number[][]): number {
+function diagonalDifference(arr: number[][]): number {
   let n = arr.length;
   let primaryDiagonal = 0;
   let secondaryDiagonal = 0;
@@ -86,7 +88,7 @@ function diagonalDifferences(arr: number[][]): number {
   return absDifference;
 }
 
-diagonalDifferences([
+diagonalDifference([
   [11, 2, 4],
   [4, 5, 6],
   [10, 8, -12],
