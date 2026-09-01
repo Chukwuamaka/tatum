@@ -43,7 +43,10 @@ function compareTheScores(candidateScores) {
   //check for percentage of score
 
   for (let student of points) {
-    student.percentage = ((student.score / points.length) * 100).toFixed(2);
+    student.percentage = (
+      (student.score / candidateScores[0].scores.length) *
+      100
+    ).toFixed(2);
   }
   // console.log(points);
 
@@ -58,4 +61,5 @@ compareTheScores([
   { name: "Richard", scores: [1, 2, 9] },
   { name: "Lukman", scores: [4, 5, 6] },
   { name: "Israel", scores: [7, 5, 3] },
+  { name: "Edim", scores: [8, 7, 10] },
 ]);
