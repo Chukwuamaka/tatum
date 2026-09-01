@@ -1,2 +1,0 @@
-# tatum
-Tatum Frontend
