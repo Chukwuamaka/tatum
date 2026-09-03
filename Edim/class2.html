@@ -50,21 +50,27 @@
           </div>
 
           <form action="">
-            <input
-              class="details"
-              type="text"
-              name="userId"
-              placeholder="Email Address or Phone no"
-              required
-            />
+            <div>
+              <input
+                class="details"
+                type="text"
+                name="userId"
+                placeholder="Email Address or Phone no"
+                required
+              />
+              <p class="error hide">Your email is incorrect</p>
+            </div>
 
-            <input
-              class="details"
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
+            <div>
+              <input
+                class="details"
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <p class="error hide">Your password is not up to 6 characters</p>
+            </div>
 
             <a href="#" class="forgotP"> Forgot Password?</a>
 

@@ -8,6 +8,7 @@
   --button: #ffcc33;
   --button-text: #0a1b3d;
   --small-text: #4b5563;
+  --error-text: #ff0202;
 }
 
 body,
@@ -95,6 +96,19 @@ form .details {
 form .details::placeholder {
   color: var(--placeholder);
   line-height: 1;
+}
+
+form p.error {
+  color: var(--error-text);
+  font-size: 12px;
+}
+
+.error.hide {
+  display: none;
+}
+
+.error.show {
+  display: block;
 }
 
 form .forgotP {
