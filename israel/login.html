@@ -28,6 +28,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./login.css" />
+
+    <script src="login.js" defer></script>
   </head>
   <body>
     <div class="page-shell">
@@ -51,10 +53,11 @@
                 Please enter your Internet Banking details to continue
               </p>
             </div>
-            <form action="" class="login-form">
+            <form id="login-form" class="login-form">
               <div>
                 <div class="form-input">
                   <input
+                    id="email"
                     name="userId"
                     type="text"
                     placeholder="Email Address or Phone no"
@@ -70,6 +73,7 @@
               <div>
                 <div class="form-input">
                   <input
+                    id="password"
                     name="password"
                     type="password"
                     placeholder="Password"
@@ -84,7 +88,7 @@
               </div>
 
               <a href="/forgot-password" class="form-link">Forgot Password?</a>
-              <button type="submit" class="login-button">Log In</button>
+              <button type="submit" class="login-button" disabled>Log In</button>
             </form>
           </div>
 
