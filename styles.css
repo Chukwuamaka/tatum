@@ -203,6 +203,12 @@
   font-weight: 700;
 }
 
+.primary-btn:disabled {
+  cursor: no-drop;
+  color: white;
+  background: var(--muted);
+}
+
 .login-links {
   text-align: center;
   margin-top: 48px;
