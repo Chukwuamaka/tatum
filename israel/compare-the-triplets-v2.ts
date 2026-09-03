@@ -1,6 +1,21 @@
+export {};
+interface CandidateScores {
+  name: string;
+  scores: number[];
+}
+
+interface IndividualPoint {
+  name: string;
+  points: number;
+  percentage: number;
+}
+
+
 // A function to store all the list of names, their inital point and percentage
-function initialIndividualPoint(scores) {
-  let arrayOfNames = [];
+function initialIndividualPoint(
+  scores: CandidateScores[],
+): IndividualPoint[] {
+  let arrayOfNames: IndividualPoint[] = [];
   for (let i = 0; i < scores.length; i++) {
     arrayOfNames.push({
       name: scores[i].name,
@@ -12,7 +27,9 @@ function initialIndividualPoint(scores) {
   return arrayOfNames;
 }
 
-function compareScores(candidateScores) {
+function compareScores(
+  candidateScores: CandidateScores[],
+): IndividualPoint[] {
   let noOfIterations = candidateScores[0].scores.length;
   // An array of object of initial individual point
   let individualPoint = initialIndividualPoint(candidateScores);
@@ -44,28 +61,19 @@ function compareScores(candidateScores) {
       const winner = individualPoint.find(
         (individual) => individual.name === currentMaxScore.name,
       );
-      winner.points++;
-      winner.percentage = ((winner.points / noOfIterations) * 100).toFixed(2);
+      if (winner) {
+        winner.points++;
+        winner.percentage = Number(
+          ((winner.points / noOfIterations) * 100).toFixed(2),
+        );
+      }
     }
-
-    // for (let i = 0; i < individualPoint.length; i++) {
-    //   if (
-    //     individualPoint[i].name === currentMaxScore.name &&
-    //     equalMaxValue === false
-    //   ) {
-    //     individualPoint[i].points++;
-    //     individualPoint[i].percentage = (
-    //       (individualPoint[i].points / 3) *
-    //       100
-    //     ).toFixed(2);
-    //   }
-    // }
 
     currentMaxScore.score = 0;
   }
 
   const sortedIndividualPoint = individualPoint.sort((a, b) => {
-    return Number(b.percentage) - Number(a.percentage);
+    return b.percentage - a.percentage;
   });
 
   return sortedIndividualPoint;

@@ -131,6 +131,20 @@
   height: 28px;
 }
 
+.error-message {
+  color: red;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.error-message.hide {
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
 .form-link {
   color:  var(--text);
   font-size: 0.875rem;
