@@ -10,30 +10,42 @@ function isInputValid(input, inputType) {
   }
 }
 
+
+
 const loginForm = document.getElementById("login-form");
 loginForm.addEventListener("submit", (event) => {
   event.preventDefault();
   // const formData = new FormData(event.target);
   // const emailValue = formData.get("email");
   // const passwordValue = formData.get("password");
-  const emailValue = document.getElementById("email");
-  const passwordValue = document.getElementById("password");
+  const emailValue = document.getElementById("email").value;
+  const passwordValue = document.getElementById("password").value;
 
   const emailIsValid = isInputValid(emailValue, "email");
   const passwordIsValid = isInputValid(passwordValue, "password");
 
   // emailIsValid === false ===> !emailIsValid
+   const emailErrorElement = document.getElementById("email-error");
+    const passwordErrorElement = document.getElementById("password-error");
+
   if (!emailIsValid) {
-    const emailErrorElement = document.getElementById("email-error");
     emailErrorElement.classList.remove("hide");
     emailErrorElement.classList.add("show");
   }
+  else {
+    emailErrorElement.classList.remove("show");
+    emailErrorElement.classList.add("hide");
+  }
 
   if (!passwordIsValid) {
-    const passwordErrorElement = document.getElementById("password-error");
     passwordErrorElement.classList.remove("hide");
     passwordErrorElement.classList.add("show");
   }
+  else {
+    passwordErrorElement.classList.remove("show");
+    passwordErrorElement.classList.add("hide");
+  }
+
 });
 
 const apiBaseUrl = "https://tatumconnect-backend.onrender.com";
