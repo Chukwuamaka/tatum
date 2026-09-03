@@ -160,6 +160,18 @@ form {
   color: var(--text);
 }
 
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.error-message.hide{
+  display: none;
+}
+.error-message.show{
+  display: block;
+}
+
 .forgot-password {
   display: block;
   text-align: right;
