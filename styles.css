@@ -165,6 +165,19 @@
   height: auto;
 }
 
+.input-group .error-message {
+  color: red;
+  font-size: 0.75rem;
+}
+
+.error-message.hide {
+  display: none;
+}
+
+.error-message.show {
+  display: block;
+}
+
 .form-link-row {
   display: flex;
   justify-content: flex-end;

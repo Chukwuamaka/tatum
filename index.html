@@ -67,7 +67,7 @@
               </p>
             </div>
 
-            <form class="login-form" action="#" method="post" novalidate>
+            <form id="login-form" class="login-form">
               <label class="sr-only" for="email">
                 Email Address or Phone no
               </label>
@@ -82,6 +82,9 @@
                 <div class="input-icon">
                   <img src="/images/email-input-icon.svg" alt="Email icon" />
                 </div>
+                <p id="email-error" class="error-message hide">
+                  Your email is incorrect
+                </p>
               </div>
 
               <label class="sr-only" for="password">Password</label>
@@ -99,6 +102,9 @@
                     alt="Show password icon"
                   />
                 </div>
+                <p id="password-error" class="error-message hide">
+                  Your password is not up to 6 characters
+                </p>
               </div>
 
               <div class="form-link-row">
