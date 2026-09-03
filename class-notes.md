@@ -174,6 +174,7 @@ const getUserDetails = () => {
   return otherProperties;
 };
 
+// Different types of functions based on syntax
 //1. Function declaration
 function nameOfFunction() {
 
@@ -205,31 +206,35 @@ const arrowFunction = () => {
 
 })()
 
-function binarySearch(arr, target) {
-  let low = 0;
-  let high = arr.length - 1;
+```
 
-  while (low <= high) {
-    // Find the middle index (Math.floor handles decimals)
-    const mid = Math.floor((low + high) / 2);
+```typescript
+// String, number, boolean, array, object, function
+const username: string = "Edim";
+const age: number = 25;
+const isActive: boolean = false;
+const array: number[] = [1, 2];
+const array: string[] | Array<string> = ["1", "2"];
+// Array<number> ==> number[]
+// Array<number> ==> reads forwards
+// number[] ==> reads backwards
+// number[] | string[] !== (number | string)[]
+// The former is an array that has only numbers or only strings while the latter is an array that has a mixture of numbers and strings
+const obj: {} | Object = {};
 
-    // Target found, return its index
-    if (arr[mid] === target) {
-      return mid;
-    }
+// Type inference
+let customerName = "Dayo";
+// Trying to reassign customerName to a number should throw an error
+customerName = 9;
 
-    // If target is greater, ignore the left half
-    if (arr[mid] < target) {
-      low = mid + 1;
-    }
-    // If target is smaller, ignore the right half
-    else {
-      high = mid - 1;
-    }
-  }
-
-  // Target not found in the array
-  return -1;
+// Typing Functions
+// Normal function
+function compareTriplet(a: number[], b: number[]): number[] {
+  // Do something
 }
 
+// Arrow function
+const staircaseProblem = (n: number): string => {
+  return "";
+};
 ```

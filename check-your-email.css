@@ -3,10 +3,6 @@
 .page-shell {
   min-height: 100dvh;
   overflow: hidden;
-  display: flex;
-}
-
-.hero-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
@@ -23,7 +19,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/images/hero-image.png");
+  background-image: url("/images/reset-password-hero-image.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -77,7 +73,7 @@
   background: #fcca30;
 }
 
-.login-panel {
+.right-panel {
   max-height: 100dvh;
   overflow-y: auto;
   padding: 48px 15%;
@@ -88,17 +84,8 @@
   gap: 48px;
 }
 
-.login-brand {
-  margin-bottom: 2rem;
-}
-
 .brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-  color: var(--text);
-  font-weight: 700;
-  font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
 .brand-logo {
@@ -106,89 +93,39 @@
   height: 49px;
 }
 
-.login-copy h1 {
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.copy {
+  margin-bottom: 8px;
+}
+
+.copy .title {
   color: var(--text);
   font-size: clamp(2.25rem, 3vw, 2.75rem);
   font-weight: 800;
   line-height: 1.127;
+  text-transform: capitalize;
+  text-align: center;
 }
 
-.login-subtitle {
-  margin: 8px 0 40px;
+.subtitle {
+  margin-top: 16px;
   color: var(--muted);
   font-size: min(1.1vw, 1rem);
   line-height: 1.5;
+  text-align: center;
 }
 
-.login-form {
-  display: grid;
-  gap: 24px;
-}
-
-.input-group {
-  position: relative;
-}
-
-.input-group input {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--page);
-  color: var(--text);
-  padding: 17px 20px;
-  font-size: 1rem;
-  outline: none;
-}
-
-.input-group input::placeholder {
-  color: var(--placeholder);
-}
-
-.input-group input:focus {
-  border-color: #d4d4d8;
-  box-shadow: 0 0 0 4px rgba(252, 202, 48, 0.18);
-}
-
-.input-icon {
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-  width: 1.125rem;
-  height: 1.125rem;
-  display: grid;
-  place-items: center;
-}
-
-.input-icon img {
-  width: 100%;
-  height: auto;
-}
-
-.input-group .error-message {
-  color: red;
-  font-size: 0.75rem;
-}
-
-.error-message.hide {
-  display: none;
-}
-
-.error-message.show {
-  display: block;
-}
-
-.form-link-row {
+.button-and-links {
   display: flex;
-  justify-content: flex-end;
-}
-
-.forgot-password-link {
-  color: var(--text);
-  font-weight: 600;
-  font-size: 0.875rem;
-  line-height: 1.43;
-  letter-spacing: 0.027px;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
 }
 
 .primary-btn {
@@ -201,25 +138,43 @@
   background: var(--button);
   font-size: 1rem;
   font-weight: 700;
+  text-transform: capitalize;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
-.login-links {
+.links {
   text-align: center;
-  margin-top: 48px;
   display: grid;
-  gap: 12px;
+  gap: 48px;
 }
 
-.login-links p {
+.links p {
   color: #4b5563;
   font-size: 0.875rem;
   line-height: 1.43;
   letter-spacing: -0.055px;
 }
 
-.login-links a {
+.links a {
   color: var(--text);
   font-weight: 700;
+}
+
+.resend-link {
+  text-decoration: underline;
+  text-decoration-color: var(--button);
+}
+
+a.back-to-login {
+  color: #64748b;
+  font-weight: 500;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .trust-row {
