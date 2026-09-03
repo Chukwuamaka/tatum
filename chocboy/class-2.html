@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="./class2.css">
+    <script src="./script.js" defer></script>
 </head>
 <body>
     <div class="container">
@@ -25,12 +26,14 @@
                     <h2>Log In to Tatum Bank</h2>
                     <p>Please enter your Internet Banking details to continue</p>
 
-                    <form action="">
-                        <input class="input-user" name="userId" type="text" placeholder="Email address or Phone No" required>
+                    <form action="" id="login-form">
+                        <input  class="input-user" name="email" type="text" placeholder="Email address or Phone No" required>
+                        <p id="email-error" class="error-message hide">Your email is incorrect</p>
                         <input class="input-pass" name="password" type="password" placeholder="Enter your password">
+                        <p id="password-error" class="error-message hide">Your password is not up to 6 characters</p>
                         <a class="forgot-link" href="/forgot-password">Forgot password?</a>
                         <button type="submit">Log In</button>
-                    </form>
+                    </form> 
                     <div class="alt-links">
                         <p>New to Tatum Bank? <a href="/register">Get Started</a></p>
                         <p>Have a Tatum Bank Account? <a href="/activate">Activate account number</a></p>

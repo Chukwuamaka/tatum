@@ -49,7 +49,20 @@ body, * {
     line-height: 28px;
 }
 
+.error-message{
+    color: red;
+    font-size: 12px;
+    margin-top: -12px;
+    margin-bottom: 8px;
+}
 
+.error-message.hide {
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
 
 .login-section {
     flex: 1;
