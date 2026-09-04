@@ -24,11 +24,19 @@
         <p class="hint">Please enter your Internet Banking details to continue</p>
 
         <form>
-          <label class="field"><input type="text" placeholder="Email Address or Phone no"><span class="mark">✣</span></label>
-          <label class="field"><input type="password" placeholder="Password"><span class="eye"></span></label>
+          <label class="field">
+          <input type="text" placeholder="Email Address or Phone no">
+          <p class ="error"> Your Email is not correct </p>
+          <span class="mark">✣</span>
+          </label>
+          <label class="field">
+          <input type="password" placeholder="Password">
+          <p class="error"> your password is wrong</p>
+          <span class="eye"></span></label>
           <a class="forgot" href="#">Forgot Password?</a>
           <button type="submit">Log In</button>
         </form>
+         
 
         <div class="links">
           <p>New to Tatum Bank? <a href="#">Get Started</a></p>

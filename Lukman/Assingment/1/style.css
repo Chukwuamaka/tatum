@@ -103,6 +103,10 @@ input {
   font-size: 14px;
 }
 
+.error {
+  color: red;
+}
+
 input:focus { border-color: var(--yellow); }
 input::placeholder { color: #adb4c0; }
 
