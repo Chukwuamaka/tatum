@@ -131,10 +131,16 @@ form .buttonInp {
   cursor: pointer;
 }
 
-form .buttonInp[type="button"] {
+form .buttonInp[type="submit"] {
   color: var(--button-text);
   font-weight: 700;
   line-height: 1;
+}
+
+form .buttonInp:disabled {
+  background-color: var(--muted);
+  cursor: not-allowed;
+  color: var(--light);
 }
 
 .otherTexts {

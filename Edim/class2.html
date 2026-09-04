@@ -28,6 +28,7 @@
       href="favicon_io/favicon-16x16.png"
     />
     <link rel="icon" href="favicon_io/favicon.ico" />
+    <script src="./script.js" defer></script>
     <title>Tatum Bank Class 2</title>
   </head>
   <body>
@@ -49,16 +50,17 @@
             <p>Please enter your Internet Banking details to contine</p>
           </div>
 
-          <form action="">
+          <form action="" id="login-form">
             <div>
               <input
                 class="details"
                 type="text"
                 name="userId"
                 placeholder="Email Address or Phone no"
+                id="email"
                 required
               />
-              <p class="error hide">Your email is incorrect</p>
+              <p class="error hide" id="email-error">Your email is incorrect</p>
             </div>
 
             <div>
@@ -67,14 +69,17 @@
                 type="password"
                 name="password"
                 placeholder="Password"
+                id="password"
                 required
               />
-              <p class="error hide">Your password is not up to 6 characters</p>
+              <p class="error hide" id="password-error">
+                Your password is not up to 6 characters
+              </p>
             </div>
 
             <a href="#" class="forgotP"> Forgot Password?</a>
 
-            <input class="buttonInp" type="button" value="Log In" />
+            <input class="buttonInp" type="submit" value="Log In" disabled />
           </form>
 
           <div class="otherTexts">

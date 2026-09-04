@@ -2,7 +2,7 @@ function _compareTriplets(_a: number[], _b: number[]) {
   // Create an array that holds the points gotten by Alice and Bob respectively from the comparison
   const points: number[] = [0, 0];
 
-  for (let i = 0; i < a.length; i++) {
+  for (let i = 0; i < _a.length; i++) {
     // Check the greater item in the same index between a and b
     // If a[i] > b[i], increment Alice's point by 1
     if (_a[i] > _b[i]) {
@@ -10,7 +10,7 @@ function _compareTriplets(_a: number[], _b: number[]) {
     }
 
     // If a[i] < b[i], increment Bob's point by 1
-    else if (a[i] < b[i]) {
+    else if (_a[i] < _b[i]) {
       points[1] = points[1] + 1;
     }
 
@@ -20,16 +20,16 @@ function _compareTriplets(_a: number[], _b: number[]) {
     }
   }
 
-  for (const score of a) {
-    const i = a.indexOf(score);
+  for (const score of _a) {
+    const i = _a.indexOf(score);
 
     // If a[i] > b[i], increment Alice's point by 1
-    if (a[i] > b[i]) {
+    if (_a[i] > _b[i]) {
       points[0] = points[0] + 1;
     }
 
     // If a[i] < b[i], increment Bob's point by 1
-    else if (a[i] < b[i]) {
+    else if (_a[i] < _b[i]) {
       points[1] = points[1] + 1;
     }
 

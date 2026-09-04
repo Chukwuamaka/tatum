@@ -1,16 +1,18 @@
-export {}
+export {};
 
-interface CandidateScores{
-  name: string
-  scores: number[]
-  }
+interface CandidateScores {
+  name: string;
+  scores: number[];
+}
 
-interface Points extends CandidateScores{
-  percentage?: number | string
+interface Points {
+  name: string;
+  score: number;
+  percentage?: number | string;
 }
 
 function compareTheScores(candidateScores: CandidateScores[]) {
-  let points: Points = candidateScores.map((student) => {
+  let points: Points[] = candidateScores.map((student) => {
     return {
       name: student.name,
       score: 0,
