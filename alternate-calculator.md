@@ -6,7 +6,7 @@ The main advantage of this format is that it does not require parentheses for an
 
 | Traditional notation | Alternative notation |
 | -------------------- | -------------------- |
-| 3 + 4                | + 3 4                |
+| 3 + 4                | + 3 4                | 
 | 3 - (4 \* 5)         | - 3 \* 4 5           |
 | (3 + 4) \* 5         | \* + 3 4 5           |
 | (3 - 4) / (5 + 2)    | / - 3 4 + 5 2        |

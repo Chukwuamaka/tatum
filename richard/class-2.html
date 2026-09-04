@@ -13,6 +13,7 @@
         <section class="hero">
             <h1 class="hero-title">Bank Simpler, LiveSmarter</h1>
             <p class="hero-subtitle">No queues. No stress. Just seamless banking.</p>
+            <div class="overlay"></div>
         </section>
         <!--Login section-->
         <section class="login-panel">
@@ -21,10 +22,13 @@
                 <div class="tatum"><h2 id="heading">Log In to Tatum Bank</h2>
                 <p class="paragraph">Please enter your Internet Banking details to continue</p></div>
                 <form action="">
-                    <div class="user-id"><input class="form-input" name="user-Id" type="text" placeholder="Email Address or Phone no" required/>
+                    <div class="user-id">
+                        <input class="form-input" name="user-Id" type="text" placeholder="Email Address or Phone no" required/>
                     <img src="images/Container.png" class= "container-img"alt="ID"></div>
+                    <p class="error-message hide">Your email is incorrect</p>
                     <div class="pwd"><input class="form-input" name="password" type="password" placeholder="Password" required/>
                     <img src="images/Img.png" class="container-img" alt="Reveal/Hide Feature"></div>
+                    <p class="error-message hide">Your email is incorrect</p>
                     <a href="/forgot-password" class="fpwd">Forgot Password?</a>
                     <div class="button"><button type="submit"><a href="login.com">Log In</a></button></div>
                 </form>
