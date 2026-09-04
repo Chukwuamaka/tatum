@@ -1,0 +1,155 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: Arial, sans-serif;
+	color: #102b52;
+}
+
+.page {
+	min-height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.welcome {
+	min-height: 100vh;
+	display: flex;
+	align-items: flex-end;
+	padding: 10% 11%;
+	color: white;
+	background-image:
+		linear-gradient(rgba(45, 28, 16, .22), rgba(45, 28, 16, .22)),
+		url("vibrant smiling African woman with a colorful headwrap wearing a yellow top holding a digital tablet (1).png");
+	background-position: center;
+	background-size: cover;
+}
+
+.welcome-text h1 {
+	margin: 0 0 18px;
+	font-size: clamp(2.5rem, 4vw, 4.1rem);
+	line-height: 1.05;
+}
+
+.welcome-text p {
+	margin: 0 0 35px;
+	font-size: 1.1rem;
+	color: #f1f1f1;
+}
+
+.slides {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.slides span {
+	width: 27px;
+	height: 5px;
+	border-radius: 4px;
+	background: #bbb;
+}
+
+.slides .active {
+	width: 45px;
+	background: #ffc629;
+}
+
+.success {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	padding: 42px 9%;
+	text-align: center;
+}
+
+.logo {
+	width: 105px;
+	align-self: flex-start;
+}
+
+.message {
+	width: min(100%, 435px);
+	margin: auto 0;
+}
+
+.check {
+	width: 66px;
+	height: 66px;
+	display: grid;
+	place-items: center;
+	margin: 0 auto 28px;
+	border-radius: 50%;
+	background: #20bf63;
+	box-shadow: 0 0 0 12px #eafff1;
+	color: white;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.message h2 {
+	margin: 0 0 10px;
+	font-size: 1.8rem;
+}
+
+.message p {
+	margin: 0;
+	color: #89909d;
+	line-height: 1.4;
+}
+
+button {
+	width: 100%;
+	margin-top: 32px;
+	padding: 15px;
+	border: 0;
+	border-radius: 14px;
+	background: #ffc629;
+	color: #102b52;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.partners {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	width: 100%;
+	color: #a0a6b0;
+	font-size: .65rem;
+}
+
+.partners img {
+	max-width: 48px;
+	max-height: 23px;
+	object-fit: contain;
+}
+
+@media (max-width: 700px) {
+	.page {
+		grid-template-columns: 1fr;
+	}
+
+	.welcome {
+		min-height: 45vh;
+		padding: 12% 8%;
+	}
+
+	.success {
+		min-height: 55vh;
+		padding: 28px 8%;
+	}
+
+	.message {
+		margin: 35px 0;
+	}
+
+	.welcome-text h1 {
+		font-size: 2.6rem;
+	}
+}

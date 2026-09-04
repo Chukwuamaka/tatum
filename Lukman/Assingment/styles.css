@@ -1,0 +1,371 @@
+
+:root {
+  --navy: #0b2349;
+  --yellow: #ffc72c;
+  --muted: #647084;
+  --line: #e5e8ed;
+}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--navy);
+  font-family: "DM Sans", Arial, sans-serif;
+  background: #d0d0d0;
+}
+
+.page-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 42px 5.1vw;
+}
+
+.login-card {
+  width: min(998px, 100%);
+  min-height: 624px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  background: url("image\ 2.png") center/cover;
+  image-rendering: crisp-edges;
+}
+
+.hero-content {
+  position: absolute;
+  left: 55px;
+  right: 34px;
+  bottom: 53px;
+}
+
+.hero-content h1 {
+  width: fit-content;
+  margin: 0 0 11px;
+  padding: 4px 1px 1px;
+  font-size: clamp(2rem, 3.1vw, 2.52rem);
+  line-height: 1.25;
+  letter-spacing: -0.9px;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.hero-content h1::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -13px;
+  left: -2px;
+  width: 390px;
+  height: 107px;
+  border: 3px solid #00ad62;
+}
+
+.hero-content p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.slider-dots {
+  display: flex;
+  gap: 7px;
+  margin-top: 33px;
+}
+
+.slider-dots span {
+  display: block;
+  width: 23px;
+  height: 4px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.slider-dots .active {
+  background: var(--yellow);
+  width: 36px;
+}
+.form-panel {
+  min-height: 624px;
+  display: flex;
+  flex-direction: column;
+  padding: 35px 67px 36px 66px;
+}
+
+.form-content {
+  width: 100%;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--navy);
+  text-decoration: none;
+  margin-bottom: 32px;
+}
+
+.brand-mark {
+  width: 31px;
+  height: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, 15px);
+  grid-template-rows: repeat(2, 15px);
+  gap: 2px;
+  transform: rotate(-2deg);
+}
+
+.brand-mark i {
+  display: block;
+  background: var(--yellow);
+  border-radius: 4px;
+}
+
+.brand-mark i:nth-child(2) {
+  background: #033263;
+}
+
+.brand-logo {
+  width: 70px;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-name {
+  font-size: 16px;
+  line-height: 13px;
+  font-weight: 700;
+  letter-spacing: -0.7px;
+}
+
+.brand-name small {
+  display: block;
+  text-align: right;
+  font-size: 8px;
+  letter-spacing: -0.35px;
+}
+
+.intro h2 {
+  margin: 0;
+  font-size: 23px;
+  line-height: 1.2;
+  letter-spacing: -0.65px;
+}
+
+.intro p {
+  margin: 5px 0 27px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  height: 39px;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.field:focus-within {
+  border-color: #abb7c9;
+  box-shadow: 0 0 0 2px rgba(4, 53, 102, 0.07);
+}
+
+.field input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  padding: 0 13px;
+  color: var(--navy);
+  font: inherit;
+  font-size: 11px;
+  background: transparent;
+}
+
+.field input::placeholder {
+  color: #929caf;
+}
+
+.field button {
+  border: 0;
+  background: transparent;
+  margin-right: 8px;
+  padding: 4px;
+  color: #9aa4b5;
+  cursor: pointer;
+}
+
+.quick-login {
+  color: #923dff !important;
+  font-size: 17px;
+  line-height: 1;
+}
+
+.visibility {
+  font-size: 13px;
+  transform: scaleX(1.2);
+}
+
+.forgot-row {
+  height: 15px;
+  margin-top: -2px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.forgot-row a {
+  font-size: 10px;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.login-button {
+  height: 40px;
+  margin-top: 0;
+  border: none;
+  border-radius: 11px;
+  background: var(--yellow);
+  color: #071d41;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.2s, transform 0.2s;
+}
+
+.login-button:hover {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
+}
+
+.account-links {
+  margin-top: 32px;
+  text-align: center;
+  color: #566176;
+  font-size: 10px;
+  line-height: 1.35;
+}
+
+.account-links p {
+  margin: 0 0 7px;
+}
+
+.account-links a {
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #8f98a8;
+  font-size: 7px;
+}
+
+.cbn-logo {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+}
+
+.ndic-logo {
+  height: 20px;
+  width: auto;
+  object-fit: contain;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .page-shell {
+    padding: 20px;
+  }
+
+  .login-card {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+
+  .hero-panel {
+    min-height: 310px;
+  }
+
+  .form-panel {
+    min-height: 540px;
+    padding: 32px;
+  }
+
+  .hero-content {
+    left: 36px;
+    bottom: 37px;
+  }
+
+  .hero-content h1::before {
+    width: min(390px, calc(100vw - 92px));
+  }
+
+  .brand {
+    margin-bottom: 25px;
+  }
+}
+@media (max-width: 420px) {
+  .page-shell {
+    padding: 0;
+  }
+
+  .login-card {
+    min-height: 100vh;
+  }
+
+  .hero-panel {
+    min-height: 280px;
+  }
+
+  .form-panel {
+    padding: 26px 22px;
+  }
+
+  .hero-content {
+    left: 27px;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content h1::before {
+    width: calc(100vw - 62px);
+    height: 99px;
+  }
+}
