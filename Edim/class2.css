@@ -8,6 +8,7 @@
   --button: #ffcc33;
   --button-text: #0a1b3d;
   --small-text: #4b5563;
+  --error-text: #ff0202;
 }
 
 body,
@@ -24,12 +25,11 @@ body,
 }
 
 .hero {
-  background-image: url("./images/hero-image-1.png  ");
+  background-image: url("./img/vibrant_woman_smiling.png");
   flex: 1;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -98,6 +98,19 @@ form .details::placeholder {
   line-height: 1;
 }
 
+form p.error {
+  color: var(--error-text);
+  font-size: 12px;
+}
+
+.error.hide {
+  display: none;
+}
+
+.error.show {
+  display: block;
+}
+
 form .forgotP {
   display: block;
   text-align: end;
@@ -118,10 +131,16 @@ form .buttonInp {
   cursor: pointer;
 }
 
-form .buttonInp[type="button"] {
+form .buttonInp[type="submit"] {
   color: var(--button-text);
   font-weight: 700;
   line-height: 1;
+}
+
+form .buttonInp:disabled {
+  background-color: var(--muted);
+  cursor: not-allowed;
+  color: var(--light);
 }
 
 .otherTexts {
