@@ -1,0 +1,201 @@
+:root {
+    --bg: #f3f5f8;
+    --light: #ffffff;
+    --text: #0a1f44;
+    --muted: #6b7280;
+    --placeholder: #9ca3af;
+    --border: #e5e7eb;
+    --button: #ffcc33;
+    --button-text: #0a1b3d;
+    --accent: #8e6ee0;
+}
+
+body, * {
+    margin: 0;
+    padding: 0;
+    font-family: 'plus-jakarta-sans', sans-serif;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    min-height: 100dvh;
+}
+
+.hero {
+    background-image: url('./images/hero-image-1.png');
+    flex: 1;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px;
+    color: var(--light);
+    gap: 16px;
+}
+
+.hero-title {
+    font-weight: 700;
+    font-size: clamp(45px, 5vw, 60px);
+    line-height: 1.25;
+    vertical-align: middle;
+}
+
+.hero-description {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.error-message{
+    color: red;
+    font-size: 12px;
+    margin-top: -12px;
+    margin-bottom: 8px;
+}
+
+.error-message.hide {
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.login-section {
+    flex: 1;
+    background: var(--light);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 64px;
+}
+
+.login-section .logo {
+    height: 40px;
+    width: auto;
+    align-self: flex-start;
+}
+
+.login-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-tab {
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-tab h2 {
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.login-tab > p {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+}
+
+.login-tab form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-tab form input {
+    width: 100%;
+    padding: 14px 44px 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+    margin-bottom: 16px;
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 18px;
+}
+
+.login-tab form input::placeholder {
+    color: var(--placeholder);
+    font-weight: 300;
+}
+
+.login-tab form input:focus {
+    border-color: var(--accent);
+}
+
+.forgot-link {
+    align-self: flex-end;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    margin-bottom: 24px;
+}
+
+.login-tab form button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    background: var(--button);
+    color: var(--button-text);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.login-tab form button:hover {
+    background: #f0bd21;
+}
+
+
+.alt-links {
+    text-align: center;
+    margin-top: 24px; 
+}
+
+.alt-links p {
+    font-size: 13px;
+    font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.alt-links a {
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding-top: 24px;
+}
+
+footer p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+footer img {
+    height: 20px;
+    width: auto;
+}
