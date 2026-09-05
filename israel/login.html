@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./images/favicon-16x16.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./login.css" />
+
+    <script src="login.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <section class="hero-panel">
+        <h1 class="hero-title">Bank Simpler, Live Smarter</h1>
+        <p class="hero-subtitle">No queues. No stress. Just seamless banking</p>
+        <div class="overlay"></div>
+      </section>
+      <section class="login-panel">
+        <div class="login-container">
+          <img
+            src="./images/tatum-bank-logo.svg"
+            alt="Tatum Bank Logo"
+            class="tatum-logo"
+          />
+
+          <div class="form-container">
+            <div class="form-header">
+              <h2 class="form-heading">Log In to Tatum Bank</h2>
+              <p class="form-subtitle">
+                Please enter your Internet Banking details to continue
+              </p>
+            </div>
+            <form id="login-form" class="login-form">
+              <div>
+                <div class="form-input">
+                  <input
+                    id="email"
+                    name="userId"
+                    type="text"
+                    placeholder="Email Address or Phone no"
+                    class=""
+                    required
+                  />
+                  <img src="./images/userId-icon.png" alt="user id icon" />
+                </div>
+                <div id="email-error" class="error-message hide">
+                  <p>Your Email is incorrect.</p>
+                </div>
+              </div>
+              <div>
+                <div class="form-input">
+                  <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    class=""
+                    required
+                  />
+                  <img src="./images/eye-icon.png" alt="eye icon" />
+                </div>
+                <div id="password-error" class="error-message hide">
+                  <p>Your password is less than 6 characters.</p>
+                </div>
+              </div>
+
+              <a href="/forgot-password" class="form-link">Forgot Password?</a>
+              <button type="submit" class="login-button" disabled>Log In</button>
+            </form>
+          </div>
+
+          <div class="form-links">
+            <p class="">
+              New to Tatum Bank?
+              <a href="/register" class="form-link">Get Started</a>
+            </p>
+            <p class="">
+              Have a Tatum Bank account?
+              <a href="/activate" class="form-link">Activate account number</a>
+            </p>
+          </div>
+        </div>
+        <footer class="footer">
+          <p>
+            Licensed by CBN
+            <img
+              src="./images/cbn-logo.png"
+              alt="CBN Logo"
+              width="27"
+              height="27"
+            />
+          </p>
+          <p>
+            INSURED BY NDIC
+            <img
+              src="./images/ndic-logo.png"
+              alt="NDIC Logo"
+              width="63"
+              height="28"
+            />
+          </p>
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
