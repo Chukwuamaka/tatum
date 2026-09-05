@@ -1,0 +1,256 @@
+:root {
+    --white: #fff;
+    --text: #0a1f44;
+    --button: #ffcc33;
+    --border: #e5e7eb;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background: #f3f5f8;
+}
+
+.grandpa {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero,
+.hero2 {
+    flex: 1;
+    height: 100vh;
+    overflow: hidden;
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    padding: 80px;
+    color: var(--white);
+}
+
+.hero {
+    background-image:
+        linear-gradient(
+            rgba(65, 40, 12, .45),
+            rgba(65, 40, 12, .45)
+        ),
+        url("images/smiling_African_woman.png");
+}
+
+.hero2 {
+    background-image:
+        linear-gradient(
+            rgba(65, 40, 12, .45),
+            rgba(65, 40, 12, .45)
+        ),
+        url("images/8d64d2f5b89974afb5981aabcb421fe5c9e0f405.png");
+}
+
+.h-title {
+    font-size: 60px;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.h-sub {
+    font-size: 20px;
+}
+
+.slider-indicators {
+    display: flex;
+    gap: 10px;
+    margin-top: 45px;
+}
+
+.slider-indicators span {
+    width: 35px;
+    height: 6px;
+    background: #aaa;
+    border-radius: 10px;
+}
+
+.slider-indicators .active {
+    width: 58px;
+    background: var(--button);
+}
+
+.sized-box {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+
+    background: var(--white);
+
+    /* for the right side to scroll */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.login-container {
+    min-height: 100%;
+    padding: 50px 9%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.tatum-logo {
+    width: 400px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 48px;
+    display: block;
+}
+
+.login-content {
+    width: 100%;
+    max-width: 565px;
+    margin: auto;
+}
+
+.login-heading h2 {
+    color: var(--text);
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.login-heading p {
+    color: #737b8c;
+    font-size: 17px;
+    margin-bottom: 40px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-container input {
+    width: 100%;
+    height: 60px;
+    padding: 15px 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    font-size: 16px;
+}
+
+.input-icon {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+
+    color: purple;
+    font-size: 22px;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+
+    width: 17px;
+    height: 12px;
+
+    border: 2px solid #aaa;
+    border-radius: 50%;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-form button {
+    width: 100%;
+    height: 60px;
+
+    border: none;
+    border-radius: 15px;
+
+    background: var(--button);
+    color: var(--text);
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.account-links {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.account-links p {
+    color: #70798a;
+    margin-bottom: 10px;
+}
+
+footer {
+    margin-top: auto;
+    padding-top: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 42px;
+
+    width: 100%;
+}
+
+.footer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-item span {
+    font-size: 10px;
+    font-weight: 400;
+    color: #7b808a;
+    white-space: nowrap;
+}
+
+.footer-item img {
+    object-fit: contain;
+    display: block;
+}
+
+.error {
+     color: red;
+     font-size: 0.75rem;
+}
+
+.hide {
+    display: none;
+}
+.show {
+    display: block;
+}
