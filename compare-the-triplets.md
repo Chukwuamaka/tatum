@@ -86,22 +86,3 @@ Alice's comparison score is 1, and Bob's comparison score is 1. Thus, we return 
 Comparing the 0th elements, `17 < 99` so Bob receives a point.
 Comparing the 1st and 2nd elements, `28 > 16` and `30 > 8` so Alice receives two points.
 The return array is [2,1].
-
-
-
-function compareTriplets(a, b) {
-    let alice = 0;
-    let bob = 0;
-
-    for (let i = 0; i < 3; i++) {
-        if (a[i] > b[i]) {
-            alice = alice + 1;
-        }
-
-        if (a[i] < b[i]) {
-            bob = bob + 1;
-        }
-    }
-
-    return [alice, bob];
-}
