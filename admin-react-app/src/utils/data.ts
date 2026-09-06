@@ -99,6 +99,7 @@ export interface Transaction {
   network: AirtimeNetworks;
   amount: string;
   status: TransactionStatus;
+  customer: string;
 }
 
 export const transactions: Transaction[] = [
@@ -108,6 +109,7 @@ export const transactions: Transaction[] = [
     network: AirtimeNetworks.MTN,
     amount: "25,000.00",
     status: TransactionStatus.FAILED,
+    customer: "Grace Lee",
   },
   {
     id: "AT2405270012458",
@@ -115,6 +117,7 @@ export const transactions: Transaction[] = [
     network: AirtimeNetworks.GLO,
     amount: "10,000.00",
     status: TransactionStatus.FAILED,
+    customer: "Amaka Okeke",
   },
   {
     id: "AT2405270012459",
@@ -122,6 +125,7 @@ export const transactions: Transaction[] = [
     network: AirtimeNetworks.GLO,
     amount: "25,000.00",
     status: TransactionStatus.PENDING,
+    customer: "Michael Chen",
   },
   {
     id: "AT2405270012460",
@@ -129,6 +133,7 @@ export const transactions: Transaction[] = [
     network: AirtimeNetworks.GLO,
     amount: "500.00",
     status: TransactionStatus.FAILED,
+    customer: "Sarah Williams",
   },
   {
     id: "AT2405270012461",
@@ -136,5 +141,18 @@ export const transactions: Transaction[] = [
     network: AirtimeNetworks.AIRTEL,
     amount: "500.00",
     status: TransactionStatus.PENDING,
+    customer: "John Adebayo",
   },
 ];
+
+export const transactionStatusClassNames = {
+  [TransactionStatus.FAILED]: "bg-[#fef2f2] text-[#ef4444]",
+  [TransactionStatus.PENDING]: "bg-[#fff7ed] text-[#f59e0b]",
+  [TransactionStatus.SUCCESS]: "bg-[#e6f4ea] text-[#039855]",
+};
+
+export const networkClassNames = {
+  [AirtimeNetworks.AIRTEL]: "border-[#fecaca] bg-[#fee2e2] text-[#dc2626]",
+  [AirtimeNetworks.GLO]: "border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]",
+  [AirtimeNetworks.MTN]: "border-[#fde047] bg-[#fef9c3] text-black",
+};

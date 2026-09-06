@@ -46,7 +46,7 @@ const navigationGroups: NavigationGroup[] = [
       },
       {
         name: "Airtime Transactions",
-        to: "/dashboard/airtime",
+        to: "/dashboard/transactions",
         end: false,
         icon: <TransactionsIcon />,
       },

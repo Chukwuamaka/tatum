@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router";
 import DashboardLayout from "./dashboard/DashboardLayout";
 import Customers from "./dashboard/customers/Customers";
 import Customer from "./dashboard/customers/Customer";
+import Transactions from "./dashboard/transactions/AirtimeTransactions";
+import TransactionDetails from "./dashboard/transactions/TransactionDetails";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,24 @@ const router = createBrowserRouter([
           title: "Customer Profile",
           description: "View and manage customer details.",
           searchPlaceholder: "Search by name, phone, email or customer ID...",
+        },
+      },
+      {
+        path: "transactions",
+        element: <Transactions />,
+        handle: {
+          title: "Transaction Monitor",
+          description: "Search, filter and identify airtime transactions.",
+          searchPlaceholder: "Search by Transaction ID, Customer ID...",
+        },
+      },
+      {
+        path: "transactions/:transactionId",
+        element: <TransactionDetails />,
+        handle: {
+          title: "Transaction Receipt",
+          description: "View and manage transaction details.",
+          searchPlaceholder: "Search by Transaction ID...",
         },
       },
     ],

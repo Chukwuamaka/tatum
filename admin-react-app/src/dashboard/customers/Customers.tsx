@@ -16,6 +16,15 @@ const kycStatusClassNames = {
   [KycStatus.VERIFIED]: "bg-[#e6f4ea] text-[#039855]",
 };
 
+const customersTableHeaders = [
+  "Full Name",
+  "Contact",
+  "Email Address",
+  "KYC Status",
+  "Date Registered",
+  "Actions",
+];
+
 function SearchAndFilterCustomers({
   query,
   updateQuery,
@@ -202,14 +211,7 @@ function Customers() {
                     <VerticalArrowsIcon />
                   </span>
                 </th>
-                {[
-                  "Full Name",
-                  "Contact",
-                  "Email Address",
-                  "KYC Status",
-                  "Date Registered",
-                  "Actions",
-                ].map((heading) => (
+                {customersTableHeaders.map((heading) => (
                   <th
                     className="h-12 whitespace-nowrap bg-[var(--bg)] px-4 text-left text-[9px] uppercase tracking-[0.08em] text-[var(--muted)]"
                     key={heading}

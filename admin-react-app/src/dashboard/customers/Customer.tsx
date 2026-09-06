@@ -3,11 +3,11 @@ import { Link, useParams } from "react-router";
 import DeleteIcon from "../../icons/DeleteIcon";
 import VerticalArrowsIcon from "../../icons/VerticalArrowsIcon";
 import {
-  AirtimeNetworks,
   assets,
   customers,
+  networkClassNames,
   transactions,
-  TransactionStatus,
+  transactionStatusClassNames,
   type Customer as CustomerRecord,
   type Transaction,
 } from "../../utils/data";
@@ -141,18 +141,6 @@ function AccountInformation() {
     </section>
   );
 }
-
-const transactionStatusClassNames = {
-  [TransactionStatus.FAILED]: "bg-[#fef2f2] text-[#ef4444]",
-  [TransactionStatus.PENDING]: "bg-[#fff7ed] text-[#f59e0b]",
-  [TransactionStatus.SUCCESS]: "bg-[#e6f4ea] text-[#039855]",
-};
-
-const networkClassNames = {
-  [AirtimeNetworks.AIRTEL]: "border-[#fecaca] bg-[#fee2e2] text-[#dc2626]",
-  [AirtimeNetworks.GLO]: "border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]",
-  [AirtimeNetworks.MTN]: "border-[#fde047] bg-[#fef9c3] text-black",
-};
 
 function TransactionRow({ transaction }: { transaction: Transaction }) {
   return (
