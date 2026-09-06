@@ -80,3 +80,61 @@ export const customers: Customer[] = [
     dateRegistered: "22 May 2024",
   },
 ];
+
+export enum AirtimeNetworks {
+  MTN = "mtn",
+  AIRTEL = "airtel",
+  GLO = "glo",
+}
+
+export enum TransactionStatus {
+  SUCCESS = "success",
+  PENDING = "pending",
+  FAILED = "failed",
+}
+
+export interface Transaction {
+  id: string;
+  phone: string;
+  network: AirtimeNetworks;
+  amount: string;
+  status: TransactionStatus;
+}
+
+export const transactions: Transaction[] = [
+  {
+    id: "AT2405270012457",
+    phone: "07088109974",
+    network: AirtimeNetworks.MTN,
+    amount: "25,000.00",
+    status: TransactionStatus.FAILED,
+  },
+  {
+    id: "AT2405270012458",
+    phone: "09013055377",
+    network: AirtimeNetworks.GLO,
+    amount: "10,000.00",
+    status: TransactionStatus.FAILED,
+  },
+  {
+    id: "AT2405270012459",
+    phone: "07091538631",
+    network: AirtimeNetworks.GLO,
+    amount: "25,000.00",
+    status: TransactionStatus.PENDING,
+  },
+  {
+    id: "AT2405270012460",
+    phone: "09016792939",
+    network: AirtimeNetworks.GLO,
+    amount: "500.00",
+    status: TransactionStatus.FAILED,
+  },
+  {
+    id: "AT2405270012461",
+    phone: "08022567823",
+    network: AirtimeNetworks.AIRTEL,
+    amount: "500.00",
+    status: TransactionStatus.PENDING,
+  },
+];

@@ -1,13 +1,25 @@
+import { useMatches } from "react-router";
+
 import { assets } from "../utils/data";
 import BellOutlineIcon from "../icons/BellOutlineIcon";
 import ChevronDownIcon from "../icons/ChevronDownIcon";
 import SearchIcon from "../icons/SearchIcon";
 import type { SearchQueryState } from "./types";
 
+interface RouteHeader {
+  title: string;
+  description: string;
+  searchPlaceholder?: string;
+}
+
 function Topbar({
   query,
   updateQuery,
 }: Pick<SearchQueryState, "query" | "updateQuery">) {
+  const matches = useMatches();
+  const routeHeader = [...matches].reverse().find((match) => match.handle)
+    ?.handle as RouteHeader;
+
   return (
     <header className="flex min-h-20 shrink-0 items-center justify-between gap-6 border-b border-[var(--border)] bg-[var(--surface)] px-8 py-4 max-[900px]:px-5 max-[680px]:items-start max-[680px]:flex-col">
       <div className="flex items-center gap-4">
@@ -19,10 +31,11 @@ function Topbar({
         </button>
         <div>
           <h1 className="text-lg font-bold leading-7 text-[var(--text)]">
-            Customer Directory
+            {routeHeader.title || "Dashboard"}
           </h1>
           <p className="text-xs text-[var(--muted)]">
-            Search and manage customers.
+            {routeHeader.description ||
+              "View an overview of your banking operations."}
           </p>
         </div>
       </div>
@@ -35,7 +48,7 @@ function Topbar({
             name="topbar-search"
             value={query}
             onChange={(event) => updateQuery?.(event.target.value)}
-            placeholder="Search by name, phone, email or customer ID..."
+            placeholder={routeHeader.searchPlaceholder || "Search..."}
           />
           <SearchIcon className="text-[#94A3B8] text-[18px] absolute right-3.5 top-2.5" />
         </label>

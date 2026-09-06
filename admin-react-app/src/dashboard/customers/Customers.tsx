@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 
 import { assets, KycStatus } from "../../utils/data";
 import ChevronDownIcon from "../../icons/ChevronDownIcon";
@@ -79,8 +79,21 @@ function SearchAndFilterCustomers({
 }
 
 function CustomerRow({ customer }: { customer: Customer }) {
+  const navigate = useNavigate();
+  const customerPath = `/dashboard/customers/${encodeURIComponent(customer.id)}`;
+
   return (
-    <tr className="border-b border-[#f1f5f9]">
+    <tr
+      className="cursor-pointer border-b border-[#f1f5f9] hover:bg-[var(--bg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--button)]"
+      onClick={() => navigate(customerPath)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          navigate(customerPath);
+        }
+      }}
+      tabIndex={0}
+    >
       <td className="h-[72px] whitespace-nowrap px-4 pl-6 text-[var(--text)]">
         <div className="flex items-center gap-3">
           <img
@@ -88,12 +101,7 @@ function CustomerRow({ customer }: { customer: Customer }) {
             src={assets.avatars[customers.indexOf(customer)]}
             alt=""
           />
-          <a
-            className="font-bold text-[#2563eb] no-underline"
-            href={`#${customer.id}`}
-          >
-            {customer.id}
-          </a>
+          <span className="font-bold text-[#2563eb]">{customer.id}</span>
         </div>
       </td>
       <td className="h-[72px] whitespace-nowrap px-4 text-[var(--text)]">
@@ -121,6 +129,7 @@ function CustomerRow({ customer }: { customer: Customer }) {
         <button
           className="cursor-pointer border-0 bg-transparent text-sm tracking-[2px] text-[var(--muted)]"
           aria-label={`Actions for ${customer.name}`}
+          onClick={(event) => event.stopPropagation()}
         >
           •••
         </button>
