@@ -80,7 +80,7 @@ function SearchAndFilterCustomers({
 
 function CustomerRow({ customer }: { customer: Customer }) {
   return (
-    <tr className="border-b border-[#f1f5f9]" key={customer.id}>
+    <tr className="border-b border-[#f1f5f9]">
       <td className="h-[72px] whitespace-nowrap px-4 pl-6 text-[var(--text)]">
         <div className="flex items-center gap-3">
           <img
@@ -212,7 +212,7 @@ function Customers() {
             </thead>
             <tbody>
               {filteredCustomers.map((customer) => (
-                <CustomerRow customer={customer} />
+                <CustomerRow key={customer.id} customer={customer} />
               ))}
             </tbody>
           </table>
