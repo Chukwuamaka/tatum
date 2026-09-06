@@ -5,6 +5,8 @@ import Customers from "./dashboard/customers/Customers";
 import Customer from "./dashboard/customers/Customer";
 import Transactions from "./dashboard/transactions/AirtimeTransactions";
 import TransactionDetails from "./dashboard/transactions/TransactionDetails";
+import Profile from "./dashboard/profile/Profile";
+import EditProfile from "./dashboard/profile/EditProfile";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +51,20 @@ const router = createBrowserRouter([
           title: "Transaction Receipt",
           description: "View and manage transaction details.",
           searchPlaceholder: "Search by Transaction ID...",
+        },
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+        handle: {
+          title: "My Profile",
+        },
+      },
+      {
+        path: "profile/edit",
+        element: <EditProfile />,
+        handle: {
+          title: "Edit Profile",
         },
       },
     ],

@@ -34,8 +34,7 @@ function Topbar({
             {routeHeader.title || "Dashboard"}
           </h1>
           <p className="text-xs text-[var(--muted)]">
-            {routeHeader.description ||
-              "View an overview of your banking operations."}
+            {routeHeader.description || ""}
           </p>
         </div>
       </div>
@@ -48,7 +47,7 @@ function Topbar({
             name="topbar-search"
             value={query}
             onChange={(event) => updateQuery?.(event.target.value)}
-            placeholder={routeHeader.searchPlaceholder || "Search..."}
+            placeholder={routeHeader.searchPlaceholder || "Search anything..."}
           />
           <SearchIcon className="text-[#94A3B8] text-[18px] absolute right-3.5 top-2.5" />
         </label>

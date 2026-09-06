@@ -10,7 +10,7 @@ export default function SphereIcon(props: ComponentProps<"svg">) {
       fill="none"
       {...props}
     >
-      <g clip-path="url(#clip0_1426_10657)">
+      <g clipPath="url(#clip0_1426_10657)">
         <rect width="18" height="16" rx="8" fill="white" />
         <path
           d="M23.2775 17.2632H-2.38354C-2.6366 17.2632 -2.8418 17.0597 -2.8418 16.8088V0.454314C-2.8418 0.203433 -2.6366 0 -2.38354 0H23.2776C23.5306 0 23.7358 0.203433 23.7358 0.454314V16.8088C23.7358 17.0598 23.5306 17.2632 23.2775 17.2632Z"
