@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Outlet } from "react-router";
 
-import Sidebar from "./sidebar/Sidebar";
-import Topbar from "./topbar/Topbar";
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
 
 export default function DashboardLayout() {
   const [page, setPage] = useState(1);
