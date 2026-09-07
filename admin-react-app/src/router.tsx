@@ -14,6 +14,8 @@ import Profile from "./pages/dashboard/profile/Profile";
 import EditProfile from "./pages/dashboard/profile/EditProfile";
 import Users from "./pages/dashboard/users/Users";
 import InviteUser from "./pages/dashboard/users/InviteUser";
+import SuperAdminRoute from "./pages/dashboard/SuperAdminRoute";
+import ProtectedRoute from "./pages/dashboard/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -38,79 +40,91 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: <ProtectedRoute />,
     handle: {
       title: "Dashboard",
       description: "View an overview of your banking operations.",
     },
     children: [
       {
-        path: "customers",
-        element: <Customers />,
-        handle: {
-          title: "Customer Directory",
-          description: "Search and manage customers.",
-          searchPlaceholder: "Search by name, phone, email or customer ID...",
-        },
-      },
-      {
-        path: "customers/:customerId",
-        element: <Customer />,
-        handle: {
-          title: "Customer Profile",
-          description: "View and manage customer details.",
-          searchPlaceholder: "Search by name, phone, email or customer ID...",
-        },
-      },
-      {
-        path: "transactions",
-        element: <Transactions />,
-        handle: {
-          title: "Transaction Monitor",
-          description: "Search, filter and identify airtime transactions.",
-          searchPlaceholder: "Search by Transaction ID, Customer ID...",
-        },
-      },
-      {
-        path: "transactions/:transactionId",
-        element: <TransactionDetails />,
-        handle: {
-          title: "Transaction Receipt",
-          description: "View and manage transaction details.",
-          searchPlaceholder: "Search by Transaction ID...",
-        },
-      },
-      {
-        path: "profile",
-        element: <Profile />,
-        handle: {
-          title: "My Profile",
-        },
-      },
-      {
-        path: "profile/edit",
-        element: <EditProfile />,
-        handle: {
-          title: "Edit Profile",
-        },
-      },
-      {
-        path: "users",
-        element: <Users />,
-        handle: {
-          title: "User Management",
-          description: "Manage system users, roles, and permissions.",
-          searchPlaceholder: "Search by name, email or user ID...",
-        },
-      },
-      {
-        path: "users/invite",
-        element: <InviteUser />,
-        handle: {
-          title: "User Management",
-          description: "Manage system users, roles, and permissions.",
-          searchPlaceholder: "Search by name, email or user ID...",
-        },
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: "customers",
+            element: <Customers />,
+            handle: {
+              title: "Customer Directory",
+              description: "Search and manage customers.",
+              searchPlaceholder:
+                "Search by name, phone, email or customer ID...",
+            },
+          },
+          {
+            path: "customers/:customerId",
+            element: <Customer />,
+            handle: {
+              title: "Customer Profile",
+              description: "View and manage customer details.",
+              searchPlaceholder:
+                "Search by name, phone, email or customer ID...",
+            },
+          },
+          {
+            path: "transactions",
+            element: <Transactions />,
+            handle: {
+              title: "Transaction Monitor",
+              description: "Search, filter and identify airtime transactions.",
+              searchPlaceholder: "Search by Transaction ID, Customer ID...",
+            },
+          },
+          {
+            path: "transactions/:transactionId",
+            element: <TransactionDetails />,
+            handle: {
+              title: "Transaction Receipt",
+              description: "View and manage transaction details.",
+              searchPlaceholder: "Search by Transaction ID...",
+            },
+          },
+          {
+            path: "profile",
+            element: <Profile />,
+            handle: {
+              title: "My Profile",
+            },
+          },
+          {
+            path: "profile/edit",
+            element: <EditProfile />,
+            handle: {
+              title: "Edit Profile",
+            },
+          },
+          {
+            element: <SuperAdminRoute />,
+            children: [
+              {
+                path: "users",
+                element: <Users />,
+                handle: {
+                  title: "User Management",
+                  description: "Manage system users, roles, and permissions.",
+                  searchPlaceholder: "Search by name, email or user ID...",
+                },
+              },
+              {
+                path: "users/invite",
+                element: <InviteUser />,
+                handle: {
+                  title: "User Management",
+                  description: "Manage system users, roles, and permissions.",
+                  searchPlaceholder: "Search by name, email or user ID...",
+                },
+              },
+            ],
+          },
+        ],
       },
     ],
   },
