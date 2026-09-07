@@ -1,5 +1,10 @@
 import { createBrowserRouter } from "react-router";
 
+import Login from "./pages/login/Login";
+import ChangePassword from "./pages/change-password/ChangePassword";
+import PasswordChanged from "./pages/password-changed/PasswordChanged";
+import ResetPassword from "./pages/reset-password/ResetPassword";
+import CheckYourEmail from "./pages/check-your-email/CheckYourEmail";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import Customers from "./pages/dashboard/customers/Customers";
 import Customer from "./pages/dashboard/customers/Customer";
@@ -11,6 +16,26 @@ import Users from "./pages/dashboard/users/Users";
 import InviteUser from "./pages/dashboard/users/InviteUser";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/change-password",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/password-changed",
+    element: <PasswordChanged />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
+  },
+  {
+    path: "/check-your-email",
+    element: <CheckYourEmail />,
+  },
   {
     path: "/dashboard",
     element: <DashboardLayout />,
