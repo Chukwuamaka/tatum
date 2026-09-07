@@ -7,6 +7,8 @@ import Transactions from "./dashboard/transactions/AirtimeTransactions";
 import TransactionDetails from "./dashboard/transactions/TransactionDetails";
 import Profile from "./dashboard/profile/Profile";
 import EditProfile from "./dashboard/profile/EditProfile";
+import Users from "./dashboard/users/Users";
+import InviteUser from "./dashboard/users/InviteUser";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,24 @@ const router = createBrowserRouter([
         element: <EditProfile />,
         handle: {
           title: "Edit Profile",
+        },
+      },
+      {
+        path: "users",
+        element: <Users />,
+        handle: {
+          title: "User Management",
+          description: "Manage system users, roles, and permissions.",
+          searchPlaceholder: "Search by name, email or user ID...",
+        },
+      },
+      {
+        path: "users/invite",
+        element: <InviteUser />,
+        handle: {
+          title: "User Management",
+          description: "Manage system users, roles, and permissions.",
+          searchPlaceholder: "Search by name, email or user ID...",
         },
       },
     ],

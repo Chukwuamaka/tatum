@@ -8,8 +8,9 @@ import UsersIcon from "../icons/UsersIcon";
 import SupportIcon from "../icons/SupportIcon";
 import SettingsIcon from "../icons/SettingsIcon";
 import BellIcon from "../icons/BellSolidIcon";
-import UserIcon from "../icons/UserIcon";
+import UserSolidIcon from "../icons/UserSolidIcon";
 import LogoutIcon from "../icons/LogoutIcon";
+import UserSettingsIcon from "../icons/UserSettingsIcon";
 
 interface Route {
   name: string;
@@ -59,20 +60,29 @@ const navigationGroups: NavigationGroup[] = [
     ],
   },
   {
+    category: "Super Admin",
+    routes: [
+      {
+        name: "User Management",
+        to: "/dashboard/users",
+        end: false,
+        icon: <UserSettingsIcon />,
+      },
+    ],
+  },
+  {
     category: "Support",
     routes: [
       {
         name: "Support Tickets",
         to: "/dashboard/tickets",
         end: true,
-
         icon: <SupportIcon />,
       },
       {
         name: "System Settings",
         to: "/dashboard/settings",
         end: true,
-
         icon: <SettingsIcon />,
       },
     ],
@@ -84,22 +94,19 @@ const footerRoutes: Route[] = [
     name: "Notifications",
     to: "/dashboard/notifications",
     end: true,
-
     icon: <BellIcon />,
     badge: "12",
   },
   {
     name: "My Profile",
     to: "/dashboard/profile",
-    end: true,
-
-    icon: <UserIcon />,
+    end: false,
+    icon: <UserSolidIcon />,
   },
   {
     name: "Log Out",
     to: "/logout",
     end: true,
-
     icon: <LogoutIcon />,
   },
 ];

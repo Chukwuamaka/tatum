@@ -21,7 +21,7 @@ export enum KycStatus {
   VERIFIED = "verified",
 }
 
-export interface Customer {
+export interface CustomerRecord {
   id: string;
   name: string;
   phone: string;
@@ -30,7 +30,7 @@ export interface Customer {
   dateRegistered: string;
 }
 
-export const customers: Customer[] = [
+export const customers: CustomerRecord[] = [
   {
     id: "CUST - 0003142",
     name: "Chinelo Okoro",
@@ -93,7 +93,7 @@ export enum TransactionStatus {
   FAILED = "failed",
 }
 
-export interface Transaction {
+export interface TransactionRecord {
   id: string;
   phone: string;
   network: AirtimeNetworks;
@@ -102,7 +102,7 @@ export interface Transaction {
   customer: string;
 }
 
-export const transactions: Transaction[] = [
+export const transactions: TransactionRecord[] = [
   {
     id: "AT2405270012457",
     phone: "07088109974",
@@ -156,3 +156,54 @@ export const networkClassNames = {
   [AirtimeNetworks.GLO]: "border-[#bbf7d0] bg-[#f0fdf4] text-[#15803d]",
   [AirtimeNetworks.MTN]: "border-[#fde047] bg-[#fef9c3] text-black",
 };
+
+export type UserStatus = "active" | "inactive" | "suspended";
+
+export interface UserRecord {
+  name: string;
+  id: string;
+  email: string;
+  role: string;
+  status: UserStatus;
+  lastLogin: string;
+  avatar: string;
+}
+
+export const users: UserRecord[] = [
+  {
+    name: "Adebayo Oluwaseun",
+    id: "USER-0012",
+    email: "adebayo.o@tatumbank.com",
+    role: "Super Admin",
+    status: "active",
+    lastLogin: "24 May 2024, 09:15 AM",
+    avatar: assets.avatars[0],
+  },
+  {
+    name: "Chinelo Okoro",
+    id: "USER-0045",
+    email: "chinelo.o@tatumbank.com",
+    role: "Admin",
+    status: "inactive",
+    lastLogin: "22 May 2024, 11:30 AM",
+    avatar: assets.avatars[1],
+  },
+  {
+    name: "Babatunde Lawal",
+    id: "USER-0089",
+    email: "b.lawal@tatumbank.com",
+    role: "Support Staff",
+    status: "suspended",
+    lastLogin: "15 May 2024, 04:45 PM",
+    avatar: assets.avatars[2],
+  },
+  {
+    name: "Fatima Yusuf",
+    id: "USER-0102",
+    email: "fatima.y@tatumbank.com",
+    role: "Admin",
+    status: "active",
+    lastLogin: "10 May 2024, 10:20 AM",
+    avatar: assets.avatars[3],
+  },
+];
