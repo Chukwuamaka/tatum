@@ -1,17 +1,17 @@
 import { Link, useParams } from "react-router";
 
-import DownloadIcon from "../../icons/DownloadIcon";
-import RecycleIcon from "../../icons/RecycleIcon";
-import ShareIcon from "../../icons/ShareIcon";
-import TriangleWarningIcon from "../../icons/TriangleWarningIcon";
+import DownloadIcon from "../../../icons/DownloadIcon";
+import RecycleIcon from "../../../icons/RecycleIcon";
+import ShareIcon from "../../../icons/ShareIcon";
+import TriangleWarningIcon from "../../../icons/TriangleWarningIcon";
 import {
   networkClassNames,
   transactions,
   TransactionStatus,
   type TransactionRecord,
-} from "../../utils/data";
-import SphereIcon from "../../icons/SphereIcon";
-import CheckmarkCircleIcon from "../../icons/CheckmarkCircleIcon";
+} from "../../../utils/data";
+import SphereIcon from "../../../icons/SphereIcon";
+import CheckmarkCircleIcon from "../../../icons/CheckmarkCircleIcon";
 
 const cardClass =
   "rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_1px_rgb(0_0_0_/_5%)]";

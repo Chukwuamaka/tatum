@@ -1,14 +1,14 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 
-import ChevronDownIcon from "../../icons/ChevronDownIcon";
-import DownloadIcon from "../../icons/DownloadIcon";
-import FilterIcon from "../../icons/FilterIcon";
-import SearchIcon from "../../icons/SearchIcon";
+import ChevronDownIcon from "../../../icons/ChevronDownIcon";
+import DownloadIcon from "../../../icons/DownloadIcon";
+import FilterIcon from "../../../icons/FilterIcon";
+import SearchIcon from "../../../icons/SearchIcon";
 import type { SearchQueryState } from "../types";
-import VerticalArrowsIcon from "../../icons/VerticalArrowsIcon";
-import { users, type UserRecord, type UserStatus } from "../../utils/data";
-import PlusIcon from "../../icons/PlusIcon";
+import VerticalArrowsIcon from "../../../icons/VerticalArrowsIcon";
+import { users, type UserRecord, type UserStatus } from "../../../utils/data";
+import PlusIcon from "../../../icons/PlusIcon";
 
 const userTableHeaders = [
   "User",

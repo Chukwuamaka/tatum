@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router";
 
-import DeleteIcon from "../../icons/DeleteIcon";
-import VerticalArrowsIcon from "../../icons/VerticalArrowsIcon";
+import DeleteIcon from "../../../icons/DeleteIcon";
+import VerticalArrowsIcon from "../../../icons/VerticalArrowsIcon";
 import {
   assets,
   customers,
@@ -10,8 +10,8 @@ import {
   transactionStatusClassNames,
   type CustomerRecord,
   type TransactionRecord,
-} from "../../utils/data";
-import ChevronDownIcon from "../../icons/ChevronDownIcon";
+} from "../../../utils/data";
+import ChevronDownIcon from "../../../icons/ChevronDownIcon";
 
 const cardClass =
   "rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_1px_rgb(0_0_0_/_5%)]";

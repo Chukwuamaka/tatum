@@ -1,9 +1,9 @@
 import { useMatches } from "react-router";
 
-import { assets } from "../utils/data";
-import BellOutlineIcon from "../icons/BellOutlineIcon";
-import ChevronDownIcon from "../icons/ChevronDownIcon";
-import SearchIcon from "../icons/SearchIcon";
+import { assets } from "../../utils/data";
+import BellOutlineIcon from "../../icons/BellOutlineIcon";
+import ChevronDownIcon from "../../icons/ChevronDownIcon";
+import SearchIcon from "../../icons/SearchIcon";
 import type { SearchQueryState } from "./types";
 
 interface RouteHeader {

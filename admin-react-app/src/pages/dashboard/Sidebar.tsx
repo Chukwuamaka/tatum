@@ -1,16 +1,16 @@
 import { NavLink } from "react-router";
 
-import ImageTatumLogo from "../assets/tatum-bank-logo.svg";
-import HomeIcon from "../icons/HomeIcon";
-import TransactionsIcon from "../icons/TransactionsIcon";
-import ChartIcon from "../icons/ChartIcon";
-import UsersIcon from "../icons/UsersIcon";
-import SupportIcon from "../icons/SupportIcon";
-import SettingsIcon from "../icons/SettingsIcon";
-import BellIcon from "../icons/BellSolidIcon";
-import UserSolidIcon from "../icons/UserSolidIcon";
-import LogoutIcon from "../icons/LogoutIcon";
-import UserSettingsIcon from "../icons/UserSettingsIcon";
+import ImageTatumLogo from "../../assets/tatum-bank-logo.svg";
+import HomeIcon from "../../icons/HomeIcon";
+import TransactionsIcon from "../../icons/TransactionsIcon";
+import ChartIcon from "../../icons/ChartIcon";
+import UsersIcon from "../../icons/UsersIcon";
+import SupportIcon from "../../icons/SupportIcon";
+import SettingsIcon from "../../icons/SettingsIcon";
+import BellIcon from "../../icons/BellSolidIcon";
+import UserSolidIcon from "../../icons/UserSolidIcon";
+import LogoutIcon from "../../icons/LogoutIcon";
+import UserSettingsIcon from "../../icons/UserSettingsIcon";
 
 interface Route {
   name: string;

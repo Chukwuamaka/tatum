@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 
-import { assets, KycStatus } from "../../utils/data";
-import ChevronDownIcon from "../../icons/ChevronDownIcon";
-import FilterIcon from "../../icons/FilterIcon";
-import SearchIcon from "../../icons/SearchIcon";
-import VerticalArrowsIcon from "../../icons/VerticalArrowsIcon";
-import { customers, type CustomerRecord } from "../../utils/data";
-import DownloadIcon from "../../icons/DownloadIcon";
+import { assets, KycStatus } from "../../../utils/data";
+import ChevronDownIcon from "../../../icons/ChevronDownIcon";
+import FilterIcon from "../../../icons/FilterIcon";
+import SearchIcon from "../../../icons/SearchIcon";
+import VerticalArrowsIcon from "../../../icons/VerticalArrowsIcon";
+import { customers, type CustomerRecord } from "../../../utils/data";
+import DownloadIcon from "../../../icons/DownloadIcon";
 import type { SearchQueryState } from "../types";
 
 const kycStatusClassNames = {

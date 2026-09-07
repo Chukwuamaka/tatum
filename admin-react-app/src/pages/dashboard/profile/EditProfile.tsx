@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
-import EditIcon from "../../icons/EditIcon";
-import UserOutlineIcon from "../../icons/UserOutlineIcon";
-import { assets } from "../../utils/data";
-import PhoneIcon from "../../icons/PhoneIcon";
-import MailOutlineIcon from "../../icons/MailOutlineIcon";
-import ShieldIcon from "../../icons/ShieldIcon";
-import TempleIcon from "../../icons/TempleIcon";
+import EditIcon from "../../../icons/EditIcon";
+import UserOutlineIcon from "../../../icons/UserOutlineIcon";
+import { assets } from "../../../utils/data";
+import PhoneIcon from "../../../icons/PhoneIcon";
+import MailOutlineIcon from "../../../icons/MailOutlineIcon";
+import ShieldIcon from "../../../icons/ShieldIcon";
+import TempleIcon from "../../../icons/TempleIcon";
 
 const fieldClass =
   "h-12 w-full rounded-lg border border-[#e2e8f0] bg-[var(--surface)] px-4 text-sm text-[#101828] outline-none focus:border-[#94a3b8] focus:ring-2 focus:ring-[#e0f2fe]";

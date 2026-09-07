@@ -1,12 +1,12 @@
 import { Link } from "react-router";
 
-import { assets } from "../../utils/data";
-import EditIcon from "../../icons/EditIcon";
-import UserOutlineIcon from "../../icons/UserOutlineIcon";
-import MailOutlineIcon from "../../icons/MailOutlineIcon";
-import PhoneIcon from "../../icons/PhoneIcon";
-import ShieldIcon from "../../icons/ShieldIcon";
-import TempleIcon from "../../icons/TempleIcon";
+import { assets } from "../../../utils/data";
+import EditIcon from "../../../icons/EditIcon";
+import UserOutlineIcon from "../../../icons/UserOutlineIcon";
+import MailOutlineIcon from "../../../icons/MailOutlineIcon";
+import PhoneIcon from "../../../icons/PhoneIcon";
+import ShieldIcon from "../../../icons/ShieldIcon";
+import TempleIcon from "../../../icons/TempleIcon";
 
 const profileDetails = [
   { label: "Full Name", value: "John Doe", icon: <UserOutlineIcon /> },
