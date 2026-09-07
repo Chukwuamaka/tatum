@@ -95,6 +95,7 @@ export enum TransactionStatus {
 
 export interface TransactionRecord {
   id: string;
+  date?: string;
   phone: string;
   network: AirtimeNetworks;
   amount: string;
@@ -162,6 +163,7 @@ export type UserStatus = "active" | "inactive" | "suspended";
 export interface UserRecord {
   name: string;
   id: string;
+  staffId: string;
   email: string;
   role: string;
   status: UserStatus;
