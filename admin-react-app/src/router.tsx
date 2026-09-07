@@ -1,14 +1,14 @@
 import { createBrowserRouter } from "react-router";
 
-import DashboardLayout from "./dashboard/DashboardLayout";
-import Customers from "./dashboard/customers/Customers";
-import Customer from "./dashboard/customers/Customer";
-import Transactions from "./dashboard/transactions/AirtimeTransactions";
-import TransactionDetails from "./dashboard/transactions/TransactionDetails";
-import Profile from "./dashboard/profile/Profile";
-import EditProfile from "./dashboard/profile/EditProfile";
-import Users from "./dashboard/users/Users";
-import InviteUser from "./dashboard/users/InviteUser";
+import DashboardLayout from "./pages/dashboard/DashboardLayout";
+import Customers from "./pages/dashboard/customers/Customers";
+import Customer from "./pages/dashboard/customers/Customer";
+import Transactions from "./pages/dashboard/transactions/Transactions";
+import TransactionDetails from "./pages/dashboard/transactions/TransactionDetails";
+import Profile from "./pages/dashboard/profile/Profile";
+import EditProfile from "./pages/dashboard/profile/EditProfile";
+import Users from "./pages/dashboard/users/Users";
+import InviteUser from "./pages/dashboard/users/InviteUser";
 
 const router = createBrowserRouter([
   {
