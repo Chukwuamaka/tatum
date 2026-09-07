@@ -6,7 +6,7 @@ import PasswordChanged from "./pages/password-changed/PasswordChanged";
 import ResetPassword from "./pages/reset-password/ResetPassword";
 import CheckYourEmail from "./pages/check-your-email/CheckYourEmail";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
-import Customers from "./pages/dashboard/customers/Customers";
+// import Customers from "./pages/dashboard/customers/Customers";
 import Customer from "./pages/dashboard/customers/Customer";
 import Transactions from "./pages/dashboard/transactions/Transactions";
 import TransactionDetails from "./pages/dashboard/transactions/TransactionDetails";
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "customers",
-            element: <Customers />,
+            element: <Users screen="customers" />,
             handle: {
               title: "Customer Directory",
               description: "Search and manage customers.",
