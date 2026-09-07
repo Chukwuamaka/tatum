@@ -119,7 +119,7 @@ interface TransactionsProps {
   onSelect: (id: string, checked: boolean) => void;
 }
 
-function Transactions({
+function TransactionsList({
   transactionsList,
   selectedIds,
   onSelect,
@@ -211,7 +211,7 @@ function Transactions({
   );
 }
 
-function AirtimeTransactions() {
+function Transactions() {
   const { query, updateQuery } = useOutletContext<SearchQueryState>();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const filteredTransactions = useMemo(
@@ -233,7 +233,7 @@ function AirtimeTransactions() {
   return (
     <main className="flex flex-col gap-6">
       <SearchAndFilterTransactions query={query} updateQuery={updateQuery} />
-      <Transactions
+      <TransactionsList
         transactionsList={filteredTransactions}
         selectedIds={selectedIds}
         onSelect={updateSelection}
@@ -242,4 +242,4 @@ function AirtimeTransactions() {
   );
 }
 
-export default AirtimeTransactions;
+export default Transactions;
