@@ -163,7 +163,7 @@ export type UserStatus = "active" | "inactive" | "suspended";
 export interface UserRecord {
   name: string;
   id: string;
-  staffId: string;
+  staffId?: string;
   email: string;
   role: string;
   status: UserStatus;

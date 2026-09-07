@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type SubmitEventHandler } from "react";
 import { useNavigate } from "react-router";
 
 import { inviteUser } from "../../../api/users";
@@ -122,7 +122,9 @@ function InviteUser() {
     setDepartment("");
   };
 
-  const submitInvitation: SubmitEventHandler = async (event) => {
+  const submitInvitation: SubmitEventHandler<HTMLFormElement> = async (
+    event,
+  ) => {
     event.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");

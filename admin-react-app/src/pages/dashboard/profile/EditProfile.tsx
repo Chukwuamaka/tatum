@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type SubmitEventHandler } from "react";
 import { useNavigate } from "react-router";
 
 import { getCurrentUser, type AuthUser } from "../../../api/auth";
@@ -158,7 +158,7 @@ function ProfileForm({ user }: { user: AuthUser }) {
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const saveProfile: SubmitEventHandler = async (event) => {
+  const saveProfile: SubmitEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
