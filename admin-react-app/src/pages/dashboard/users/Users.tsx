@@ -29,12 +29,16 @@ const statusClassNames: Record<UserStatus, string> = {
   suspended: "bg-[#fee4e2] text-[#d92d20]",
 };
 
+type Screen = "users" | "customers";
+
 function SearchAndFilterUsers({
   query,
   updateQuery,
   onAddUser,
+  screen,
 }: Pick<SearchQueryState, "query" | "updateQuery"> & {
   onAddUser: () => void;
+  screen: Screen;
 }) {
   const [filtersVisible, setFiltersVisible] = useState(true);
 
@@ -63,8 +67,10 @@ function SearchAndFilterUsers({
           <ChevronDownIcon className="ml-1 inline-block size-2.5 rotate-180" />
         </button>
       </div>
-      <div className="flex items-center gap-4 max-[680px]:flex-col">
-        <label className="relative flex-1 max-[680px]:w-full">
+      <div className="flex items-center justify-between gap-4 max-[680px]:flex-col">
+        <label
+          className={`relative max-[680px]:w-full ${screen === "users" ? "flex-1" : "min-w-[350px]"}`}
+        >
           <span className="sr-only">Search users</span>
           <SearchIcon className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-[#64748b]" />
           <input
@@ -84,13 +90,15 @@ function SearchAndFilterUsers({
           </span>
           <ChevronDownIcon className="size-2.5 text-[var(--placeholder)]" />
         </button>
-        <button
-          className="cursor-pointer flex h-[46px] items-center gap-2 rounded-lg bg-[#facc15] px-8 text-sm font-bold text-[#0f172a] max-[680px]:w-full max-[680px]:justify-center"
-          type="button"
-          onClick={onAddUser}
-        >
-          <PlusIcon /> Add New User
-        </button>
+        {screen === "users" && (
+          <button
+            className="cursor-pointer flex h-[46px] items-center gap-2 rounded-lg bg-[#facc15] px-8 text-sm font-bold text-[#0f172a] max-[680px]:w-full max-[680px]:justify-center"
+            type="button"
+            onClick={onAddUser}
+          >
+            <PlusIcon /> Add New User
+          </button>
+        )}
       </div>
     </section>
   );
@@ -240,7 +248,7 @@ function UserList({
   );
 }
 
-function Users() {
+function Users({ screen = "users" }: { screen?: "customers" | "users" }) {
   const navigate = useNavigate();
   const { query, updateQuery, page, setPage } =
     useOutletContext<SearchQueryState>();
@@ -333,6 +341,7 @@ function Users() {
         <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
       )}
       <SearchAndFilterUsers
+        screen={screen}
         query={query}
         updateQuery={updateQuery}
         onAddUser={() => navigate("/dashboard/users/invite")}
