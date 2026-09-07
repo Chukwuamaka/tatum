@@ -1,14 +1,83 @@
-import { Link } from "react-router";
+import { useState, type SubmitEventHandler } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router";
 
 import "./ChangePassword.css";
+import { setPassword } from "../../api/auth";
 import ImageTatumBankLogo from "../../assets/tatum-bank-logo.svg";
 import ImagePasswordInputIcon from "../../assets/password-input-icon.svg";
 import ImageNdicLogo from "../../assets/ndic-logo.png";
 import ImageCbnLogo from "../../assets/cbn-logo.png";
+import Toast from "../../reusables/Toast";
 
 function ChangePassword() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [password, setPasswordValue] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit: SubmitEventHandler = async (event) => {
+    event.preventDefault();
+    setErrorMessage("");
+
+    const token = searchParams.get("token");
+    if (!token) {
+      setErrorMessage("This password change link is missing its token.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setErrorMessage("Your password must be at least 8 characters.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Your passwords do not match.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const result = await setPassword({ token, password, confirmPassword });
+
+      if (!result.success) {
+        throw new Error(result.message || "Unable to change password.");
+      }
+
+      navigate("/password-changed");
+    } catch (error) {
+      const responseMessage =
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof error.response === "object" &&
+        error.response !== null &&
+        "data" in error.response &&
+        typeof error.response.data === "object" &&
+        error.response.data !== null &&
+        "message" in error.response.data &&
+        typeof error.response.data.message === "string"
+          ? error.response.data.message
+          : null;
+
+      setErrorMessage(
+        responseMessage ||
+          (error instanceof Error
+            ? error.message
+            : "Unable to change password."),
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="change-password page-shell">
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
       <section className="hero-panel">
         <div className="hero-overlay"></div>
         <div className="hero-content">
@@ -39,7 +108,7 @@ function ChangePassword() {
             <p className="subtitle">Please enter your new password below</p>
           </div>
 
-          <form className="form" action="#" method="post" noValidate>
+          <form className="form" onSubmit={handleSubmit} noValidate>
             <label className="sr-only" htmlFor="password">
               New Password
             </label>
@@ -50,6 +119,9 @@ function ChangePassword() {
                 type="password"
                 placeholder="New Password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(event) => setPasswordValue(event.target.value)}
+                required
               />
               <div className="input-icon">
                 <img src={ImagePasswordInputIcon} alt="Show password icon" />
@@ -66,6 +138,9 @@ function ChangePassword() {
                 type="password"
                 placeholder="Confirm New Password"
                 autoComplete="current-password"
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+                required
               />
               <div className="input-icon">
                 <img src={ImagePasswordInputIcon} alt="Show password icon" />
@@ -78,8 +153,12 @@ function ChangePassword() {
               </Link>
             </div>
 
-            <button type="submit" className="primary-btn">
-              Log In
+            <button
+              type="submit"
+              className="primary-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Updating..." : "Set Password"}
             </button>
           </form>
 

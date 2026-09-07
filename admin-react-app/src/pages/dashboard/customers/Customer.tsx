@@ -103,7 +103,7 @@ function PersonalInformation({ customer }: { customer: CustomerRecord }) {
         <InformationItem label="Full Name" value={customer.name} />
         <InformationItem label="Email Address" value={customer.email} />
         <InformationItem label="Phone Number" value={customer.phone} />
-        <InformationItem label="Date of Birth" value="14 July 1994" />
+        <InformationItem label="Date of Birth" value="14 Jul 1994" />
         <InformationItem label="Gender" value="Female" />
         <InformationItem
           label="Residential Address"

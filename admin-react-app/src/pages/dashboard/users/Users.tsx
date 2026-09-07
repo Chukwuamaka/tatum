@@ -1,14 +1,18 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 
+import { getUsers } from "../../../api/users";
 import ChevronDownIcon from "../../../icons/ChevronDownIcon";
 import DownloadIcon from "../../../icons/DownloadIcon";
 import FilterIcon from "../../../icons/FilterIcon";
 import SearchIcon from "../../../icons/SearchIcon";
 import type { SearchQueryState } from "../types";
 import VerticalArrowsIcon from "../../../icons/VerticalArrowsIcon";
-import { users, type UserRecord, type UserStatus } from "../../../utils/data";
+import { type UserRecord, type UserStatus } from "../../../utils/data";
 import PlusIcon from "../../../icons/PlusIcon";
+import Skeleton from "../../../reusables/Skeleton";
+import Toast from "../../../reusables/Toast";
+import { formatDate } from "../../../utils/formatDate";
 
 const userTableHeaders = [
   "User",
@@ -109,7 +113,9 @@ function UserRow({ user }: { user: UserRecord }) {
             >
               {user.name}
             </strong>
-            <span className="block text-xs text-[var(--muted)]">{user.id}</span>
+            <span className="block text-xs text-[var(--muted)]">
+              {user.staffId}
+            </span>
           </div>
         </div>
       </td>
@@ -129,7 +135,7 @@ function UserRow({ user }: { user: UserRecord }) {
         </span>
       </td>
       <td className="whitespace-nowrap px-4 py-4 text-sm text-[var(--muted)]">
-        {user.lastLogin}
+        {formatDate(user.lastLogin, true)}
       </td>
       <td className="px-4 py-4 text-right">
         <button
@@ -147,14 +153,23 @@ function UserRow({ user }: { user: UserRecord }) {
 interface UserListProps extends Pick<SearchQueryState, "page" | "setPage"> {
   userList: UserRecord[];
   onExport: () => void;
+  isLoading: boolean;
+  total: number;
 }
 
-function UserList({ userList, onExport, page, setPage }: UserListProps) {
+function UserList({
+  userList,
+  onExport,
+  page,
+  setPage,
+  isLoading,
+  total,
+}: UserListProps) {
   return (
     <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_2px_rgb(0_0_0_/_5%)]">
       <div className="flex items-center justify-between border-b border-[var(--border)] p-6">
         <h2 className="text-base font-medium text-[#0f172a]">
-          User List ({userList.length === users.length ? 48 : userList.length})
+          User List ({total.toLocaleString()})
         </h2>
         <button
           className="flex items-center gap-2 rounded-lg border border-[var(--border)] px-4 py-2 text-sm font-semibold text-[#0f172a]"
@@ -180,14 +195,32 @@ function UserList({ userList, onExport, page, setPage }: UserListProps) {
             </tr>
           </thead>
           <tbody>
-            {userList.map((user) => (
-              <UserRow key={user.id} user={user} />
-            ))}
+            {isLoading
+              ? Array.from({ length: 5 }, (_, index) => (
+                  <tr key={index}>
+                    <td colSpan={6} className="px-6 py-5">
+                      <Skeleton className="h-7 w-full" />
+                    </td>
+                  </tr>
+                ))
+              : userList.map((user) => <UserRow key={user.id} user={user} />)}
+            {!isLoading && userList.length === 0 && (
+              <tr>
+                <td
+                  colSpan={6}
+                  className="px-6 py-12 text-center text-sm text-[var(--muted)]"
+                >
+                  No users found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
       <div className="flex items-center justify-between border-t border-[var(--border)] px-6 py-5 text-xs text-[var(--muted)] max-[680px]:flex-col max-[680px]:items-start max-[680px]:gap-4">
-        <span>Showing 1 to {userList.length} of 48 users</span>
+        <span>
+          Showing 1 to {userList.length} of {total.toLocaleString()} users
+        </span>
         <div className="flex items-center gap-2">
           <span className="mr-2 rounded-lg bg-[#f1f5f9] px-4 py-2 text-[#374151]">
             10 per page
@@ -211,15 +244,66 @@ function Users() {
   const navigate = useNavigate();
   const { query, updateQuery, page, setPage } =
     useOutletContext<SearchQueryState>();
+  const [userList, setUserList] = useState<UserRecord[]>([]);
+  const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadUsers = async () => {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      try {
+        const result = await getUsers(page, 10);
+        if (isMounted) {
+          setUserList(
+            result.items.map((user, index) => ({
+              name: user.name,
+              id: user.id,
+              staffId: user.staffId,
+              email: user.email,
+              role: user.role,
+              status: normalizeUserStatus(user.status),
+              lastLogin: user.lastLogin,
+              avatar: `https://www.figma.com/api/mcp/asset/${
+                [
+                  "9671dbb1-afb5-42e1-9591-e1f064f2551e",
+                  "4fb1c07c-779e-4c5b-897d-f9902fc8935b",
+                  "b36bb87b-dddc-424b-98ec-5e512f27d6e8",
+                ][index % 3]
+              }.png`,
+            })),
+          );
+          setTotal(result.total);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setErrorMessage(
+            error instanceof Error ? error.message : "Unable to load users.",
+          );
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
+
+    void loadUsers();
+    return () => {
+      isMounted = false;
+    };
+  }, [page]);
 
   const filteredUsers = useMemo(
     () =>
-      users.filter((user) =>
-        `${user.name} ${user.email} ${user.id}`
+      userList.filter((user) =>
+        `${user.name} ${user.email} ${user.staffId}`
           .toLowerCase()
           .includes(query.toLowerCase().trim()),
       ),
-    [query],
+    [query, userList],
   );
 
   const exportUsers = () => {
@@ -228,7 +312,7 @@ function Users() {
       ...filteredUsers.map((user) =>
         [
           user.name,
-          user.id,
+          user.staffId,
           user.email,
           user.role,
           user.status,
@@ -245,6 +329,9 @@ function Users() {
 
   return (
     <main className="flex flex-col gap-6">
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
       <SearchAndFilterUsers
         query={query}
         updateQuery={updateQuery}
@@ -255,9 +342,20 @@ function Users() {
         onExport={exportUsers}
         page={page}
         setPage={setPage}
+        isLoading={isLoading}
+        total={total}
       />
     </main>
   );
+}
+
+function normalizeUserStatus(status: string): UserStatus {
+  const normalized = status.toLowerCase();
+  if (normalized.includes("suspend")) return "suspended";
+  if (normalized.includes("inactive") || normalized === "false") {
+    return "inactive";
+  }
+  return "active";
 }
 
 export default Users;

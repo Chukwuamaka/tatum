@@ -1,14 +1,17 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 
-import { assets, KycStatus } from "../../../utils/data";
+import { getAccounts, type AccountRecord } from "../../../api/accounts";
+import { assets, KycStatus, type CustomerRecord } from "../../../utils/data";
 import ChevronDownIcon from "../../../icons/ChevronDownIcon";
 import FilterIcon from "../../../icons/FilterIcon";
 import SearchIcon from "../../../icons/SearchIcon";
 import VerticalArrowsIcon from "../../../icons/VerticalArrowsIcon";
-import { customers, type CustomerRecord } from "../../../utils/data";
 import DownloadIcon from "../../../icons/DownloadIcon";
 import type { SearchQueryState } from "../types";
+import Skeleton from "../../../reusables/Skeleton";
+import Toast from "../../../reusables/Toast";
+import { formatDate } from "../../../utils/formatDate";
 
 const kycStatusClassNames = {
   [KycStatus.UNVERIFIED]: "bg-[#fee4e2] text-[#d92d20]",
@@ -87,7 +90,13 @@ function SearchAndFilterCustomers({
   );
 }
 
-function CustomerRow({ customer }: { customer: CustomerRecord }) {
+function CustomerRow({
+  customer,
+  avatarIndex,
+}: {
+  customer: CustomerRecord;
+  avatarIndex: number;
+}) {
   const navigate = useNavigate();
   const customerPath = `/dashboard/customers/${encodeURIComponent(customer.id)}`;
 
@@ -107,7 +116,7 @@ function CustomerRow({ customer }: { customer: CustomerRecord }) {
         <div className="flex items-center gap-3">
           <img
             className="size-8 rounded-full object-cover"
-            src={assets.avatars[customers.indexOf(customer)]}
+            src={assets.avatars[avatarIndex % assets.avatars.length]}
             alt=""
           />
           <span className="font-bold text-[#2563eb]">{customer.id}</span>
@@ -132,7 +141,7 @@ function CustomerRow({ customer }: { customer: CustomerRecord }) {
         </span>
       </td>
       <td className="h-[72px] whitespace-nowrap px-4 text-[var(--muted)]">
-        {customer.dateRegistered}
+        {formatDate(customer.dateRegistered)}
       </td>
       <td className="h-[72px] whitespace-nowrap px-4 text-[var(--text)]">
         <button
@@ -150,6 +159,61 @@ function CustomerRow({ customer }: { customer: CustomerRecord }) {
 function Customers() {
   const { query, updateQuery, page, setPage } =
     useOutletContext<SearchQueryState>();
+  const [accounts, setAccounts] = useState<AccountRecord[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadAccounts = async () => {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      try {
+        const result = await getAccounts(page, 10);
+        if (isMounted) {
+          setAccounts(result);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setErrorMessage(
+            error instanceof Error
+              ? error.message
+              : "Unable to load customers.",
+          );
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    void loadAccounts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [page]);
+
+  const customers = useMemo<CustomerRecord[]>(
+    () =>
+      accounts.map((account) => ({
+        id: account.id,
+        name: account.customerName,
+        phone: account.phone,
+        email: account.email,
+        kycStatus:
+          account.kycStatus.toLowerCase() === KycStatus.VERIFIED
+            ? KycStatus.VERIFIED
+            : account.kycStatus.toLowerCase() === KycStatus.PENDING
+              ? KycStatus.PENDING
+              : KycStatus.UNVERIFIED,
+        dateRegistered: account.createdAt,
+      })),
+    [accounts],
+  );
 
   const filteredCustomers = useMemo(
     () =>
@@ -178,6 +242,9 @@ function Customers() {
 
   return (
     <>
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
       <SearchAndFilterCustomers query={query} updateQuery={updateQuery} />
 
       <section className="min-h-max overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_1px_rgb(0_0_0_/_5%)]">
@@ -185,11 +252,7 @@ function Customers() {
           <strong>
             Customer List{" "}
             <span className="font-normal text-[var(--muted)]">
-              (
-              {filteredCustomers.length === customers.length
-                ? "2,458"
-                : filteredCustomers.length}
-              )
+              ({filteredCustomers.length})
             </span>
           </strong>
           <button
@@ -222,17 +285,37 @@ function Customers() {
               </tr>
             </thead>
             <tbody>
-              {filteredCustomers.map((customer) => (
-                <CustomerRow key={customer.id} customer={customer} />
-              ))}
+              {isLoading
+                ? Array.from({ length: 5 }, (_, index) => (
+                    <tr key={index} className="border-b border-[#f1f5f9]">
+                      <td colSpan={7} className="px-6 py-6">
+                        <Skeleton className="h-5 w-full" />
+                      </td>
+                    </tr>
+                  ))
+                : filteredCustomers.map((customer, index) => (
+                    <CustomerRow
+                      key={customer.id}
+                      customer={customer}
+                      avatarIndex={index}
+                    />
+                  ))}
+              {!isLoading && filteredCustomers.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={7}
+                    className="px-6 py-12 text-center text-sm text-[var(--muted)]"
+                  >
+                    No customers found.
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
 
         <div className="flex min-h-[58px] items-center justify-between px-4 text-[11px] text-[var(--muted)] max-[680px]:flex-col max-[680px]:items-start max-[680px]:gap-2.5 max-[680px]:py-3.5">
-          <span>
-            Showing 1 to {filteredCustomers.length} of 2,458 customers
-          </span>
+          <span>Showing 1 to {filteredCustomers.length} customers</span>
           <div className="flex items-center gap-1">
             <label className="flex h-7 w-[92px] items-center justify-around rounded-lg bg-[#f1f5f9] text-[11px]">
               10 per page

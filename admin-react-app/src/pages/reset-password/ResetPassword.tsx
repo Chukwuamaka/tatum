@@ -1,13 +1,64 @@
-import { Link } from "react-router";
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router";
 
 import "./ResetPassword.css";
+import { startPasswordReset } from "../../api/auth";
 import ImageTatumBankLogo from "../../assets/tatum-bank-logo.svg";
 import ImageNdicLogo from "../../assets/ndic-logo.png";
 import ImageCbnLogo from "../../assets/cbn-logo.png";
+import Toast from "../../reusables/Toast";
 
 function ResetPassword() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage("");
+    setIsSubmitting(true);
+
+    try {
+      const result = await startPasswordReset({ email });
+
+      if (!result.success) {
+        throw new Error(result.message || "Unable to send reset link.");
+      }
+
+      sessionStorage.setItem("tatum.resetEmail", email);
+      navigate("/check-your-email");
+    } catch (error) {
+      const responseMessage =
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof error.response === "object" &&
+        error.response !== null &&
+        "data" in error.response &&
+        typeof error.response.data === "object" &&
+        error.response.data !== null &&
+        "message" in error.response.data &&
+        typeof error.response.data.message === "string"
+          ? error.response.data.message
+          : null;
+
+      setErrorMessage(
+        responseMessage ||
+          (error instanceof Error
+            ? error.message
+            : "Unable to send reset link."),
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="reset-password page-shell">
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
       <section className="hero-panel">
         <div className="hero-overlay"></div>
         <div className="hero-content">
@@ -42,22 +93,29 @@ function ResetPassword() {
           </div>
 
           <div>
-            <form className="form" action="#" method="post" noValidate>
+            <form className="form" onSubmit={handleSubmit} noValidate>
               <div>
                 <label className="sr-only" htmlFor="email">
-                  Email Address or Phone no
+                  Email Address
                 </label>
                 <input
                   id="email"
                   name="email"
-                  type="text"
-                  placeholder="Email Address or Phone no"
+                  type="email"
+                  placeholder="Email Address"
                   autoComplete="username"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
                 />
               </div>
 
-              <button type="submit" className="primary-btn">
-                Send Reset Link
+              <button
+                type="submit"
+                className="primary-btn"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Send Reset Link"}
               </button>
             </form>
             <div className="links">

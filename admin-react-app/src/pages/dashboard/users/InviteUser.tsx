@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
+import { inviteUser } from "../../../api/users";
 import ChevronDownIcon from "../../../icons/ChevronDownIcon";
 import DoubleChevronLeftIcon from "../../../icons/DoubleChevronLeftIcon";
 import InfoCircleIcon from "../../../icons/InfoCircleIcon";
 import DownloadIcon from "../../../icons/DownloadIcon";
 import SearchIcon from "../../../icons/SearchIcon";
+import Toast from "../../../reusables/Toast";
 
 const inputClass =
   "h-[46px] w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 text-sm text-[var(--text)] outline-none placeholder:text-[var(--placeholder)] focus:border-[#94a3b8] focus:ring-2 focus:ring-[#dbeafe]";
@@ -109,15 +111,63 @@ function InviteUser() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
-  const [sent, setSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const submitInvitation = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const resetForm = () => {
+    setFullName("");
+    setPhone("");
+    setEmail("");
+    setDepartment("");
+  };
+
+  const submitInvitation: SubmitEventHandler = async (event) => {
     event.preventDefault();
-    setSent(true);
+    setErrorMessage("");
+    setSuccessMessage("");
+    setIsSubmitting(true);
+
+    const nameParts = fullName.trim().split(/\s+/);
+    const firstName = nameParts.shift() ?? "";
+    const lastName = nameParts.join(" ");
+
+    try {
+      const result = await inviteUser({
+        email,
+        firstName,
+        lastName,
+        phone,
+        role: "Admin",
+        department,
+      });
+
+      if (result.success === false) {
+        throw new Error(result.message || "Unable to send invitation.");
+      }
+      setSuccessMessage(`Invitation sent to ${email}.`);
+      resetForm();
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : "Unable to send invitation.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <main className="flex flex-col gap-8">
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
+      {successMessage && (
+        <Toast
+          message={successMessage}
+          variant="success"
+          onClose={() => setSuccessMessage("")}
+        />
+      )}
       <form
         className="w-full max-w-[800px] overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_2px_rgb(0_0_0_/_5%)]"
         onSubmit={submitInvitation}
@@ -173,18 +223,14 @@ function InviteUser() {
           <button
             className="cursor-pointer flex h-[46px] items-center justify-center gap-2 rounded-lg bg-[#facc15] px-8 text-sm font-bold text-[#0f172a] max-[680px]:w-full"
             type="submit"
+            disabled={isSubmitting}
           >
             <SearchIcon className="text-[#0f172a]" />
-            Send Invitation
+            {isSubmitting ? "Sending..." : "Send Invitation"}
           </button>
         </footer>
       </form>
       <ImportantNote />
-      {sent && (
-        <p className="text-sm font-semibold text-[#15803d]">
-          Invitation ready to send to {email}.
-        </p>
-      )}
     </main>
   );
 }

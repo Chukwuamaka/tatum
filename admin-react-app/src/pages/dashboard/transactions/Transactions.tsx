@@ -1,18 +1,23 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useOutletContext } from "react-router";
 
+import { getTransactions } from "../../../api/transactions";
 import ChevronDownIcon from "../../../icons/ChevronDownIcon";
 import DownloadIcon from "../../../icons/DownloadIcon";
 import FilterIcon from "../../../icons/FilterIcon";
 import SearchIcon from "../../../icons/SearchIcon";
 import VerticalArrowsIcon from "../../../icons/VerticalArrowsIcon";
 import {
+  AirtimeNetworks,
   networkClassNames,
-  transactions,
+  TransactionStatus,
   transactionStatusClassNames,
   type TransactionRecord,
 } from "../../../utils/data";
 import type { SearchQueryState } from "../types";
+import Skeleton from "../../../reusables/Skeleton";
+import Toast from "../../../reusables/Toast";
+import { formatDate } from "../../../utils/formatDate";
 
 const transactionsTableHeaders = [
   "Transaction ID",
@@ -83,7 +88,7 @@ function TransactionRow({
         </Link>
       </td>
       <td className="whitespace-nowrap px-4 py-4 text-xs text-[var(--muted)]">
-        27 May 2024, 10:28 AM
+        {transaction.date ? formatDate(transaction.date, true) : "-"}
       </td>
       <td className="px-4 py-4 text-xs text-[#4b5563]">{transaction.phone}</td>
       <td className="px-4 py-4 text-center">
@@ -117,12 +122,16 @@ interface TransactionsProps {
   transactionsList: TransactionRecord[];
   selectedIds: string[];
   onSelect: (id: string, checked: boolean) => void;
+  isLoading: boolean;
+  total: number;
 }
 
 function TransactionsList({
   transactionsList,
   selectedIds,
   onSelect,
+  isLoading,
+  total,
 }: TransactionsProps) {
   const allSelected =
     transactionsList.length > 0 &&
@@ -133,7 +142,9 @@ function TransactionsList({
       <div className="flex items-center justify-between border-b border-[#f3f4f6] p-6 max-[680px]:items-start max-[680px]:gap-4">
         <h2 className="text-base font-bold text-[#111827]">
           Transaction Results{" "}
-          <span className="font-normal text-[var(--placeholder)]">(3,456)</span>
+          <span className="font-normal text-[var(--placeholder)]">
+            ({total.toLocaleString()})
+          </span>
         </h2>
         <div className="flex items-center gap-3">
           <span className="flex items-center gap-2 rounded-full bg-[#f0fdf4] px-3 py-1.5 text-xs font-medium text-[#22c55e]">
@@ -176,21 +187,40 @@ function TransactionsList({
             </tr>
           </thead>
           <tbody>
-            {transactionsList.map((transaction) => (
-              <TransactionRow
-                key={transaction.id}
-                transaction={transaction}
-                selected={selectedIds.includes(transaction.id)}
-                onSelect={(checked) => onSelect(transaction.id, checked)}
-              />
-            ))}
+            {isLoading
+              ? Array.from({ length: 5 }, (_, index) => (
+                  <tr key={index}>
+                    <td colSpan={10} className="px-6 py-5">
+                      <Skeleton className="h-6 w-full" />
+                    </td>
+                  </tr>
+                ))
+              : transactionsList.map((transaction) => (
+                  <TransactionRow
+                    key={transaction.id}
+                    transaction={transaction}
+                    selected={selectedIds.includes(transaction.id)}
+                    onSelect={(checked) => onSelect(transaction.id, checked)}
+                  />
+                ))}
+            {!isLoading && transactionsList.length === 0 && (
+              <tr>
+                <td
+                  colSpan={10}
+                  className="px-6 py-12 text-center text-sm text-[var(--muted)]"
+                >
+                  No transactions found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
 
       <div className="flex items-center justify-between border-t border-[#f3f4f6] px-5 py-4 text-[11px] text-[var(--muted)] max-[680px]:flex-col max-[680px]:items-start max-[680px]:gap-3">
         <span>
-          Showing 1 to {transactionsList.length} of 3,456 transactions
+          Showing 1 to {transactionsList.length} of {total.toLocaleString()}{" "}
+          transactions
         </span>
         <div className="flex items-center gap-1">
           <span className="mr-2">Rows per page</span>
@@ -212,8 +242,58 @@ function TransactionsList({
 }
 
 function Transactions() {
-  const { query, updateQuery } = useOutletContext<SearchQueryState>();
+  const { query, updateQuery, page } = useOutletContext<SearchQueryState>();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [transactions, setTransactions] = useState<TransactionRecord[]>([]);
+  const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadTransactions = async () => {
+      setIsLoading(true);
+      setErrorMessage("");
+
+      try {
+        const result = await getTransactions(page, 10);
+        if (isMounted) {
+          setTransactions(
+            result.items.map((transaction) => ({
+              id: transaction.id,
+              phone: transaction.phone,
+              network: normalizeNetwork(transaction.network),
+              amount: transaction.amount,
+              status: normalizeStatus(transaction.status),
+              customer: transaction.customer,
+              date: transaction.date,
+            })),
+          );
+          setTotal(result.total);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setErrorMessage(
+            error instanceof Error
+              ? error.message
+              : "Unable to load transactions.",
+          );
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    void loadTransactions();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [page]);
+
   const filteredTransactions = useMemo(
     () =>
       transactions.filter((transaction) =>
@@ -232,14 +312,33 @@ function Transactions() {
 
   return (
     <main className="flex flex-col gap-6">
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
       <SearchAndFilterTransactions query={query} updateQuery={updateQuery} />
       <TransactionsList
         transactionsList={filteredTransactions}
         selectedIds={selectedIds}
         onSelect={updateSelection}
+        isLoading={isLoading}
+        total={total}
       />
     </main>
   );
+}
+
+function normalizeNetwork(network: string): AirtimeNetworks {
+  const normalized = network.toLowerCase();
+  if (normalized.includes("airtel")) return AirtimeNetworks.AIRTEL;
+  if (normalized.includes("glo")) return AirtimeNetworks.GLO;
+  return AirtimeNetworks.MTN;
+}
+
+function normalizeStatus(status: string): TransactionStatus {
+  const normalized = status.toLowerCase();
+  if (normalized.includes("pending")) return TransactionStatus.PENDING;
+  if (normalized.includes("fail")) return TransactionStatus.FAILED;
+  return TransactionStatus.SUCCESS;
 }
 
 export default Transactions;

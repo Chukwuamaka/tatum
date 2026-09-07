@@ -1,6 +1,8 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 
+import { getCurrentUser, type AuthUser } from "../../../api/auth";
+import { updateProfile } from "../../../api/users";
 import EditIcon from "../../../icons/EditIcon";
 import UserOutlineIcon from "../../../icons/UserOutlineIcon";
 import { assets } from "../../../utils/data";
@@ -8,6 +10,8 @@ import PhoneIcon from "../../../icons/PhoneIcon";
 import MailOutlineIcon from "../../../icons/MailOutlineIcon";
 import ShieldIcon from "../../../icons/ShieldIcon";
 import TempleIcon from "../../../icons/TempleIcon";
+import Skeleton from "../../../reusables/Skeleton";
+import Toast from "../../../reusables/Toast";
 
 const fieldClass =
   "h-12 w-full rounded-lg border border-[#e2e8f0] bg-[var(--surface)] px-4 text-sm text-[#101828] outline-none focus:border-[#94a3b8] focus:ring-2 focus:ring-[#e0f2fe]";
@@ -37,6 +41,7 @@ function EditProfileHeader() {
         <button
           className="rounded-lg bg-[var(--button)] px-6 py-2.5 text-sm font-bold text-[var(--button-text)]"
           type="submit"
+          form="profile-form"
         >
           Save Changes
         </button>
@@ -141,21 +146,48 @@ function ProfilePhoto({ preview, onUpload, onRemove }: ProfilePhotoProps) {
   );
 }
 
-function ProfileForm() {
-  const [fullName, setFullName] = useState("John Doe");
-  const [email, setEmail] = useState("john.doe@tatumbank.com");
-  const [phone, setPhone] = useState("+234 801 234 5678");
+function ProfileForm({ user }: { user: AuthUser }) {
+  const [fullName, setFullName] = useState(
+    `${user.firstName} ${user.lastName}`,
+  );
+  const [email] = useState(user.email);
+  const [phone, setPhone] = useState(user.phone);
+  const [department, setDepartment] = useState(user.department);
   const [preview, setPreview] = useState<string | null>(null);
-  const [saved, setSaved] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const saveProfile = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const saveProfile: SubmitEventHandler = async (event) => {
     event.preventDefault();
-    setSaved(true);
+    setErrorMessage("");
+    setSuccessMessage("");
+    const nameParts = fullName.trim().split(/\s+/);
+    const firstName = nameParts.shift() ?? "";
+    const lastName = nameParts.join(" ");
+    setIsSubmitting(true);
+
+    try {
+      await updateProfile({ firstName, lastName, phone, department });
+      const updatedUser = { ...user, firstName, lastName, phone, department };
+      sessionStorage.setItem("tatum.user", JSON.stringify(updatedUser));
+      setSuccessMessage("Profile changes saved.");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to update your profile.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <form
       className="flex flex-1 flex-col gap-8 rounded-xl border border-[#e2e8f0] bg-[var(--surface)] p-8 max-[680px]:p-6"
+      id="profile-form"
+      aria-busy={isSubmitting}
       onSubmit={saveProfile}
     >
       <ProfilePhoto
@@ -173,7 +205,6 @@ function ProfileForm() {
         <EditableField
           label="Email Address"
           value={email}
-          onChange={setEmail}
           icon={<MailOutlineIcon />}
           type="email"
         />
@@ -185,25 +216,74 @@ function ProfileForm() {
           type="tel"
         />
         <EditableField
+          label="Department"
+          value={department}
+          onChange={setDepartment}
+          icon={<ShieldIcon />}
+        />
+        <EditableField
           label="Role"
           value="Admin"
           icon={<ShieldIcon />}
           disabled
         />
       </div>
-      {saved && (
-        <p className="text-sm text-[#15803d]">Profile changes saved.</p>
+      {successMessage && (
+        <Toast
+          message={successMessage}
+          variant="success"
+          onClose={() => setSuccessMessage("")}
+        />
+      )}
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
       )}
     </form>
   );
 }
 
 function EditProfile() {
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+    void getCurrentUser()
+      .then((currentUser) => {
+        if (isMounted) {
+          setUser(currentUser);
+          sessionStorage.setItem("tatum.user", JSON.stringify(currentUser));
+        }
+      })
+      .catch((error: unknown) => {
+        if (isMounted) {
+          setErrorMessage(
+            error instanceof Error
+              ? error.message
+              : "Unable to load your profile.",
+          );
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <main className="flex min-h-[calc(100dvh_-_144px)] flex-col justify-between gap-8">
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
       <div className="flex flex-col gap-8">
         <EditProfileHeader />
-        <ProfileForm />
+        {user ? (
+          <ProfileForm user={user} />
+        ) : (
+          <section className="rounded-xl border border-[#e2e8f0] bg-[var(--surface)] p-8">
+            <Skeleton className="h-96 w-full" />
+          </section>
+        )}
       </div>
 
       <footer className="flex items-center justify-between border-t border-[#e2e8f0] py-6 text-[11px] text-[#94a3b8] opacity-60 max-[680px]:flex-col max-[680px]:items-start max-[680px]:gap-4">
