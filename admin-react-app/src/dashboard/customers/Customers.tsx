@@ -6,7 +6,7 @@ import ChevronDownIcon from "../../icons/ChevronDownIcon";
 import FilterIcon from "../../icons/FilterIcon";
 import SearchIcon from "../../icons/SearchIcon";
 import VerticalArrowsIcon from "../../icons/VerticalArrowsIcon";
-import { customers, type Customer } from "../../utils/data";
+import { customers, type CustomerRecord } from "../../utils/data";
 import DownloadIcon from "../../icons/DownloadIcon";
 import type { SearchQueryState } from "../types";
 
@@ -87,7 +87,7 @@ function SearchAndFilterCustomers({
   );
 }
 
-function CustomerRow({ customer }: { customer: Customer }) {
+function CustomerRow({ customer }: { customer: CustomerRecord }) {
   const navigate = useNavigate();
   const customerPath = `/dashboard/customers/${encodeURIComponent(customer.id)}`;
 

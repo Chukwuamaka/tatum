@@ -8,8 +8,8 @@ import {
   networkClassNames,
   transactions,
   transactionStatusClassNames,
-  type Customer as CustomerRecord,
-  type Transaction,
+  type CustomerRecord,
+  type TransactionRecord,
 } from "../../utils/data";
 import ChevronDownIcon from "../../icons/ChevronDownIcon";
 
@@ -142,7 +142,7 @@ function AccountInformation() {
   );
 }
 
-function TransactionRow({ transaction }: { transaction: Transaction }) {
+function TransactionRow({ transaction }: { transaction: TransactionRecord }) {
   return (
     <tr className="border-b border-[#f3f4f6] last:border-0">
       <td className="px-3 py-5 text-xs font-semibold text-[#0052cc]">

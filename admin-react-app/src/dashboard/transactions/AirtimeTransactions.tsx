@@ -10,7 +10,7 @@ import {
   networkClassNames,
   transactions,
   transactionStatusClassNames,
-  type Transaction,
+  type TransactionRecord,
 } from "../../utils/data";
 import type { SearchQueryState } from "../types";
 
@@ -53,7 +53,7 @@ function SearchAndFilterTransactions({
 }
 
 interface TransactionRowProps {
-  transaction: Transaction;
+  transaction: TransactionRecord;
   selected: boolean;
   onSelect: (checked: boolean) => void;
 }
@@ -114,7 +114,7 @@ function TransactionRow({
 }
 
 interface TransactionsProps {
-  transactionsList: Transaction[];
+  transactionsList: TransactionRecord[];
   selectedIds: string[];
   onSelect: (id: string, checked: boolean) => void;
 }

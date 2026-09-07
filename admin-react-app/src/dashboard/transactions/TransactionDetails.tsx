@@ -8,7 +8,7 @@ import {
   networkClassNames,
   transactions,
   TransactionStatus,
-  type Transaction as TransactionRecord,
+  type TransactionRecord,
 } from "../../utils/data";
 import SphereIcon from "../../icons/SphereIcon";
 import CheckmarkCircleIcon from "../../icons/CheckmarkCircleIcon";
