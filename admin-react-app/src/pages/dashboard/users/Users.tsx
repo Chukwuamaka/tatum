@@ -104,9 +104,22 @@ function SearchAndFilterUsers({
   );
 }
 
-function UserRow({ user }: { user: UserRecord }) {
+function UserRow({ user, screen }: { user: UserRecord; screen: Screen }) {
+  const navigate = useNavigate();
+  const customerPath = `/dashboard/${screen}/${encodeURIComponent(user.id)}`;
+
   return (
-    <tr className="border-b border-[#ebecf0] last:border-0 hover:bg-[var(--bg)]">
+    <tr
+      className="cursor-pointer border-b border-[#ebecf0] last:border-0 hover:bg-[var(--bg)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--button)]"
+      onClick={() => navigate(customerPath)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          navigate(customerPath);
+        }
+      }}
+      tabIndex={0}
+    >
       <td className="ps-6 pe-8 py-4">
         <div className="flex items-center gap-3">
           <img
@@ -150,6 +163,7 @@ function UserRow({ user }: { user: UserRecord }) {
           className="flex size-10 items-center justify-center rounded-full bg-[#f9fbfc] text-[#475569]"
           type="button"
           aria-label={`Open actions for ${user.name}`}
+          onClick={(event) => event.stopPropagation()}
         >
           <ChevronDownIcon className="size-3 rotate-90" />
         </button>
@@ -163,6 +177,7 @@ interface UserListProps extends Pick<SearchQueryState, "page" | "setPage"> {
   onExport: () => void;
   isLoading: boolean;
   total: number;
+  screen: Screen;
 }
 
 function UserList({
@@ -172,6 +187,7 @@ function UserList({
   setPage,
   isLoading,
   total,
+  screen,
 }: UserListProps) {
   return (
     <section className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_2px_rgb(0_0_0_/_5%)]">
@@ -211,7 +227,9 @@ function UserList({
                     </td>
                   </tr>
                 ))
-              : userList.map((user) => <UserRow key={user.id} user={user} />)}
+              : userList.map((user) => (
+                  <UserRow key={user.id} user={user} screen={screen} />
+                ))}
             {!isLoading && userList.length === 0 && (
               <tr>
                 <td
@@ -353,6 +371,7 @@ function Users({ screen = "users" }: { screen?: "customers" | "users" }) {
         setPage={setPage}
         isLoading={isLoading}
         total={total}
+        screen={screen}
       />
     </main>
   );

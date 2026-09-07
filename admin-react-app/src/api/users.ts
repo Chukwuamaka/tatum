@@ -4,10 +4,16 @@ export interface ApiUser {
   id: string;
   staffId: string;
   name: string;
+  firstName: string;
+  lastName: string;
   email: string;
+  phone: string;
+  department: string;
   role: string;
   status: string;
   lastLogin: string;
+  createdAt: string;
+  profileImageUrl: string;
 }
 
 interface UsersResponse {
@@ -74,10 +80,16 @@ function normalizeUser(value: unknown): ApiUser {
     id: getString(user, "id"),
     staffId: getString(user, "staffId"),
     name: fullName !== "-" ? fullName : composedName || "-",
+    firstName: getString(user, "firstName"),
+    lastName: getString(user, "lastName"),
     email: getString(user, "email"),
+    phone: getString(user, "phone", "phoneNumber"),
+    department: getString(user, "department"),
     role: getString(user, "role"),
     status: getString(user, "status", "isActive"),
     lastLogin: getString(user, "lastLoginAt", "lastLogin"),
+    createdAt: getString(user, "createdAt", "dateCreated"),
+    profileImageUrl: getString(user, "profileImageUrl"),
   };
 }
 
@@ -94,6 +106,30 @@ export async function getUsers(pageNumber: number, pageSize: number) {
     items: getItems(response.data.data).map(normalizeUser),
     total: getTotal(response.data.data),
   };
+}
+
+export async function getUserById(userId: string) {
+  const response = await apiClient.get<UsersResponse>("/api/v1/users", {
+    params: { UserId: userId },
+  });
+
+  if (response.data.success === false) {
+    throw new Error(response.data.message || "Unable to load user details.");
+  }
+
+  const responseData = (response.data.data as Record<string, unknown>)?.items;
+  const data = asRecord(responseData);
+  const user = asRecord(
+    Array.isArray(responseData)
+      ? responseData[0]
+      : (data.user ?? data.data ?? responseData),
+  );
+
+  if (Object.keys(user).length === 0) {
+    throw new Error("User details were not returned.");
+  }
+
+  return normalizeUser(user);
 }
 
 export async function inviteUser(credentials: InviteUserCredentials) {

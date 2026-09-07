@@ -93,3 +93,18 @@ export async function getTransactions(pageNumber: number, pageSize: number) {
     total: getTotal(response.data.data),
   };
 }
+
+export async function getTransactionsByUserId(userId: string) {
+  const response = await apiClient.get<TransactionsResponse>(
+    "/api/v1/transactions",
+    { params: { UserId: userId } },
+  );
+
+  if (response.data.success === false) {
+    throw new Error(
+      response.data.message || "Unable to load customer transactions.",
+    );
+  }
+
+  return getItems(response.data.data).map(normalizeTransaction);
+}

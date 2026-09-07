@@ -1,17 +1,22 @@
-import { Link, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useParams } from "react-router";
 
+import { getUserById, type ApiUser } from "../../../api/users";
+import { getTransactionsByUserId } from "../../../api/transactions";
 import DeleteIcon from "../../../icons/DeleteIcon";
 import VerticalArrowsIcon from "../../../icons/VerticalArrowsIcon";
 import {
   assets,
-  customers,
+  AirtimeNetworks,
   networkClassNames,
-  transactions,
+  TransactionStatus,
   transactionStatusClassNames,
-  type CustomerRecord,
   type TransactionRecord,
 } from "../../../utils/data";
 import ChevronDownIcon from "../../../icons/ChevronDownIcon";
+import Skeleton from "../../../reusables/Skeleton";
+import Toast from "../../../reusables/Toast";
+import { formatDate } from "../../../utils/formatDate";
 
 const cardClass =
   "rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_1px_rgb(0_0_0_/_5%)]";
@@ -19,7 +24,7 @@ const labelClass =
   "text-[10px] font-bold uppercase tracking-[0.05em] text-[var(--muted)]";
 
 interface ProfileSummaryProps {
-  customer: CustomerRecord;
+  customer: ApiUser;
   avatar: string;
 }
 
@@ -44,7 +49,7 @@ function ProfileSummary({ customer, avatar }: ProfileSummaryProps) {
             </span>
           </div>
           <span className="text-base font-semibold uppercase text-[#2563eb]">
-            {customer.id}
+            {customer.staffId}
           </span>
         </div>
       </div>
@@ -93,7 +98,7 @@ function InformationItem({
   );
 }
 
-function PersonalInformation({ customer }: { customer: CustomerRecord }) {
+function PersonalInformation({ customer }: { customer: ApiUser }) {
   return (
     <section className={`${cardClass} flex-1 p-6`}>
       <h3 className="mb-6 text-base font-bold text-[var(--text)]">
@@ -103,44 +108,44 @@ function PersonalInformation({ customer }: { customer: CustomerRecord }) {
         <InformationItem label="Full Name" value={customer.name} />
         <InformationItem label="Email Address" value={customer.email} />
         <InformationItem label="Phone Number" value={customer.phone} />
-        <InformationItem label="Date of Birth" value="14 Jul 1994" />
-        <InformationItem label="Gender" value="Female" />
+        <InformationItem label="Department" value={customer.department} />
+        <InformationItem label="Role" value={customer.role} />
         <InformationItem
-          label="Residential Address"
-          value="12 Victoria Island, Lagos, Nigeria"
+          label="Date Joined"
+          value={formatDate(customer.createdAt)}
         />
       </dl>
     </section>
   );
 }
 
-function AccountInformation() {
-  return (
-    <section className={`${cardClass} flex-1 p-6`}>
-      <h3 className="mb-6 text-base font-bold text-[var(--text)]">
-        Account Information
-      </h3>
-      <dl className="grid grid-cols-2 gap-x-8 gap-y-6">
-        <InformationItem label="Account Number" value="2034889210" />
-        <InformationItem label="Account Type" value="Savings" />
-        <InformationItem
-          label="Account Balance"
-          value="₦1,250,400.00"
-          emphasis
-        />
-        <div className="flex flex-col gap-1">
-          <dt className={labelClass}>Account Status</dt>
-          <dd>
-            <span className="rounded bg-[#e6f4ea] px-2 py-1 text-[10px] font-bold uppercase text-[#039855]">
-              Active
-            </span>
-          </dd>
-        </div>
-        <InformationItem label="Date Joined" value="12 Jan 2024" />
-      </dl>
-    </section>
-  );
-}
+// function AccountInformation() {
+//   return (
+//     <section className={`${cardClass} flex-1 p-6`}>
+//       <h3 className="mb-6 text-base font-bold text-[var(--text)]">
+//         Account Information
+//       </h3>
+//       <dl className="grid grid-cols-2 gap-x-8 gap-y-6">
+//         <InformationItem label="Account Number" value="2034889210" />
+//         <InformationItem label="Account Type" value="Savings" />
+//         <InformationItem
+//           label="Account Balance"
+//           value="₦1,250,400.00"
+//           emphasis
+//         />
+//         <div className="flex flex-col gap-1">
+//           <dt className={labelClass}>Account Status</dt>
+//           <dd>
+//             <span className="rounded bg-[#e6f4ea] px-2 py-1 text-[10px] font-bold uppercase text-[#039855]">
+//               Active
+//             </span>
+//           </dd>
+//         </div>
+//         <InformationItem label="Date Joined" value="12 Jan 2024" />
+//       </dl>
+//     </section>
+//   );
+// }
 
 function TransactionRow({ transaction }: { transaction: TransactionRecord }) {
   return (
@@ -149,7 +154,7 @@ function TransactionRow({ transaction }: { transaction: TransactionRecord }) {
         {transaction.id}
       </td>
       <td className="px-3 py-5 text-xs text-[var(--muted)]">
-        27 May 2024, 10:28 AM
+        {transaction.date ? formatDate(transaction.date, true) : "-"}
       </td>
       <td className="px-3 py-5 text-xs text-[#4b5563]">{transaction.phone}</td>
       <td className="px-3 py-5 text-center">
@@ -176,7 +181,11 @@ function TransactionRow({ transaction }: { transaction: TransactionRecord }) {
   );
 }
 
-function RecentTransactions() {
+function RecentTransactions({
+  transactions,
+}: {
+  transactions: TransactionRecord[];
+}) {
   return (
     <section className={`${cardClass} overflow-hidden`}>
       <div className="flex items-center justify-between border-b border-[var(--border)] p-6">
@@ -207,9 +216,23 @@ function RecentTransactions() {
             </tr>
           </thead>
           <tbody>
-            {transactions.map((transaction) => (
-              <TransactionRow key={transaction.id} transaction={transaction} />
-            ))}
+            {transactions.length > 0 ? (
+              transactions.map((transaction) => (
+                <TransactionRow
+                  key={transaction.id}
+                  transaction={transaction}
+                />
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={7}
+                  className="px-6 py-12 text-center text-sm text-[var(--muted)]"
+                >
+                  No recent transactions found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -218,30 +241,95 @@ function RecentTransactions() {
 }
 
 function Customer() {
-  const { customerId } = useParams();
-  const decodedCustomerId = customerId ? decodeURIComponent(customerId) : "";
-  const customer =
-    customers.find((item) => item.id === decodedCustomerId) ?? customers[0];
+  const { customerId, userId } = useParams();
+  const { pathname } = useLocation();
+  const [customer, setCustomer] = useState<ApiUser | null>(null);
+  const [recentTransactions, setRecentTransactions] = useState<
+    TransactionRecord[]
+  >([]);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (!customerId && !userId) return;
+
+    let isMounted = true;
+    const id = decodeURIComponent(customerId || userId || "");
+
+    Promise.all([getUserById(id), getTransactionsByUserId(id)])
+      .then(([user, transactions]) => {
+        if (isMounted) {
+          setCustomer(user);
+          setRecentTransactions(
+            transactions.map((transaction) => ({
+              ...transaction,
+              network: normalizeNetwork(transaction.network),
+              status: normalizeStatus(transaction.status),
+            })),
+          );
+        }
+      })
+      .catch((error: unknown) => {
+        if (isMounted) {
+          setErrorMessage(
+            error instanceof Error
+              ? error.message
+              : "Unable to load customer details.",
+          );
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [customerId, userId]);
+
   const avatar =
-    assets.avatars[customers.indexOf(customer)] ?? assets.avatars[0];
+    customer?.profileImageUrl !== "-"
+      ? customer?.profileImageUrl || assets.avatars[0]
+      : assets.avatars[0];
 
   return (
     <main className="flex flex-col gap-6">
+      {errorMessage && (
+        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+      )}
       <Link
-        to="/dashboard/customers"
+        to={pathname.split("/").slice(0, -1).join("/")}
         className="flex items-center gap-2 text-sm font-semibold text-[var(--muted)]"
       >
         <ChevronDownIcon className="rotate-90" />
         <span>Back to Directory</span>
       </Link>
-      <ProfileSummary customer={customer} avatar={avatar} />
-      <div className="flex flex-col gap-6 lg:flex-row">
-        <PersonalInformation customer={customer} />
-        <AccountInformation />
-      </div>
-      <RecentTransactions />
+      {customer ? (
+        <>
+          <ProfileSummary customer={customer} avatar={avatar} />
+          <div className="flex flex-col gap-6 lg:flex-row">
+            <PersonalInformation customer={customer} />
+            {/* <AccountInformation /> */}
+          </div>
+          <RecentTransactions transactions={recentTransactions} />
+        </>
+      ) : (
+        <section className={`${cardClass} p-6`}>
+          <Skeleton className="h-48 w-full" />
+        </section>
+      )}
     </main>
   );
+}
+
+function normalizeNetwork(network: string): AirtimeNetworks {
+  const normalized = network.toLowerCase();
+  if (normalized.includes("airtel")) return AirtimeNetworks.AIRTEL;
+  if (normalized.includes("glo")) return AirtimeNetworks.GLO;
+  return AirtimeNetworks.MTN;
+}
+
+function normalizeStatus(status: string): TransactionStatus {
+  const normalized = status.toLowerCase();
+  if (normalized.includes("pending")) return TransactionStatus.PENDING;
+  if (normalized.includes("fail")) return TransactionStatus.FAILED;
+  return TransactionStatus.SUCCESS;
 }
 
 export default Customer;
