@@ -1,13 +1,13 @@
 import { NavLink } from "react-router";
 
 import ImageTatumLogo from "../../assets/tatum-bank-logo.svg";
-import HomeIcon from "../../icons/HomeIcon";
+// import HomeIcon from "../../icons/HomeIcon";
 import TransactionsIcon from "../../icons/TransactionsIcon";
-import ChartIcon from "../../icons/ChartIcon";
+// import ChartIcon from "../../icons/ChartIcon";
 import UsersIcon from "../../icons/UsersIcon";
-import SupportIcon from "../../icons/SupportIcon";
-import SettingsIcon from "../../icons/SettingsIcon";
-import BellIcon from "../../icons/BellSolidIcon";
+// import SupportIcon from "../../icons/SupportIcon";
+// import SettingsIcon from "../../icons/SettingsIcon";
+// import BellIcon from "../../icons/BellSolidIcon";
 import UserSolidIcon from "../../icons/UserSolidIcon";
 import LogoutIcon from "../../icons/LogoutIcon";
 import UserSettingsIcon from "../../icons/UserSettingsIcon";
@@ -28,16 +28,16 @@ interface NavigationGroup {
 }
 
 const navigationGroups: NavigationGroup[] = [
-  {
-    routes: [
-      {
-        name: "Dashboard",
-        to: "/dashboard",
-        end: true,
-        icon: <HomeIcon />,
-      },
-    ],
-  },
+  // {
+  //   routes: [
+  //     {
+  //       name: "Dashboard",
+  //       to: "/dashboard",
+  //       end: true,
+  //       icon: <HomeIcon />,
+  //     },
+  //   ],
+  // },
   {
     category: "Admin",
     routes: [
@@ -53,12 +53,12 @@ const navigationGroups: NavigationGroup[] = [
         end: false,
         icon: <TransactionsIcon />,
       },
-      {
-        name: "Reports & Analytics",
-        to: "/dashboard/reports",
-        end: true,
-        icon: <ChartIcon />,
-      },
+      // {
+      //   name: "Reports & Analytics",
+      //   to: "/dashboard/reports",
+      //   end: true,
+      //   icon: <ChartIcon />,
+      // },
     ],
   },
   {
@@ -72,33 +72,33 @@ const navigationGroups: NavigationGroup[] = [
       },
     ],
   },
-  {
-    category: "Support",
-    routes: [
-      {
-        name: "Support Tickets",
-        to: "/dashboard/tickets",
-        end: true,
-        icon: <SupportIcon />,
-      },
-      {
-        name: "System Settings",
-        to: "/dashboard/settings",
-        end: true,
-        icon: <SettingsIcon />,
-      },
-    ],
-  },
+  // {
+  //   category: "Support",
+  //   routes: [
+  //     {
+  //       name: "Support Tickets",
+  //       to: "/dashboard/tickets",
+  //       end: true,
+  //       icon: <SupportIcon />,
+  //     },
+  //     {
+  //       name: "System Settings",
+  //       to: "/dashboard/settings",
+  //       end: true,
+  //       icon: <SettingsIcon />,
+  //     },
+  //   ],
+  // },
 ];
 
 const footerRoutes: Route[] = [
-  {
-    name: "Notifications",
-    to: "/dashboard/notifications",
-    end: true,
-    icon: <BellIcon />,
-    badge: "12",
-  },
+  // {
+  //   name: "Notifications",
+  //   to: "/dashboard/notifications",
+  //   end: true,
+  //   icon: <BellIcon />,
+  //   badge: "12",
+  // },
   {
     name: "My Profile",
     to: "/dashboard/profile",
