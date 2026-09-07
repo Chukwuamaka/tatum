@@ -114,6 +114,15 @@ const router = createBrowserRouter([
                 },
               },
               {
+                path: "users/:userId",
+                element: <Customer />,
+                handle: {
+                  title: "User Management",
+                  description: "Manage system users, roles, and permissions.",
+                  searchPlaceholder: "Search by name, email or user ID...",
+                },
+              },
+              {
                 path: "users/invite",
                 element: <InviteUser />,
                 handle: {
