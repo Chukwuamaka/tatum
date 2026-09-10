@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatum Bank - Internet Banking</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet"
+    >
+    <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="/apple-touch-icon.png"
+    >
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="images/favicon-32x32.png"
+    >
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="images/favicon-16x16.png"
+    >
+    <link
+        rel="manifest"
+        href="images/site.webmanifest"
+    >
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="grandpa">
+
+        <!-- Hero Section -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <h1 class="h-title">
+                    Bank Simpler, Live Smarter
+                </h1>
+
+                <p class="h-sub">
+                    No queues. No stress. Just seamless banking.
+                </p>
+
+                <div class="slider-indicators">
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Login Section -->
+        <section class="sized-box">
+
+            <div class="login-container">
+
+                <!-- Tatum Bank Logo -->
+                <img
+                    src="images/tatum_logo.svg"
+                    class="tatum-logo"
+                    width="117px"
+                    height="49px"
+                    alt="Tatum Bank Logo"
+                >
+
+
+                <!-- Login Content -->
+                <div class="login-content">
+
+                    <div class="login-heading">
+
+                        <h2>
+                            Log In to Tatum Bank
+                        </h2>
+
+                        <p>
+                            Please enter your Internet Banking details to continue
+                        </p>
+
+                    </div>
+
+
+                    <!-- Login Form -->
+                    <form action="" id = "login-form" class="login-form">
+
+                        <!-- Email / Phone -->
+                        <div class="input-container">
+
+                            <input
+                                type="text"
+                                placeholder="Email Address or Phone no"
+                                required
+                            >
+
+                            <span class="input-icon">
+                                ✣
+                            </span>
+                            <p id="email-error" class="error">Email not correct</p>
+                        </div>
+                        
+
+
+                        <!-- Password -->
+                        <div class="input-container">
+
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                required
+                            >
+                            <p id="password-error" class="error">Password is not correct</p>
+
+                            <span class="eye-icon"></span>
+
+                        </div>
+
+
+                        <!-- Forgot Password -->
+                        <div class="forgot-password">
+
+                            <a href="changePassword.html">
+                                Forgot Password?
+                            </a>
+
+                        </div>
+
+
+                        <!-- Login Button -->
+                        <button type="submit">
+                            Log In
+                        </button>
+
+                    </form>
+
+
+                    <!-- Account Links -->
+                    <div class="account-links">
+
+                        <p>
+                            New to Tatum Bank?
+                            <a href="#">
+                                Get Started
+                            </a>
+                        </p>
+
+                        <p>
+                            Have a Tatum Bank Account?
+                            <a href="#">
+                                Activate account number
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Footer -->
+                <footer>
+
+                    <div class="footer-item">
+
+                        <span>
+                            Licensed by CBN
+                        </span>
+
+                        <img
+                            src="images/cbn_logo.svg"
+                            width="27px"
+                            height="27px"
+                            alt="CBN logo"
+                        >
+
+                    </div>
+
+
+                    <div class="footer-item">
+
+                        <span>
+                            INSURED BY NDIC
+                        </span>
+
+                        <img
+                            src="images/ndic_logo.svg"
+                            width="63px"
+                            height="28px"
+                            alt="NDIC logo"
+                        >
+
+                    </div>
+
+                </footer>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
