@@ -18,16 +18,17 @@ function handleInputChange(event) {
   const validEmail = isInputValid(emailValue, "email");
   const validPassword = isInputValid(passwordValue, "password");
   const buttonElement = elements[2];
+  const emailIsValid = isInputValid(emailValue, "email");
+  const passwordIsValid = isInputValid(passwordValue, "password");
 
-  if (validEmail && validPassword) {
+  if (emailIsValid && passwordIsValid) {
     buttonElement.disabled = false;
   } else {
     buttonElement.disabled = true;
   }
 }
 
-const validateInput = (event) => {
-  event.preventDefault();
+const validateInput = () => {
   console.log("Submit event fired!");
   // const formData = new FormData(event.target);
   // const emailValue = formData.get("email");
@@ -57,7 +58,12 @@ const validateInput = (event) => {
     passwordErrorElement.classList.add("hide");
   }
 
-  if (emailIsValid && passwordIsValid) return true;
+  if (emailIsValid && passwordIsValid) {
+    return {
+      email: emailValue,
+      password: passwordValue,
+    };
+  }
 };
 
 const apiBaseUrl = "https://tatumconnect-backend.onrender.com/api/v1";
@@ -80,9 +86,16 @@ async function login(requestData) {
   }
 }
 
-function handleLogin() {
-  const proceedToLogin = validateInput();
-  if (proceedToLogin) login();
+// Expected request data
+// const authData = {
+//   email: "example@tatumconnect.com",
+//   password: "example234",
+// };
+
+function handleLogin(event) {
+  event.preventDefault();
+  const requestData = validateInput();
+  if (requestData) login(requestData);
 }
 
 const loginForm = document.getElementById("login-form");
@@ -91,8 +104,3 @@ loginForm.addEventListener("input", handleInputChange);
 
 // Arrow async function equivalent
 const getSomething = async () => {};
-
-// const authData = {
-//   email: "example@tatumconnect.com",
-//   password: "example234",
-// };
