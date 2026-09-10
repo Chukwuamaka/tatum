@@ -3,15 +3,15 @@ import { Link } from "react-router";
 interface NavBarProperty {
     title: string;
     icon: React.ReactNode;
-    to: string;
+    link: string;
 }
 
 const sidebar: NavBarProperty[] = [
-    { title: "Dashboard", to: "/dashboard", icon: <i className="fa-solid fa-house"></i> },
-    { title: "Accounts", to: "/accounts", icon: <i className="fa-solid fa-user"></i> },
+    { title: "Dashboard", link: "/dashboard", icon: <i className="fa-solid fa-house"></i> },
+    { title: "Accounts", link: "/accounts", icon: <i className="fa-solid fa-user"></i> },
 ];
 
-function NavBar({ title, icon, to }: NavBarProperty) {
+function NavBar({ title, icon, link }: NavBarProperty) {
 
     return (
         <>
@@ -20,7 +20,7 @@ function NavBar({ title, icon, to }: NavBarProperty) {
             <div className="nav-title">{title}</div>
         </div>
 
-        <Link to={to}>
+        <Link to={link}>
             {icon}
             {title}
         </Link>
@@ -32,7 +32,7 @@ const Sidebar = () => {
     return (
         <nav>
             {sidebar.map((item) => (
-                <NavBar key = {item.to} {...item}/>
+                <NavBar key = {item.link} {...item}/>
             ))}
         </nav>
     )
