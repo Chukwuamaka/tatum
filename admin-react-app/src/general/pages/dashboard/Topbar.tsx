@@ -1,10 +1,9 @@
 import { useMatches } from "react-router";
 
-import { assets } from "../../utils/data";
+import { assets } from "../../../utils/data";
 import BellOutlineIcon from "../../icons/BellOutlineIcon";
 import ChevronDownIcon from "../../icons/ChevronDownIcon";
 import SearchIcon from "../../icons/SearchIcon";
-import { getStoredUser } from "../../utils/auth";
 import type { SearchQueryState } from "./types";
 
 interface RouteHeader {
@@ -18,12 +17,8 @@ function Topbar({
   updateQuery,
 }: Pick<SearchQueryState, "query" | "updateQuery">) {
   const matches = useMatches();
-  console.log(matches);
-  const user = getStoredUser();
   const routeHeader = [...matches].reverse().find((match) => match.handle)
     ?.handle as RouteHeader;
-  console.log([...matches]);
-  const fullName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim();
 
   return (
     <header className="flex min-h-20 shrink-0 items-center justify-between gap-6 border-b border-[var(--border)] bg-[var(--surface)] px-8 py-4 max-[900px]:px-5 max-[680px]:items-start max-[680px]:flex-col">
@@ -68,15 +63,13 @@ function Topbar({
         <div className="flex items-center gap-3 border-l border-[var(--border)] pl-4">
           <img
             className="size-10 rounded-full object-cover"
-            src={user?.profileImageUrl || assets.avatar}
-            alt={fullName || "User profile"}
+            src={assets.avatar}
+            alt={"User profile"}
           />
           <span className="flex flex-col">
-            <strong className="max-w-[120px] truncate text-xs" title={fullName}>
-              {fullName || "User"}
-            </strong>
+            <strong className="max-w-[120px] truncate text-xs">John Doe</strong>
             <small className="text-[10px] text-[var(--muted)]">
-              {user?.role || "Admin"}
+              Super Admin
             </small>
           </span>
           <ChevronDownIcon className="text-[#94A3B8]" />
