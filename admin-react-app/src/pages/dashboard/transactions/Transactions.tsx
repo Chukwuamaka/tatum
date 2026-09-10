@@ -301,7 +301,7 @@ function Transactions() {
           .toLowerCase()
           .includes(query.toLowerCase().trim()),
       ),
-    [query],
+    [query, transactions],
   );
   const updateSelection = (id: string, checked: boolean) =>
     setSelectedIds((current) =>
