@@ -5,8 +5,11 @@
 
 ## Docs
 
+- [Fetch API on W3Schools](https://www.w3schools.com/js/js_api_fetch.asp)
+- [Fetch API on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
 - [Vite](https://vite.dev/guide/)
 - [React Router](https://reactrouter.com/start/data/installation)
+- [Tailwind](https://tailwindcss.com/docs/installation/using-vite)
 
 ## Videos
 
