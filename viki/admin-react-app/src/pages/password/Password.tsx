@@ -1,10 +1,10 @@
   import './Password.css'
-  import Logo from "../../assets/logo- Tatum Bank 2.svg";
+  import Logo from "../../assets/tatum-bank-logo.svg";
   import CBNLogo from "../../assets/cbn.png";
   import NDICLogo from "../../assets/ndic.png";
  function Password() {
   return (
-    <div className="page-shell">
+    <div className="password-page page-shell">
       <section className="hero-panel">
         <h1 className="hero-title">Bank Simpler, Live Smarter</h1>
         <p className="hero-subtitle">No queques.No stress.Just seemless banking.</p>
