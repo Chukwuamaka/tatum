@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router";
+
 import Login from "./pages/login/Login";
-import Password from "./pages/password/Password";
-import ChangePassword from "./pages/change-pass/ChangePassword";
+import PasswordChanged from "./pages/password-changed/PasswordChanged";
+import ChangePassword from "./pages/change-password/ChangePassword";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import MyprofileCard from "./pages/dashboard/myprofile/MyprofileCard";
 
@@ -10,13 +11,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <Login />,
   },
-   {
-    path: "/password",
-    element: <Password />,
-  },
   {
     path: "/change-password",
     element: <ChangePassword />,
+  },
+  {
+    path: "/password-changed",
+    element: <PasswordChanged />,
   },
   {
     path: "/dashboard",
@@ -37,16 +38,15 @@ const router = createBrowserRouter([
         },
       },
       {
-      path:"profile",
-      element:<MyprofileCard />,
-      handle:{
-        title:"My Profile",
-        description:"",
+        path: "profile",
+        element: <MyprofileCard />,
+        handle: {
+          title: "My Profile",
+          description: "",
+        },
       },
-    },
     ],
   },
-  
 ]);
 
 export default router;

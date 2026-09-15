@@ -3,68 +3,54 @@ import {
   type ChangeEventHandler,
   type SubmitEventHandler,
 } from "react";
-import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router";
+import { initiateSetPassword } from "../../api-clients/auth";
 
-import "./Login.css";
-import Logo from "../../assets/logo- Tatum Bank 2.svg";
+import "./ChangePassword.css";
+import Logo from "../../assets/tatum-bank-logo.svg";
 import CBNLogo from "../../assets/cbn.png";
 import NDICLogo from "../../assets/ndic.png";
-import { initiateLogin } from "../../api-clients/auth";
 import Toast from "../../reusables/Toast";
 
-const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/i;
-
-function Login() {
-  const [email, setEmail] = useState("");
-  const [emailErrorMessage, setEmailErrorMessage] = useState("");
+function ChangePassword() {
+  const [queryParams] = useSearchParams();
+  const token = queryParams.get("token");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [toastMessage, setToastMessage] = useState("");
-  const navigate = useNavigate();
 
-  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const { name: inputName, value: inputValue } = event.target;
-    if (inputName === "email") {
-      const emailIsValid = emailRegex.test(inputValue);
-      if (!emailIsValid) {
-        setEmailErrorMessage(
-          "Your email address or phone number is incorrect.",
-        );
-      } else {
-        setEmailErrorMessage("");
-      }
-      setEmail(inputValue);
-    } else {
-      setPassword(inputValue);
-    }
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    const { name, value } = event.target;
+    if (name === "password") setPassword(value);
+    else setConfirmPassword(value);
   };
 
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+    if (!token) {
+      setToastMessage("Token is missing!");
+      return;
+    }
 
+    const requestData = {
+      password,
+      confirmPassword,
+      token,
+    };
     try {
-      const response = await initiateLogin({ email, password });
-      const data = await response.json();
-      if (data) {
-        if (data.success) {
-          // navigate("/password");
-          console.log(data);
-          sessionStorage.setItem("token", data.accessToken);
-          sessionStorage.getItem("token");
-        } else {
-          setToastMessage(data.message || "An error occurred");
-        }
-      }
+      const response = await initiateSetPassword(requestData);
+      const responseData = await response.json();
+      console.log(responseData);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className="page-shell">
+    <div className="change-password-page page-shell">
       {toastMessage && (
         <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       )}
-      {/* <!-- hero --> */}
       <section className="hero-panel">
         <h1 className="hero-title">Bank Simpler, Live Smarter</h1>
         <p className="hero-subtitle">
@@ -72,55 +58,32 @@ function Login() {
         </p>
       </section>
 
-      {/* <!-- login  --> */}
-      <section className="login-panel">
-        <div className="login-card">
-          <div className="login-form">
-            <img src={Logo} alt="Tatum bank logo" width="117px" height="49px" />
+      <section className="password-panel">
+        <div className="password-card">
+          <div className="password- form">
+            <img
+              src={Logo}
+              alt="Tatum Bank logo displaying the text Tatum Bank, shown in the password change form."
+              width="117px"
+              height="49px"
+            />
 
-            <div className="login-header">
-              <h2>Log in to Tatum Bank</h2>
-              <p>Please enter your Internet Banking details to continue</p>
+            <div className="password-header">
+              <h2>Change Password</h2>
+              <p>Please enter your password below </p>
             </div>
 
             <form onSubmit={handleSubmit}>
               <div className="field">
                 <input
-                  name="email"
-                  value={email}
-                  type="text"
-                  placeholder="Email Address or phone no"
-                  required
-                  onChange={handleInputChange}
-                />
-                <span
-                  className="field-icon field-icon--accent"
-                  aria-hidden="true"
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M12 2v20M4.9 5.6l14.2 12.8M4.9 18.4L19.1 5.6M2 12h20"
-                      stroke="currentColor"
-                      stroke-width="1.6"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                </span>
-              </div>
-              {emailErrorMessage && (
-                <div id="error-message" className="error-message show">
-                  <p>{emailErrorMessage}</p>
-                </div>
-              )}
-              <div className="field">
-                <input
                   name="password"
-                  value={password}
                   type="password"
-                  placeholder="Password"
+                  value={password}
+                  placeholder="New Password"
                   required
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                 />
+
                 <span
                   className="field-icon field-icon--accent"
                   aria-hidden="true"
@@ -142,18 +105,40 @@ function Login() {
                   </svg>
                 </span>
               </div>
-              <div id="password-error-message" className="error-message hide">
-                <p>Your password is incorrect.</p>
+
+              <div className="field">
+                <input
+                  name="confirmPassword"
+                  type="password"
+                  value={confirmPassword}
+                  placeholder="Confirm New Password"
+                  required
+                  onChange={handleChange}
+                />
+
+                <span
+                  className="field-icon field-icon--accent"
+                  aria-hidden="true"
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    />
+                  </svg>
+                </span>
               </div>
-              <a className="forgot-password" href="/forgot-password">
-                Forgot Password?
-              </a>
-              <button
-                type="submit"
-                className="btn-primary"
-                disabled={!!emailErrorMessage || !email || !password}
-              >
-                Log in
+              <button type="submit" className="btn-primary">
+                Reset Password
               </button>
             </form>
           </div>
@@ -182,4 +167,5 @@ function Login() {
     </div>
   );
 }
-export default Login;
+
+export default ChangePassword;
