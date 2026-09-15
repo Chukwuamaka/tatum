@@ -1,10 +1,20 @@
 import { postRequest } from ".";
 
-interface LoginRequestData extends Record<string, string> {
+interface LoginRequestData {
   email: string;
   password: string;
 }
 
-export function login(loginData: LoginRequestData) {
-  postRequest("/Auth/login", loginData);
+export function initiateLogin(loginData: LoginRequestData) {
+  return postRequest("/Auth/login", loginData);
+}
+
+interface SetPasswordRequestData {
+  token: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export function initiateSetPassword(setPasswordData: SetPasswordRequestData) {
+  return postRequest("/Auth/set-password", setPasswordData);
 }
