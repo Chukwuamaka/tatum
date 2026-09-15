@@ -9,20 +9,26 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./class-2.css" />
+    <link rel="stylesheet" href="./class2.css" />
     <link
       rel="apple-touch-icon"
-      sizes="16x16"
-      href="public/favicon-16x16.png"
+      sizes="180x180"
+      href="favicon_io/apple-touch-icon.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="public/favicon-32x32.png"
+      href="favicon_io/favicon-32x32.png"
     />
-
-    <link rel="icon" href="public/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicon_io/favicon-16x16.png"
+    />
+    <link rel="icon" href="favicon_io/favicon.ico" />
+    <script src="./script.js" defer></script>
     <title>Tatum Bank Class 2</title>
   </head>
   <body>
@@ -34,7 +40,7 @@
       <section class="login">
         <img
           class="TatumLogo"
-          src="./images/tatum-bank-logo.svg"
+          src="./img/logo- Tatum Bank 2.svg"
           alt="Tatum Logo"
         />
 
@@ -44,26 +50,36 @@
             <p>Please enter your Internet Banking details to contine</p>
           </div>
 
-          <form action="">
-            <input
-              class="details"
-              type="text"
-              name="userId"
-              placeholder="Email Address or Phone no"
-              required
-            />
+          <form action="" id="login-form">
+            <div>
+              <input
+                class="details"
+                type="text"
+                name="userId"
+                placeholder="Email Address or Phone no"
+                id="email"
+                required
+              />
+              <p class="error hide" id="email-error">Your email is incorrect</p>
+            </div>
 
-            <input
-              class="details"
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
+            <div>
+              <input
+                class="details"
+                type="password"
+                name="password"
+                placeholder="Password"
+                id="password"
+                required
+              />
+              <p class="error hide" id="password-error">
+                Your password is not up to 6 characters
+              </p>
+            </div>
 
             <a href="#" class="forgotP"> Forgot Password?</a>
 
-            <input class="buttonInp" type="button" value="Log In" />
+            <input class="buttonInp" type="submit" value="Log In" disabled />
           </form>
 
           <div class="otherTexts">
@@ -85,7 +101,7 @@
             <p>
               Licensed by CBN
 
-              <img src="./images/CBN.png" alt="CBN logo" />
+              <img src="./img/CBN.png" alt="CBN logo" />
             </p>
           </div>
 
@@ -93,7 +109,7 @@
             <p>
               INSURED BY NDIC
 
-              <img src="./images/NDIC.png" alt="NDIC logo" />
+              <img src="./img/NDIC.png" alt="NDIC logo" />
             </p>
           </div>
         </footer>
