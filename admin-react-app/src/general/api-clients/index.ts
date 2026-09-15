@@ -1,9 +1,6 @@
 const apiBaseUrl = "https://tatumconnect-backend.onrender.com/api/v1";
 
-export function getRequest(
-  endpoint: string,
-  requestData: Record<string, unknown>,
-) {
+export function getRequest(endpoint: string, requestData: object) {
   const url = `${apiBaseUrl}${endpoint}`;
   return fetch(url, {
     headers: {
@@ -13,10 +10,7 @@ export function getRequest(
   });
 }
 
-export function postRequest(
-  endpoint: string,
-  requestData: Record<string, unknown>,
-) {
+export function postRequest(endpoint: string, requestData: object) {
   const url = `${apiBaseUrl}${endpoint}`;
   return fetch(url, {
     method: "POST",
@@ -30,7 +24,7 @@ export function postRequest(
 export function getRequestWithAuth(
   token: string,
   endpoint: string,
-  requestData: Record<string, unknown>,
+  requestData: object,
 ) {
   const url = `${apiBaseUrl}${endpoint}`;
   return fetch(url, {
@@ -45,7 +39,7 @@ export function getRequestWithAuth(
 export function postRequestWithAuth(
   token: string,
   endpoint: string,
-  requestData: Record<string, unknown>,
+  requestData: object,
 ) {
   const url = `${apiBaseUrl}${endpoint}`;
   return fetch(url, {
