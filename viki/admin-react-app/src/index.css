@@ -58,7 +58,7 @@ a {
 }
 
 button:disabled {
-  cursor: no-drop;
-  color: white;
-  background: var(--muted);
+  cursor: no-drop !important;
+  color: white !important;
+  background: var(--muted) !important;
 }
