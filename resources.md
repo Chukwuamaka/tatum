@@ -2,6 +2,7 @@
 
 - [JavaScript Essentials](https://docs.google.com/presentation/d/15kU9nA72KRQMEhcgskuucBqQHBZvzddeJoTN057B_G4/edit?usp=sharing)
 - [TypeScript](https://docs.google.com/presentation/d/1Yiah-hlFIkyNVMMfGIFx5u-klGN2sccQ/edit?usp=sharing&ouid=113571955648155337877&rtpof=true&sd=true)
+- [React](https://docs.google.com/presentation/d/1eL3SjEzp8sGaR7PA13x6W12_6DIvPV1U/edit?slide=id.p1#slide=id.p1)
 
 ## Docs
 
