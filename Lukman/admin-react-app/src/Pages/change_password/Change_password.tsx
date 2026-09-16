@@ -12,7 +12,7 @@ function ChangePassword() {
   };
 
   return (
-    <div className="page-shell">
+    <div className="change-password-page page-shell">
       <main className="hero-layout">
         <section className="hero-panel" aria-label="Banking banner">
           <div className="hero-overlay" />

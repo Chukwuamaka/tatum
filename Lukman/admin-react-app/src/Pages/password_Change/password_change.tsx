@@ -7,7 +7,7 @@ import NdicLogo from "../../assets/NDIC.png";
 
 function PasswordChanged() {
   return (
-    <main className="page">
+    <main className="password-changed-page page">
     <section className="welcome">
       <div className="welcome-text">
         <h1>Bank Simpler, Live<br />Smarter</h1>
