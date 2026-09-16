@@ -1,12 +1,13 @@
+import { accessTokenKey } from "../utils/session";
+
 const apiBaseUrl = "https://tatumconnect-backend.onrender.com/api/v1";
 
-export function getRequest(endpoint: string, requestData: object) {
+export function getRequest(endpoint: string) {
   const url = `${apiBaseUrl}${endpoint}`;
   return fetch(url, {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(requestData),
   });
 }
 
@@ -21,27 +22,22 @@ export function postRequest(endpoint: string, requestData: object) {
   });
 }
 
-export function getRequestWithAuth(
-  token: string,
-  endpoint: string,
-  requestData: object,
-) {
+export function getRequestWithAuth(endpoint: string) {
   const url = `${apiBaseUrl}${endpoint}`;
+  const token = sessionStorage.getItem(accessTokenKey);
+
   return fetch(url, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(requestData),
   });
 }
 
-export function postRequestWithAuth(
-  token: string,
-  endpoint: string,
-  requestData: object,
-) {
+export function postRequestWithAuth(endpoint: string, requestData: object) {
   const url = `${apiBaseUrl}${endpoint}`;
+  const token = sessionStorage.getItem(accessTokenKey);
+
   return fetch(url, {
     method: "POST",
     headers: {

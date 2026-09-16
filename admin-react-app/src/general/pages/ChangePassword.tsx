@@ -3,21 +3,28 @@ import {
   type ChangeEventHandler,
   type SubmitEventHandler,
 } from "react";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 import "./ChangePassword.css";
 import Logo from "../../assets/tatum-bank-logo.svg";
 import CBNLogo from "../../assets/cbn.png";
 import NDICLogo from "../../assets/ndic.png";
 import Toast from "../../reusables/Toast";
-import { initiateSetPassword } from "../api-clients/auth";
+import { initiateSetPassword } from "../../api-clients/auth";
 
 function ChangePassword() {
+  const navigate = useNavigate();
   const [queryParams] = useSearchParams();
   const token = queryParams.get("token");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [toastMessage, setToastMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const buttonIsDisabled =
+    !password ||
+    !confirmPassword ||
+    password !== confirmPassword ||
+    isSubmitting;
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target;
@@ -27,22 +34,29 @@ function ChangePassword() {
 
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+
     if (!token) {
       setToastMessage("Token is missing!");
       return;
     }
 
+    setIsSubmitting(true);
     const requestData = {
       password,
       confirmPassword,
       token,
     };
     try {
-      const response = await initiateSetPassword(requestData);
-      const responseData = await response.json();
-      console.log(responseData);
+      const responseData = await initiateSetPassword(requestData);
+      if (responseData.success) {
+        navigate("/password-changed");
+      } else {
+        setToastMessage(responseData.message || "An error occurred");
+      }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -54,7 +68,7 @@ function ChangePassword() {
       <section className="hero-panel">
         <h1 className="hero-title">Bank Simpler, Live Smarter</h1>
         <p className="hero-subtitle">
-          No queques.No stress.Just seemless banking.
+          No queques. No stress. Just seemless banking.
         </p>
       </section>
 
@@ -137,7 +151,11 @@ function ChangePassword() {
                   </svg>
                 </span>
               </div>
-              <button type="submit" className="btn-primary">
+              <button
+                type="submit"
+                className="btn-primary"
+                disabled={buttonIsDisabled}
+              >
                 Reset Password
               </button>
             </form>
