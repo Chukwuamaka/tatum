@@ -6,32 +6,34 @@ import {
 import { useNavigate } from "react-router";
 
 import "./Login.css";
-import Logo from "../../assets/logo- Tatum Bank 2.svg";
+import Logo from "../../assets/tatum-bank-logo.svg";
 import CBNLogo from "../../assets/cbn.png";
 import NDICLogo from "../../assets/ndic.png";
-import { initiateLogin } from "../api-clients/auth";
+import { initiateLogin } from "../../api-clients/auth";
 import Toast from "../../reusables/Toast";
+import { storeSession } from "../../utils/session";
 
 const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/i;
 
 function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailErrorMessage, setEmailErrorMessage] = useState("");
   const [password, setPassword] = useState("");
   const [toastMessage, setToastMessage] = useState("");
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const buttonIsDisabled =
+    !!emailErrorMessage || !email || !password || loading;
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name: inputName, value: inputValue } = event.target;
+
     if (inputName === "email") {
       const emailIsValid = emailRegex.test(inputValue);
-      if (!emailIsValid) {
-        setEmailErrorMessage(
-          "Your email address or phone number is incorrect.",
-        );
-      } else {
-        setEmailErrorMessage("");
-      }
+      const errorMessage = emailIsValid
+        ? ""
+        : "Your email address or phone number is incorrect.";
+      setEmailErrorMessage(errorMessage);
       setEmail(inputValue);
     } else {
       setPassword(inputValue);
@@ -40,27 +42,26 @@ function Login() {
 
   const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
-      const response = await initiateLogin({ email, password });
-      const data = await response.json();
-      if (data) {
-        if (data.success) {
-          // navigate("/password");
-          console.log(data);
-          sessionStorage.setItem("token", data.accessToken);
-          sessionStorage.getItem("token");
-        } else {
-          setToastMessage(data.message || "An error occurred");
-        }
+      const responseData = await initiateLogin({ email, password });
+      if (responseData.success) {
+        const { accessToken, expiresIn, user } = responseData.data;
+        storeSession(accessToken, expiresIn, user);
+        navigate("/dashboard/profile");
+      } else {
+        setToastMessage(responseData.message || "An error occurred");
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="page-shell">
+    <div className="login-page page-shell">
       {toastMessage && (
         <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       )}
@@ -151,9 +152,9 @@ function Login() {
               <button
                 type="submit"
                 className="btn-primary"
-                disabled={!!emailErrorMessage || !email || !password}
+                disabled={buttonIsDisabled}
               >
-                Log in
+                {loading ? "Logging in..." : "Log in"}
               </button>
             </form>
           </div>
