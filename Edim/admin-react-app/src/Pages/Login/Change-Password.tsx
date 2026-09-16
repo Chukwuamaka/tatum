@@ -1,5 +1,5 @@
 // import "./Login.css";
-import TatumLogo from "../../assets/logo- Tatum Bank 2.svg";
+import TatumLogo from "../../assets/logo-TatumBank2.svg";
 import CBN from "../../assets/CBN.png";
 import NDIC from "../../assets/NDIC.png";
 import PasswordInput from "../../assets/password-input-icon.svg";

@@ -1,11 +1,11 @@
 import "./Login.css";
-import TatumLogo from "../../assets/logo- Tatum Bank 2.svg";
+import TatumLogo from "../../assets/logo-TatumBank2.svg";
 import CBN from "../../assets/CBN.png";
 import NDIC from "../../assets/NDIC.png";
 
 function Login() {
   return (
-    <div className={"page-shell"}>
+    <div className="login-page page-shell">
       <section className={"hero"}>
         <h1>Bank Simpler, Live Smarter</h1>
         <p>No queues, No Stress, Just seamless banking</p>

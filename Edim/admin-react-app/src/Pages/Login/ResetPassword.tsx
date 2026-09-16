@@ -1,12 +1,12 @@
 import "./reset-password.css";
-import TatumLogo from "../../assets/logo- Tatum Bank 2.svg";
+import TatumLogo from "../../assets/logo-TatumBank2.svg";
 import CBN from "../../assets/CBN.png";
 import NDIC from "../../assets/NDIC.png";
 
 function ResetPassword() {
   return (
     <>
-      <main className="page-shell">
+      <main className="reset-password page-shell">
         <section className="hero-panel">
           <div className="hero-overlay"></div>
           <div className="hero-content">

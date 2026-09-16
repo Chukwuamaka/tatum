@@ -1,4 +1,4 @@
-import TatumLogo from "../../assets/logo- Tatum Bank 2.svg";
+import TatumLogo from "../../assets/logo-TatumBank2.svg";
 import CBN from "../../assets/CBN.png";
 import NDIC from "../../assets/NDIC.png";
 import CheckEmail from "../../assets/check-email-icon.svg";
@@ -9,7 +9,7 @@ import "./check-your-email.css";
 function CheckYourEmail() {
   return (
     <>
-      <div className="page-shell">
+      <div className="check-your-email page-shell">
         <main className="hero-layout">
           <section className="hero-panel">
             <div className="hero-overlay"></div>

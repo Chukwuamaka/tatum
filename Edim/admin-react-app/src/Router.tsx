@@ -4,6 +4,9 @@ import ChangePassword from "./Pages/Login/Change-Password.tsx";
 import CheckYourEmail from "./Pages/Login/Check-Your-Email.tsx";
 import PasswordChanged from "./Pages/Login/Password-Changed";
 import ResetPassword from "./Pages/Login/ResetPassword.tsx";
+import DashboardLayout from "./Pages/dashboard/DashboardLayout.tsx";
+import UserManagement from "./Pages/Login/UserManagement.tsx";
+import SearchFilterUsers from "./Pages/Login/SearchFilterUsers.tsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +28,34 @@ const router = createBrowserRouter([
   {
     path: "reset-password",
     element: <ResetPassword />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    handle: {
+      title: "Dashboard",
+      description: "View an overview of your banking operations.",
+    },
+    children: [
+      {
+        path: "userManagement",
+        element: <UserManagement />,
+        handle: {
+          title: "User Management",
+          description: "Search and filter users.",
+          searchPlaceholder: "Search by name, email or user ID...",
+        },
+      },
+      {
+        path: "userManagement/filter-users",
+        element: <SearchFilterUsers />,
+        handle: {
+          title: "User Management",
+          description: "Search and filter users.",
+          searchPlaceholder: "Search by name, email or user ID...",
+        },
+      },
+    ],
   },
 ]);
 
