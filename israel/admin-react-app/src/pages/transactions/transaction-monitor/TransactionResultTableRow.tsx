@@ -1,21 +1,8 @@
 import { useState } from "react";
-import {
-  getMyTransactionsDetails,
-  type TransactionData,
-} from "../../../api-clients/transactions";
+import { type TransactionData } from "../../../api-clients/transactions";
 import { formatDate } from "../../../utils/helpers";
 import MoreImg from "../../../assets/images/more.png";
-import { useNavigate } from "react-router";
-
-// interface DataRow {
-//   transactionId: string;
-//   dateAndTime: string;
-//   phoneNumber: string;
-//   network: string;
-//   amount: string;
-//   status: string;
-//   customerName: string;
-// }
+import { Link } from "react-router";
 
 interface TransactionDataProps {
   transaction: TransactionData;
@@ -23,24 +10,12 @@ interface TransactionDataProps {
 
 const TransactionResultTableRow = ({ transaction }: TransactionDataProps) => {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const navigate = useNavigate();
 
   function handleCheckboxChange(transactionId: string): void {
     setChecked((prev) => ({
       ...prev,
       [transactionId]: !prev[transactionId],
     }));
-  }
-
-  async function getTransactionData(transactionId: string) {
-    try {
-      const responseData = await getMyTransactionsDetails(transactionId);
-      if(responseData.success) {
-        navigate(`/dashboard/transactions/${transactionId}`)
-      } 
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   return (
@@ -55,13 +30,11 @@ const TransactionResultTableRow = ({ transaction }: TransactionDataProps) => {
           checked={checked[transaction.id] || false}
           onChange={() => handleCheckboxChange(transaction.id)}
         />
-        {/* <div className="border border-[#767676] size-3.25 bg-(--surface) rounded-[2.5px]"></div> */}
       </td>
-      <td
-        className="text-[#0052CC] tracking-[0.59%] font-semibold py-6 cursor-pointer"
-        onClick={() => {getTransactionData(transaction.id)}}
-      >
-        {transaction.id}
+      <td className="text-[#0052CC] tracking-[0.59%] font-semibold py-6 cursor-pointer">
+        <Link to={`/dashboard/transactions/${transaction.id}`}>
+          {transaction.id}
+        </Link>
       </td>
       <td className="tracking-[0.2%] text-[#6B7280]">
         {formatDate(transaction.createdAt)}

@@ -12,7 +12,6 @@ import {
 
 const TransactionReceipt = () => {
   const { transactionId } = useParams();
-  // console.log(transactionId);
   const [transactionData, setTransactionData] = useState<TransactionData[]>();
 
   useEffect(() => {
@@ -23,7 +22,6 @@ const TransactionReceipt = () => {
         const responseData = await getMyTransactionsDetails(transactionId);
         if (responseData.success) {
           setTransactionData(responseData.data?.items || []);
-          console.log(responseData.data?.items);
         }
       } catch (error) {
         console.log(error);
