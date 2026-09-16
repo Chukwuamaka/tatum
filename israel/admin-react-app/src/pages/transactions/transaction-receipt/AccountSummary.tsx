@@ -1,4 +1,10 @@
-const AccountSummary = () => {
+import type { TransactionData } from "../../../api-clients/transactions";
+
+interface TransactionDataProps {
+  transactionData: TransactionData;
+}
+
+const AccountSummary = ({ transactionData }: TransactionDataProps) => {
   return (
     <div className="p-6 flex flex-col gap-4 rounded-xl border border-(--border) bg-(--page)">
       <h2 className="font-bold text-sm leading-5.25 text-[#111827]">
@@ -16,7 +22,7 @@ const AccountSummary = () => {
             Transaction Amount
           </p>
           <p className="font-medium text-sm leading-5.25 tracking-[0.59%] text-[#EF4444]">
-            - ₦5,000.00
+            - ₦{transactionData.amount.toFixed(2)}
           </p>
         </div>
         <div className="flex justify-between items-center pt-4 border-t border-dashed border-t-(--border)">

@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "transaction-receipt",
+        path: "transactions/:transactionId",
         element: <TransactionReceipt />,
         handle: {
           title: "Transaction Receipt",
@@ -46,8 +46,8 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "transaction-monitor",
-        element: <TransactionMonitor /> ,
+        path: "transactions",
+        element: <TransactionMonitor />,
         handle: {
           title: "Transaction Monitor",
           description: "Search, filter and identify airtime transactions.",

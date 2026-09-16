@@ -1,11 +1,14 @@
+import { useEffect, useState } from "react";
+import type  { TransactionData } from "../../../api-clients/transactions";
 import DownloadIcon from "../../../icons/DownloadIcon";
 import TransactionResultTableRow from "./TransactionResultTableRow";
 import TransactionResultTableFooter from "./TransactionResultTableFooter";
+import { getMyTransactions } from "../../../api-clients/transactions";
 
 const tableHead = [
   "Transaction ID",
   "Date & Time",
-  "Phone Number",
+  "Account Number",
   "Network",
   "Amount(₦)",
   "Status",
@@ -13,91 +16,23 @@ const tableHead = [
   "Actions",
 ];
 
-const tableData = [
-  {
-    transactionId: "AT2405270012457",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "07088109974",
-    network: "MTN",
-    amount: "25,000.00",
-    status: "Failed",
-    customerName: "Grace Lee",
-  },
-  {
-    transactionId: "AT2405270012458",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "09013055377",
-    network: "GLO",
-    amount: "10,000.00",
-    status: "Failed",
-    customerName: "Amaka Okeke",
-  },
-  {
-    transactionId: "AT2405270012459",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "07091538631",
-    network: "GLO",
-    amount: "25,000.00",
-    status: "Pending",
-    customerName: "Michael Chen",
-  },
-  {
-    transactionId: "AT2405270012460",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "09016792939",
-    network: "GLO",
-    amount: "500.00",
-    status: "Failed",
-    customerName: "Sarah Williams",
-  },
-  {
-    transactionId: "AT2405270012461",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "08022567823",
-    network: "Airtel",
-    amount: "500.00",
-    status: "Pending",
-    customerName: "John Adebayo",
-  },
-  {
-    transactionId: "AT2405270012462",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "08113580666",
-    network: "9MOBILE",
-    amount: "25,000.00",
-    status: "Pending",
-    customerName: "Grace Lee",
-  },
-  {
-    transactionId: "AT2405270012463",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "07064460987",
-    network: "Airtel",
-    amount: "5,000.00",
-    status: "Pending",
-    customerName: "John Adebayo",
-  },
-  {
-    transactionId: "AT2405270012464",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "09079761752",
-    network: "Airtel",
-    amount: "5,000.00",
-    status: "Successful",
-    customerName: "Oluwaseun Ajayi",
-  },
-  {
-    transactionId: "AT2405270012465",
-    dateAndTime: "27 May 2024, 10:28 AM",
-    phoneNumber: "08021797938",
-    network: "9MOBILE",
-    amount: "500.00",
-    status: "Failed",
-    customerName: "Oluwaseun Ajayi",
-  },
-];
-
 const TransactionResults = () => {
+  const [transactions, setTransactions] = useState<TransactionData[]>([]);
+  useEffect(() => {
+    const getTransactions = async () => {
+      try {
+        const responseData = await getMyTransactions();
+        if (responseData.success) {
+          setTransactions(responseData.data?.items || [])
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getTransactions();
+  }, []);
+
 
   return (
     <div className="rounded-xl bg-(--surface) border border-(--border)">
@@ -122,6 +57,7 @@ const TransactionResults = () => {
         </div>
       </div>
 
+      {transactions && (
       <table className="w-full">
         <thead className="bg-[#F3F4F6] border-b border-b-[#F9FAFB]  w-full">
           <tr>
@@ -129,18 +65,18 @@ const TransactionResults = () => {
               <div className="border border-[#767676] size-3.25 bg-(--surface) rounded-[2.5px] cursor-pointer"></div>
             </th>
             {tableHead.map((head) => (
-              <th className="p-4 font-bold text-[10px] leading-3.75 tracking-[0.5px] text-(--placeholder)">
+              <th key={head} className="p-4 font-bold text-[10px] leading-3.75 tracking-[0.5px] text-(--placeholder)">
                 {head}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {tableData.map((data) => (
-            <TransactionResultTableRow data ={data} />
+          {transactions.map((transaction) => (
+            <TransactionResultTableRow key={transaction.id} transaction={transaction} />
           ))}
         </tbody>
-      </table>
+      </table>)}
 
       <TransactionResultTableFooter />
     </div>

@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-
+import { logout } from "../../utils/session";
 import HomeIcon from "../../icons/HomeIcon";
 import TransactionsIcon from "../../icons/TransactionsIcon";
 import SupportIcon from "../../icons/SupportIcon";
@@ -131,7 +131,7 @@ function Sidebar() {
         {footerNavItems.map((item, index) => (
           <NavItemsByGroup key={index} item={item} />
         ))}
-        <button className="flex gap-3 items-center px-3 py-2 text-[#4B5563] text-[14px]/5 font-medium tracking-[0.109px] rounded-[8px] hover:bg-[var(--border)]">
+        <button className="flex gap-3 items-center px-3 py-2 text-[#4B5563] text-[14px]/5 font-medium tracking-[0.109px] rounded-[8px] hover:bg-[var(--border)] cursor-pointer" onClick={logout}>
           <LogoutIcon />
           Log Out
         </button>
