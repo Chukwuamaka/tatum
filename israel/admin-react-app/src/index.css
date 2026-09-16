@@ -54,3 +54,8 @@ a {
   text-decoration: none;
   text-align: center;
 }
+
+.page-shell {
+  display: flex;
+  height: 100dvh;
+}
