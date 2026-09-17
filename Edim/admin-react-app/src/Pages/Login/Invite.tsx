@@ -3,6 +3,12 @@ import DownloadIcon from "../../icons/DownloadIcon";
 import InfoCircleIcon from "../../icons/InfoCircleIcon";
 import SearchIcon from "../../icons/SearchIcon";
 import Button from "./Button";
+import {
+  initiateAdminInvite,
+  type InviteAdminRequestData,
+} from "../../api-clients/auth";
+import { useState } from "react";
+import Toast from "../../reusables/Toast";
 
 interface FormInputProps {
   inputName: string;
@@ -68,16 +74,58 @@ function FormInputSection({ inputs }: { inputs: FormInputProps[] }) {
   );
 }
 
-function UserManagement() {
+interface ToastMessage {
+  message: string;
+  variant: "success" | "error";
+}
+
+function Invite() {
+  const [toastMessage, setToastMessage] = useState<ToastMessage>();
+  async function handleInviteSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload: InviteAdminRequestData = {
+      email: formData.get("Email Address") as string,
+      firstName: formData.get("Full Name") as string,
+      // lastName: formData.get("Last Name") as string,
+      phone: formData.get("Phone Number") as string,
+      department: formData.get("department") as string,
+    };
+
+    // console.log(payload);
+
+    // return;
+    try {
+      const result = await initiateAdminInvite(payload);
+      if (result.success) {
+        setToastMessage({ message: result.message, variant: "success" });
+      } else {
+        setToastMessage({ message: result.message, variant: "error" });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <div className="max-w-[800px]">
+      {toastMessage?.message && (
+        <Toast
+          message={toastMessage?.message}
+          variant={toastMessage.variant}
+          onClose={() => setToastMessage(undefined)}
+        />
+      )}
       <div className="bg-white border border-gray-200 rounded-lg">
         <div className="flex items-center gap-3 p-6">
           <DoubleChevronLeftIcon className="text-gray-500 w-4 h-4" />
           <p className="font-semibold text-gray-900">Invite New User</p>
         </div>
 
-        <form action="">
+        <form onSubmit={handleInviteSubmit}>
           <div className="border-t border-[#E5E7EB] p-8 space-y-5">
             <FormInputSection inputs={formInputs} />
             <FormInputSection inputs={formInputs2} />
@@ -125,4 +173,4 @@ function UserManagement() {
   );
 }
 
-export default UserManagement;
+export default Invite;

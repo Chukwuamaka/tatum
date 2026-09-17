@@ -8,8 +8,10 @@ import PlusIcon from "../../icons/PlusIcon.tsx";
 import Button from "./Button.tsx";
 import Input from "./Input.tsx";
 import UserList from "./UserList.tsx";
+import { useNavigate } from "react-router";
 
-function SearchFilterUsers() {
+function Users() {
+  const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(true);
 
   return (
@@ -57,6 +59,7 @@ function SearchFilterUsers() {
               text="Add New User"
               leftIcon={<PlusIcon />}
               className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-4 py-2.5 rounded-md text-sm font-medium whitespace-nowrap"
+              onClick={() => navigate("/dashboard/users/invite")}
             />
           </div>
         )}
@@ -67,4 +70,4 @@ function SearchFilterUsers() {
   );
 }
 
-export default SearchFilterUsers;
+export default Users;

@@ -8,7 +8,7 @@ import "./change-password.css";
 function ChangePassword() {
   return (
     <>
-      <div className="page-shell">
+      <div className="change-password page-shell">
         <main className="hero-layout">
           <section className="hero-panel">
             <div className="hero-overlay"></div>

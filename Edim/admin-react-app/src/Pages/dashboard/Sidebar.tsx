@@ -10,6 +10,7 @@ import ChartIcon from "../../icons/ChartIcon";
 import ImageTatumBankLogo from "../../assets/logo-TatumBank2.svg";
 import UsersIcon from "../../icons/UsersIcon";
 import LogoutIcon from "../../icons/LogoutIcon";
+import { isSuperAdmin } from "../../utils/auth.ts";
 
 interface NavItem {
   to: string;
@@ -47,6 +48,22 @@ const mainNavItems: NavItemsByCategory[] = [
       },
     ],
   },
+
+  ...(!isSuperAdmin()
+    ? [
+        {
+          categoryName: "SUPER ADMIN",
+          routes: [
+            {
+              name: "User Managemnet",
+              to: "/dashboard/users",
+              icon: <UserSolidIcon />,
+            },
+          ],
+        },
+      ]
+    : []),
+
   {
     categoryName: "Support",
     routes: [

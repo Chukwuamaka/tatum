@@ -5,8 +5,8 @@ import CheckYourEmail from "./Pages/Login/Check-Your-Email.tsx";
 import PasswordChanged from "./Pages/Login/Password-Changed";
 import ResetPassword from "./Pages/Login/ResetPassword.tsx";
 import DashboardLayout from "./Pages/dashboard/DashboardLayout.tsx";
-import UserManagement from "./Pages/Login/UserManagement.tsx";
-import SearchFilterUsers from "./Pages/Login/SearchFilterUsers.tsx";
+import SearchFilterUsers from "./Pages/Login/Users.tsx";
+import Users from "./Pages/Login/Invite.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,8 +38,8 @@ const router = createBrowserRouter([
     },
     children: [
       {
-        path: "userManagement",
-        element: <UserManagement />,
+        path: "users/invite",
+        element: <Users />,
         handle: {
           title: "User Management",
           description: "Search and filter users.",
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "userManagement/filter-users",
+        path: "users",
         element: <SearchFilterUsers />,
         handle: {
           title: "User Management",
