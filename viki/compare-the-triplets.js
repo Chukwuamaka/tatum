@@ -1,4 +1,4 @@
-function compareTriplets(a, b) {
+function compareTriplets (a, b) {
   // Create an array that holds the points gotten by Alice and Bob respectively from the comparison
   const points = [0, 0];
 

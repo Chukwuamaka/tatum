@@ -14,6 +14,9 @@ function handleInputChange(event) {
   const elements = event.currentTarget.elements;
   const emailValue = elements[0].value;
   const passwordValue = elements[1].value;
+
+  const validEmail = isInputValid(emailValue, "email");
+  const validPassword = isInputValid(passwordValue, "password");
   const buttonElement = elements[2];
   const emailIsValid = isInputValid(emailValue, "email");
   const passwordIsValid = isInputValid(passwordValue, "password");
