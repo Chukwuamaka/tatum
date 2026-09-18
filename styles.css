@@ -206,7 +206,7 @@
 .primary-btn:disabled {
   cursor: no-drop;
   color: white;
-  background: var(--muted);
+  background: var(--placeholder);
 }
 
 .login-links {
