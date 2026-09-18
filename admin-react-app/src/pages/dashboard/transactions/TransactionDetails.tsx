@@ -1,17 +1,24 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 
+import {
+  getTransactionById,
+  type ApiTransaction,
+} from "../../../api/transactions";
 import DownloadIcon from "../../../icons/DownloadIcon";
 import RecycleIcon from "../../../icons/RecycleIcon";
 import ShareIcon from "../../../icons/ShareIcon";
 import TriangleWarningIcon from "../../../icons/TriangleWarningIcon";
 import {
+  AirtimeNetworks,
   networkClassNames,
-  transactions,
   TransactionStatus,
-  type TransactionRecord,
 } from "../../../utils/data";
 import SphereIcon from "../../../icons/SphereIcon";
 import CheckmarkCircleIcon from "../../../icons/CheckmarkCircleIcon";
+import Skeleton from "../../../reusables/Skeleton";
+import Toast from "../../../reusables/Toast";
+import { formatDate } from "../../../utils/formatDate";
 
 const cardClass =
   "rounded-xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_1px_1px_rgb(0_0_0_/_5%)]";
@@ -24,7 +31,7 @@ const statusClassNames = {
 };
 
 interface TransactionHeaderProps {
-  transaction: TransactionRecord;
+  transaction: ApiTransaction;
 }
 
 function TransactionHeader({ transaction }: TransactionHeaderProps) {
@@ -59,7 +66,7 @@ function TransactionHeader({ transaction }: TransactionHeaderProps) {
   );
 }
 
-function TransactionInfo({ transaction }: { transaction: TransactionRecord }) {
+function TransactionInfo({ transaction }: { transaction: ApiTransaction }) {
   const statusLabel =
     transaction.status === TransactionStatus.SUCCESS
       ? "Successful"
@@ -75,7 +82,7 @@ function TransactionInfo({ transaction }: { transaction: TransactionRecord }) {
           ₦{transaction.amount}
         </h2>
         <span
-          className={`mt-2 flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.05em] ${statusClassNames[transaction.status]}`}
+          className={`mt-2 flex items-center gap-2 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-[0.05em] ${statusClassNames[transaction.status as TransactionStatus]}`}
         >
           <span className="size-2 rounded-full bg-current" /> {statusLabel}
         </span>
@@ -87,10 +94,10 @@ function TransactionInfo({ transaction }: { transaction: TransactionRecord }) {
           </h3>
           <div>
             <p className="text-base font-semibold text-[#111827]">
-              Oluwaseun Ajayi
+              {transaction.customer || "Customer"}
             </p>
             <p className="text-sm text-[var(--muted)]">
-              0123456789 · Tatum Bank
+              {transaction.phone} · Tatum Bank
             </p>
           </div>
         </div>
@@ -104,7 +111,7 @@ function TransactionInfo({ transaction }: { transaction: TransactionRecord }) {
             </p>
             <p className="flex items-center gap-2 text-sm text-[var(--muted)]">
               <span
-                className={`rounded border border-[#fecaca] bg-[#fee2e2] px-2 py-0.5 text-[10px] font-bold uppercase text-[#dc2626] ${networkClassNames[transaction.network]}`}
+                className={`rounded border border-[#fecaca] bg-[#fee2e2] px-2 py-0.5 text-[10px] font-bold uppercase text-[#dc2626] ${networkClassNames[transaction.network as AirtimeNetworks]}`}
               >
                 {transaction.network}
               </span>
@@ -120,7 +127,7 @@ function TransactionInfo({ transaction }: { transaction: TransactionRecord }) {
             <div>
               <dt className={labelClass}>Date &amp; Time</dt>
               <dd className="mt-1 text-sm font-medium text-[#111827]">
-                27 May 2024, 10:28 AM
+                {formatDate(transaction.date, true)}
               </dd>
             </div>
             <div className="text-right">
@@ -132,13 +139,13 @@ function TransactionInfo({ transaction }: { transaction: TransactionRecord }) {
             <div>
               <dt className={labelClass}>Reference ID</dt>
               <dd className="mt-1 font-mono text-sm text-[#111827]">
-                TAT-AIR-240527-012464
+                {transaction.id}
               </dd>
             </div>
             <div className="text-right">
               <dt className={labelClass}>Session ID</dt>
               <dd className="mt-1 break-all font-mono text-sm text-[#111827]">
-                99923456789012345678901234
+                {transaction.id}
               </dd>
             </div>
           </dl>
@@ -216,8 +223,64 @@ function QuickActions() {
 
 function TransactionDetails() {
   const { transactionId } = useParams();
-  const transaction =
-    transactions.find((item) => item.id === transactionId) ?? transactions[0];
+  const [transaction, setTransaction] = useState<ApiTransaction | null>(null);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!transactionId) {
+      setErrorMessage("Transaction reference is missing.");
+      setIsLoading(false);
+      return;
+    }
+
+    let isMounted = true;
+
+    void getTransactionById(transactionId)
+      .then((nextTransaction) => {
+        if (isMounted) {
+          setTransaction(nextTransaction);
+        }
+      })
+      .catch((error: unknown) => {
+        if (isMounted) {
+          setErrorMessage(
+            error instanceof Error
+              ? error.message
+              : "Unable to load transaction details.",
+          );
+        }
+      })
+      .finally(() => {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [transactionId]);
+
+  if (isLoading) {
+    return (
+      <main className="flex flex-col gap-6">
+        <Skeleton className="h-20 w-full" />
+        <Skeleton className="h-[420px] w-full" />
+      </main>
+    );
+  }
+
+  if (errorMessage || !transaction) {
+    return (
+      <main className="flex flex-col gap-6">
+        {errorMessage && (
+          <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
+        )}
+        <Skeleton className="h-[420px] w-full" />
+      </main>
+    );
+  }
 
   return (
     <main className="flex flex-col gap-6">

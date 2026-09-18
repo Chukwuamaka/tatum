@@ -2,6 +2,7 @@ import apiClient from "./client";
 
 export interface ApiTransaction {
   id: string;
+  reference: string;
   date: string;
   phone: string;
   network: string;
@@ -60,7 +61,8 @@ function normalizeTransaction(value: unknown): ApiTransaction {
   const product = asRecord(transaction.product);
 
   return {
-    id: getString(transaction, "transactionId", "reference", "id"),
+    id: getString(transaction, "transactionId", "id"),
+    reference: getString(transaction, "reference"),
     date: getString(transaction, "createdAt", "transactionDate", "date"),
     phone: getString(transaction, "phoneNumber", "phone", "mobileNumber"),
     network:
@@ -107,4 +109,24 @@ export async function getTransactionsByUserId(userId: string) {
   }
 
   return getItems(response.data.data).map(normalizeTransaction);
+}
+
+export async function getTransactionById(transactionId: string) {
+  const response = await apiClient.get<TransactionsResponse>(
+    "/api/v1/transactions",
+    { params: { TransactionId: transactionId } },
+  );
+
+  if (response.data.success === false) {
+    throw new Error(
+      response.data.message || "Unable to load transaction details.",
+    );
+  }
+
+  const items = getItems(response.data.data);
+  if (items.length === 0) {
+    throw new Error("Transaction details were not returned.");
+  }
+
+  return normalizeTransaction(items[0]);
 }
