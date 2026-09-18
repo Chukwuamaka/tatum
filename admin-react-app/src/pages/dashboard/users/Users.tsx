@@ -12,6 +12,7 @@ import { type UserRecord, type UserStatus } from "../../../utils/data";
 import PlusIcon from "../../../icons/PlusIcon";
 import Skeleton from "../../../reusables/Skeleton";
 import Toast from "../../../reusables/Toast";
+import DefaultUserAvatar from "../../../reusables/DefaultUserAvatar";
 import { formatDate } from "../../../utils/formatDate";
 
 const userTableHeaders = [
@@ -122,10 +123,12 @@ function UserRow({ user, screen }: { user: UserRecord; screen: Screen }) {
     >
       <td className="ps-6 pe-8 py-4">
         <div className="flex items-center gap-3">
-          <img
+          <DefaultUserAvatar
             className="size-8 rounded-full object-cover"
             src={user.avatar}
-            alt=""
+            alt={user.name}
+            fallbackClassName="flex size-8 items-center justify-center rounded-full bg-[#e0f2fe] text-[#0369a1]"
+            iconClassName="size-4"
           />
           <div>
             <strong
@@ -160,12 +163,12 @@ function UserRow({ user, screen }: { user: UserRecord; screen: Screen }) {
       </td>
       <td className="px-4 py-4 text-right">
         <button
-          className="flex size-10 items-center justify-center rounded-full bg-[#f9fbfc] text-[#475569]"
+          className="flex size-10 items-center justify-center rounded-full text-[#475569]"
           type="button"
           aria-label={`Open actions for ${user.name}`}
           onClick={(event) => event.stopPropagation()}
         >
-          <ChevronDownIcon className="size-3 rotate-90" />
+          ⋮
         </button>
       </td>
     </tr>

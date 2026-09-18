@@ -11,6 +11,7 @@ import DownloadIcon from "../../../icons/DownloadIcon";
 import type { SearchQueryState } from "../types";
 import Skeleton from "../../../reusables/Skeleton";
 import Toast from "../../../reusables/Toast";
+import DefaultUserAvatar from "../../../reusables/DefaultUserAvatar";
 import { formatDate } from "../../../utils/formatDate";
 
 const kycStatusClassNames = {
@@ -114,10 +115,12 @@ function CustomerRow({
     >
       <td className="h-[72px] whitespace-nowrap px-4 pl-6 text-[var(--text)]">
         <div className="flex items-center gap-3">
-          <img
+          <DefaultUserAvatar
             className="size-8 rounded-full object-cover"
             src={assets.avatars[avatarIndex % assets.avatars.length]}
-            alt=""
+            alt={customer.name}
+            fallbackClassName="flex size-8 items-center justify-center rounded-full bg-[#e0f2fe] text-[#0369a1]"
+            iconClassName="size-4"
           />
           <span className="font-bold text-[#2563eb]">{customer.id}</span>
         </div>

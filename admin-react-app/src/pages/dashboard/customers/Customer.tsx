@@ -16,6 +16,7 @@ import {
 import ChevronDownIcon from "../../../icons/ChevronDownIcon";
 import Skeleton from "../../../reusables/Skeleton";
 import Toast from "../../../reusables/Toast";
+import DefaultUserAvatar from "../../../reusables/DefaultUserAvatar";
 import { formatDate } from "../../../utils/formatDate";
 
 const cardClass =
@@ -34,10 +35,12 @@ function ProfileSummary({ customer, avatar }: ProfileSummaryProps) {
       className={`${cardClass} flex flex-wrap items-center justify-between gap-6 p-6`}
     >
       <div className="flex items-center gap-6">
-        <img
+        <DefaultUserAvatar
           className="size-20 rounded-full border-2 border-[#f1f5f9] object-cover"
           src={avatar}
-          alt=""
+          alt={customer.name}
+          fallbackClassName="flex size-20 items-center justify-center rounded-full border-2 border-[#f1f5f9] bg-[#e0f2fe] text-[#0369a1]"
+          iconClassName="size-10"
         />
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-3">

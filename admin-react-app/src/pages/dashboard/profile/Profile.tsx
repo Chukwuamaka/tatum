@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
 import { getCurrentUser, type AuthUser } from "../../../api/auth";
-import { assets } from "../../../utils/data";
 import EditIcon from "../../../icons/EditIcon";
 import UserOutlineIcon from "../../../icons/UserOutlineIcon";
+import DefaultUserAvatar from "../../../reusables/DefaultUserAvatar";
 import MailOutlineIcon from "../../../icons/MailOutlineIcon";
 import PhoneIcon from "../../../icons/PhoneIcon";
 import ShieldIcon from "../../../icons/ShieldIcon";
@@ -40,10 +40,12 @@ function ProfileIdentity({ user }: { user: AuthUser }) {
   return (
     <div className="flex w-[220px] shrink-0 flex-col items-center border-r border-[#f1f5f9] pr-8 max-[900px]:w-full max-[900px]:border-r-0 max-[900px]:border-b max-[900px]:pb-8 max-[900px]:pr-0">
       <div className="relative">
-        <img
+        <DefaultUserAvatar
           className="size-[140px] rounded-full border-4 border-white object-cover shadow-[0_1px_2px_rgb(0_0_0_/_5%)]"
-          src={assets.avatar}
+          src={user.profileImageUrl}
           alt={fullName}
+          fallbackClassName="flex size-[140px] items-center justify-center rounded-full border-4 border-white bg-[#e0f2fe] text-[#0369a1] shadow-[0_1px_2px_rgb(0_0_0_/_5%)]"
+          iconClassName="size-16"
         />
         <span className="absolute bottom-2 right-2 size-5 rounded-full border-[3px] border-white bg-[#22c55e]" />
       </div>

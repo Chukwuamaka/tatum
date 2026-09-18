@@ -1,11 +1,11 @@
 import { useMatches } from "react-router";
 
-import { assets } from "../../utils/data";
 import BellOutlineIcon from "../../icons/BellOutlineIcon";
 import ChevronDownIcon from "../../icons/ChevronDownIcon";
 import SearchIcon from "../../icons/SearchIcon";
 import { getStoredUser } from "../../utils/auth";
 import type { SearchQueryState } from "./types";
+import DefaultUserAvatar from "../../reusables/DefaultUserAvatar";
 
 interface RouteHeader {
   title: string;
@@ -18,11 +18,9 @@ function Topbar({
   updateQuery,
 }: Pick<SearchQueryState, "query" | "updateQuery">) {
   const matches = useMatches();
-  console.log(matches);
   const user = getStoredUser();
   const routeHeader = [...matches].reverse().find((match) => match.handle)
     ?.handle as RouteHeader;
-  console.log([...matches]);
   const fullName = `${user?.firstName ?? ""} ${user?.lastName ?? ""}`.trim();
 
   return (
@@ -66,11 +64,7 @@ function Topbar({
           </b>
         </button>
         <div className="flex items-center gap-3 border-l border-[var(--border)] pl-4">
-          <img
-            className="size-10 rounded-full object-cover"
-            src={user?.profileImageUrl || assets.avatar}
-            alt={fullName || "User profile"}
-          />
+          <DefaultUserAvatar src={user?.profileImageUrl} />
           <span className="flex flex-col">
             <strong className="max-w-[120px] truncate text-xs" title={fullName}>
               {fullName || "User"}
