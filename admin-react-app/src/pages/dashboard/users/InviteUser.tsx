@@ -8,9 +8,11 @@ import InfoCircleIcon from "../../../icons/InfoCircleIcon";
 import DownloadIcon from "../../../icons/DownloadIcon";
 import SearchIcon from "../../../icons/SearchIcon";
 import Toast from "../../../reusables/Toast";
+import { AxiosError } from "axios";
 
 const inputClass =
   "h-[46px] w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-4 text-sm text-[var(--text)] outline-none placeholder:text-[var(--placeholder)] focus:border-[#94a3b8] focus:ring-2 focus:ring-[#dbeafe]";
+const phoneNumberRegex = /^(\+?234|0)[789]\d{9}$/;
 
 interface InviteFieldProps {
   label: string;
@@ -105,14 +107,20 @@ function ImportantNote() {
   );
 }
 
+interface ToastMessage {
+  message: string;
+  variant?: "success" | "error";
+}
+
 function InviteUser() {
   const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  const [toastMessage, setToastMessage] = useState<ToastMessage>({
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const resetForm = () => {
@@ -126,8 +134,14 @@ function InviteUser() {
     event,
   ) => {
     event.preventDefault();
-    setErrorMessage("");
-    setSuccessMessage("");
+    if (!phoneNumberRegex.test(phone)) {
+      setToastMessage({
+        message: "Incomplete or invalid phone number",
+        variant: "error",
+      });
+      return;
+    }
+    setToastMessage({ message: "" });
     setIsSubmitting(true);
 
     const nameParts = fullName.trim().split(/\s+/);
@@ -145,14 +159,24 @@ function InviteUser() {
       });
 
       if (result.success === false) {
-        throw new Error(result.message || "Unable to send invitation.");
+        setToastMessage({
+          message: result?.message || "Unable to send invitation.",
+          variant: "error",
+        });
       }
-      setSuccessMessage(`Invitation sent to ${email}.`);
+      setToastMessage({
+        message: `Invitation sent to ${email}.`,
+        variant: "success",
+      });
       resetForm();
     } catch (error) {
-      setErrorMessage(
-        error instanceof Error ? error.message : "Unable to send invitation.",
-      );
+      setToastMessage({
+        message:
+          error instanceof AxiosError
+            ? error.response?.data.message
+            : "Unable to send invitation.",
+        variant: "error",
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -160,14 +184,11 @@ function InviteUser() {
 
   return (
     <main className="flex flex-col gap-8">
-      {errorMessage && (
-        <Toast message={errorMessage} onClose={() => setErrorMessage("")} />
-      )}
-      {successMessage && (
+      {toastMessage.message && (
         <Toast
-          message={successMessage}
-          variant="success"
-          onClose={() => setSuccessMessage("")}
+          message={toastMessage.message}
+          variant={toastMessage.variant}
+          onClose={() => setToastMessage({ message: "" })}
         />
       )}
       <form
@@ -227,7 +248,7 @@ function InviteUser() {
             type="submit"
             disabled={isSubmitting}
           >
-            <SearchIcon className="text-[#0f172a]" />
+            <SearchIcon />
             {isSubmitting ? "Sending..." : "Send Invitation"}
           </button>
         </footer>
