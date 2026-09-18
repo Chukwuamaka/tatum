@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 
 export default function DashboardLayout() {
+  const { pathname } = useLocation();
   const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
+  const [queryState, setQueryState] = useState({ pathname, value: "" });
+  const query = queryState.pathname === pathname ? queryState.value : "";
   const updateQuery = (value: string) => {
-    setQuery(value);
+    setQueryState({ pathname, value });
     setPage(1);
   };
 
