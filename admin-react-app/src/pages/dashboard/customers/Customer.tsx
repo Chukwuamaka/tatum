@@ -44,7 +44,7 @@ function ProfileSummary({ customer, avatar }: ProfileSummaryProps) {
         />
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-3">
-            <h2 className="text-2xl font-bold text-[var(--text)]">
+            <h2 className="text-2xl font-bold text-[var(--text)] truncate max-w-[300px]">
               {customer.name}
             </h2>
             <span className="rounded-full bg-[#e6f4ea] px-3 py-1 text-xs font-bold text-[#039855]">
@@ -91,8 +91,8 @@ function InformationItem({
       <dd
         className={
           emphasis
-            ? "text-lg font-bold text-[var(--text)]"
-            : "text-sm font-medium text-[var(--text)]"
+            ? "text-lg font-bold text-[var(--text)] truncate max-w-[300px]"
+            : "text-sm font-medium text-[var(--text)] truncate max-w-[300px]"
         }
       >
         {value}
