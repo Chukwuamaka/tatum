@@ -5,13 +5,15 @@ import { getCurrentUser, type AuthUser } from "../../../api/auth";
 import { updateProfile } from "../../../api/users";
 import EditIcon from "../../../icons/EditIcon";
 import UserOutlineIcon from "../../../icons/UserOutlineIcon";
-import { assets } from "../../../utils/data";
+import DefaultUserAvatar from "../../../reusables/DefaultUserAvatar";
 import PhoneIcon from "../../../icons/PhoneIcon";
 import MailOutlineIcon from "../../../icons/MailOutlineIcon";
 import ShieldIcon from "../../../icons/ShieldIcon";
 import TempleIcon from "../../../icons/TempleIcon";
 import Skeleton from "../../../reusables/Skeleton";
 import Toast from "../../../reusables/Toast";
+import { AxiosError } from "axios";
+import { userKey } from "../../../utils/session";
 
 const fieldClass =
   "h-12 w-full rounded-lg border border-[#e2e8f0] bg-[var(--surface)] px-4 text-sm text-[#101828] outline-none focus:border-[#94a3b8] focus:ring-2 focus:ring-[#e0f2fe]";
@@ -95,10 +97,12 @@ function ProfilePhoto({ preview, onUpload, onRemove }: ProfilePhotoProps) {
   return (
     <div className="flex items-center gap-8 border-b border-[#e2e8f0] pb-8 max-[680px]:flex-col max-[680px]:items-start">
       <div className="relative">
-        <img
+        <DefaultUserAvatar
           className="size-[120px] rounded-full border-4 border-white object-cover shadow-[0_1px_2px_rgb(0_0_0_/_5%)]"
-          src={preview ?? assets.avatar}
+          src={preview ?? undefined}
           alt="Profile preview"
+          fallbackClassName="flex size-[120px] items-center justify-center rounded-full border-4 border-white bg-[#e0f2fe] text-[#0369a1] shadow-[0_1px_2px_rgb(0_0_0_/_5%)]"
+          iconClassName="size-12"
         />
         <button
           className="absolute bottom-1 right-1 flex size-8 items-center justify-center rounded-full border border-[#e2e8f0] bg-[var(--surface)] text-[#101828] shadow-[0_1px_1px_rgb(0_0_0_/_5%)]"
@@ -153,7 +157,14 @@ function ProfileForm({ user }: { user: AuthUser }) {
   const [email] = useState(user.email);
   const [phone, setPhone] = useState(user.phone);
   const [department, setDepartment] = useState(user.department);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [profileImageUrl, setProfileImageUrl] = useState<string | null>(
+    /^https?:\/\//i.test(user.profileImageUrl ?? "")
+      ? user.profileImageUrl
+      : null,
+  );
+  const [preview, setPreview] = useState<string | null>(
+    user.profileImageUrl ?? null,
+  );
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -162,20 +173,44 @@ function ProfileForm({ user }: { user: AuthUser }) {
     event.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
+    setIsSubmitting(true);
+
     const nameParts = fullName.trim().split(/\s+/);
     const firstName = nameParts.shift() ?? "";
     const lastName = nameParts.join(" ");
-    setIsSubmitting(true);
+
+    const nextProfileImageUrl =
+      typeof profileImageUrl === "string" &&
+      /^https?:\/\//i.test(profileImageUrl) &&
+      profileImageUrl.length <= 500
+        ? profileImageUrl
+        : null;
 
     try {
-      await updateProfile({ firstName, lastName, phone, department });
-      const updatedUser = { ...user, firstName, lastName, phone, department };
-      sessionStorage.setItem("tatum.user", JSON.stringify(updatedUser));
+      await updateProfile({
+        firstName,
+        lastName,
+        phone,
+        department,
+        ...(nextProfileImageUrl
+          ? { profileImageUrl: nextProfileImageUrl }
+          : {}),
+      });
+      const updatedUser = {
+        ...user,
+        firstName,
+        lastName,
+        phone,
+        department,
+        profileImageUrl: nextProfileImageUrl,
+      };
+      sessionStorage.setItem(userKey, JSON.stringify(updatedUser));
+      setProfileImageUrl(nextProfileImageUrl);
       setSuccessMessage("Profile changes saved.");
     } catch (error) {
       setErrorMessage(
-        error instanceof Error
-          ? error.message
+        error instanceof AxiosError
+          ? error.response?.data.message
           : "Unable to update your profile.",
       );
     } finally {
@@ -192,8 +227,19 @@ function ProfileForm({ user }: { user: AuthUser }) {
     >
       <ProfilePhoto
         preview={preview}
-        onUpload={(file) => setPreview(URL.createObjectURL(file))}
-        onRemove={() => setPreview(null)}
+        onUpload={(file) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const nextPreview =
+              typeof reader.result === "string" ? reader.result : null;
+            setPreview(nextPreview);
+          };
+          reader.readAsDataURL(file);
+        }}
+        onRemove={() => {
+          setPreview(null);
+          setProfileImageUrl(null);
+        }}
       />
       <div className="grid flex-1 grid-cols-[minmax(0,1fr)_291px] content-start gap-x-16 gap-y-8 max-[680px]:grid-cols-1">
         <EditableField
@@ -223,7 +269,7 @@ function ProfileForm({ user }: { user: AuthUser }) {
         />
         <EditableField
           label="Role"
-          value="Admin"
+          value={user.role || "Admin"}
           icon={<ShieldIcon />}
           disabled
         />
@@ -252,7 +298,7 @@ function EditProfile() {
       .then((currentUser) => {
         if (isMounted) {
           setUser(currentUser);
-          sessionStorage.setItem("tatum.user", JSON.stringify(currentUser));
+          sessionStorage.setItem(userKey, JSON.stringify(currentUser));
         }
       })
       .catch((error: unknown) => {
